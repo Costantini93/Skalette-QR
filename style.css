@@ -290,3 +290,120 @@ header {
     margin-top: 15px;
     background-color: rgba(255, 255, 255, 0.4); 
 }
+#opening-hours {
+    /* Dimensione e Spaziatura (mantieni) */
+    width: 90%;
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+    
+    /* GLASSMORPHISM - Modifiche Chiave */
+    
+    /* 1. Sfondo parzialmente trasparente */
+    background-color: rgba(255, 255, 255, 0.15); /* Bianco leggermente trasparente */
+    
+    /* 2. Filtro di sfocatura (l'effetto vetro) */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Supporto per Safari */
+    
+    /* 3. Bordo sottile e leggero */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* 4. Ombra leggera per profondità */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); 
+    
+    /* Angoli e Colore Testo (mantieni) */
+    border-radius: 12px;
+    color: white; 
+}
+
+/* Aggiorna il divisore per abbinarlo al nuovo stile */
+#opening-hours li {
+    /* ... (altre proprietà) ... */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Rendi il divisore più chiaro */
+}
+
+/* Assicurati che il testo sia ben leggibile */
+#opening-hours h3, 
+.day-range, 
+.time-range {
+    /* Potresti voler aggiungere un'ombra al testo per migliorare la leggibilità sul vetro */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}
+/* Stili per il contenitore del bottone per centrarlo */
+#booking-button-container {
+    text-align: center;
+    margin: 20px 0 40px 0; /* Spazio sopra e sotto il bottone */
+}
+
+/* Stili per il bottone WhatsApp (lo stile principale) */
+.whatsapp-button {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px; /* Molto arrotondato per un look moderno */
+    
+    /* Colori e Testo */
+    background-color: #25D366; /* Colore ufficiale WhatsApp */
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    /* Ombreggiatura (per farlo risaltare) */
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    transition: background-color 0.3s, transform 0.2s; /* Effetti di transizione */
+}
+
+/* Effetto al passaggio del mouse */
+.whatsapp-button:hover {
+    background-color: #128C7E; /* Verde scuro al passaggio */
+    transform: translateY(-2px); /* Leggero sollevamento */
+}
+
+/* Stili per il contenitore del bottone */
+#booking-button-container {
+    text-align: center;
+    margin: 20px 0 40px 0; 
+}
+
+/* Stili per il bottone WhatsApp (stile Glassmorphism) */
+.whatsapp-button {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px 25px;
+    
+    /* GLASSMORPHISM - Stile Bottone */
+    background-color: rgba(255, 255, 255, 0.15); /* Sfondo parzialmente trasparente */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Supporto per Safari */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Bordo sottile e leggero */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombra leggera */
+    
+    /* Angoli, Colore Testo, e Font */
+    border-radius: 12px; /* Usa lo stesso arrotondamento degli orari */
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Transizione per gli effetti hover */
+}
+
+/* Effetto al passaggio del mouse */
+.whatsapp-button:hover {
+    background-color: rgba(255, 255, 255, 0.25); /* Più trasparente/luminoso al passaggio */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Stili per l'icona (Manteniamo l'emoji) */
+.whatsapp-icon {
+    font-size: 1.4em; 
+    margin-right: 10px;
+    /* Rendi il logo WhatsApp (l'emoji verde) più prominente */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}
