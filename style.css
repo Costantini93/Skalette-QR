@@ -372,38 +372,60 @@ header {
 
 /* Stili per il bottone WhatsApp (stile Glassmorphism) */
 .whatsapp-button {
-    /* Layout */
+    /* Mantieni gli stili GLASSMORPHISM qui (display: inline-flex; align-items: center; ecc.) */
     display: inline-flex;
     align-items: center;
     text-decoration: none;
     padding: 12px 25px;
     
-    /* GLASSMORPHISM - Stile Bottone */
-    background-color: rgba(255, 255, 255, 0.15); /* Sfondo parzialmente trasparente */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); /* Supporto per Safari */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Bordo sottile e leggero */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombra leggera */
+    /* NUOVO: Imposta una dimensione uniforme per entrambi i bottoni */
+    width: 70%; 
+    max-width: 350px; 
+    justify-content: center; /* Per centrare il testo e l'icona all'interno del bottone */
     
-    /* Angoli, Colore Testo, e Font */
-    border-radius: 12px; /* Usa lo stesso arrotondamento degli orari */
-    color: white;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: all 0.3s ease; /* Transizione per gli effetti hover */
+    /* ... il resto degli stili GLASSMORPHISM ... */
+    background-color: rgba(255, 255, 255, 0.15); 
+    /* ... ecc. */
 }
 
 /* Effetto al passaggio del mouse */
 .whatsapp-button:hover {
-    background-color: rgba(255, 255, 255, 0.25); /* Più trasparente/luminoso al passaggio */
+    background-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Stili per l'icona (Manteniamo l'emoji) */
-.whatsapp-icon {
-    font-size: 1.4em; 
+/* NUOVI Stili per l'IMMAGINE dell'icona (sostituisce .whatsapp-icon) */
+.whatsapp-icon-img {
+    height: 1.2em; /* Imposta l'altezza dell'icona (ad esempio 1.2 volte la dimensione del testo) */
+    width: auto; /* Mantieni le proporzioni dell'immagine */
+    margin-right: 10px; /* Spazio tra icona e testo */
+    vertical-align: middle; /* Allinea l'immagine verticalmente al centro del testo */
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5)); /* Aggiunge una leggera ombra all'icona */
+}
+
+/* Puoi rimuovere il blocco .whatsapp-icon se non intendi più usarlo */
+/* .whatsapp-icon { ... } */
+/* Stili per il contenitore della recensione */
+#review-button-container {
+    text-align: center;
+    margin: 20px 0 40px 0; 
+}
+
+/* Stili per l'icona della recensione (Emoji Stella) */
+.review-icon {
+    display: inline-block; 
+    font-size: 1.4em; /* Stessa dimensione dell'icona WhatsApp/Emoji */
     margin-right: 10px;
-    /* Rendi il logo WhatsApp (l'emoji verde) più prominente */
+    line-height: 1; 
+    vertical-align: middle;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
 }
+
+/* OPZIONALE: Se vuoi un colore leggermente diverso per questo bottone, 
+   potresti usare la classe .review-button per cambiare il background-color: */
+/*
+.review-button {
+    background-color: rgba(255, 255, 255, 0.25); 
+}
+*/
