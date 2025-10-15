@@ -1,132 +1,89 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Digitale | Skalette Bistrò</title>
-    <link rel="stylesheet" href="style.css">
+    <title data-it="Skalette Bistrò - Menu" data-en="Skalette Bistro - Menu">Skalette Bistrò - Menu</title>
+    <!-- Carica i font -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Include il CSS per lo stile del menu -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Include Three.js per lo sfondo animato -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+    <!-- Lo sfondo animato (Canvas Three.js) sarà iniettato qui -->
 
-    <header>
-        <div id="logo-container">
-            <img src="logo.png" alt="Logo Skalette Bistrò" id="restaurant-logo">
-        </div>
-        
-        <p class="welcome-message" 
-            data-it="Benvenuto da Skalette Bistrò! "
-            data-en=" Welcome to Skalette Bistrò!"
-            data-es="¡Bienvenido a Skalette Bistrò! "
-            data-fr="Bienvenue au Skalette Bistrò!"
-            data-de="Willkommen im Skalette Bistrò!"
-            data-ru="Добро пожаловать в Skalette Bistrò!">
-            Benvenuto da Skalette Bistrò! 
-        </p>
-        
+    <div id="main-content-wrapper">
 
-        <h1 class="main-title" 
-            data-it="Esplora il Menu"
-            data-en="Explore the Menu"
-            data-es="Explora el Menú"
-            data-fr="Explorez le Menu"
-            data-de="Entdecken Sie die Speisekarte"
-            data-ru="Изучите меню">Esplora il Menu</h1>
-    </header>
+        <header>
+            <div id="logo-container">
+                <img src="logo.png" alt="Logo Skalette Bistrò" id="restaurant-logo">
+            </div>
+            
+            <p class="welcome-message" 
+                data-it="Benvenuto da Skalette Bistrò! "
+                data-en=" Welcome to Skalette Bistrò!"
+                data-es="¡Bienvenido a Skalette Bistrò! "
+                data-fr="Bienvenue au Skalette Bistrò!"
+                data-de="Willkommen im Skalette Bistrò!"
+                data-ru="Добро пожаловать в Skalette Bistrò!">
+                Benvenuto da Skalette Bistrò! 
+            </p>
+            
+            <h1 class="main-title" 
+                data-it="Esplora il Menu"
+                data-en="Explore the Menu"
+                data-es="Explora el Menú"
+                data-fr="Explorez le Menu"
+                data-de="Entdecken Sie die Speisekarte"
+                data-ru="Изучите меню">Esplora il Menu</h1>
+        </header>
 
-    <main id="menu-container">
+        <main id="menu-container">
+            <div id="language-dropdown">
+                <button id="current-lang-btn" aria-expanded="false" data-lang="it">
+                    <img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT <span class="arrow">^</span>
+                </button>
+                <div id="lang-options">
+                    <button class="lang-btn" data-lang="it"><img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT</button>
+                    <button class="lang-btn" data-lang="en"><img src="flags/gb.png" alt="Bandiera Britannica" class="flag-icon"> EN</button> 
+                    <button class="lang-btn" data-lang="es"><img src="flags/es.png" alt="Bandiera Spagnola" class="flag-icon"> ES</button> 
+                    <button class="lang-btn" data-lang="fr"><img src="flags/fr.png" alt="Bandiera Francese" class="flag-icon"> FR</button> 
+                    <button class="lang-btn" data-lang="de"><img src="flags/de.png" alt="Bandiera Tedesca" class="flag-icon"> DE</button> 
+                    <button class="lang-btn" data-lang="ru"><img src="flags/ru.png" alt="Bandiera Russa" class="flag-icon"> RU</button> 
+                </div>
+            </div> 
+        </main>
 
-        <div id="language-dropdown">
-            <button id="current-lang-btn" aria-expanded="false" data-lang="it">
-                <img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT <span class="arrow">^</span>
-            </button>
-            <div id="lang-options">
+        <!-- ✅ I bottoni ora sono dentro il contenitore principale -->
+        <div id="main-buttons-grid">
+            <button class="menu-button" data-target="colazioni">Colazione</button>
+            <button class="menu-button" data-target="bevande">Bevande Analcoliche</button>
+            <button class="menu-button" data-target="aperitivi">Aperitivi & Birre</button>
+            <button class="menu-button" data-target="vini">I Nostri Vini</button>
+            <button class="menu-button" data-target="snacks">Snacks</button>
+            <button class="menu-button" data-target="cucina-dolci">Dalla Cucina & Dolci</button>
 
-                <button class="lang-btn" data-lang="it"><img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT</button>
-                <button class="lang-btn" data-lang="en"><img src="flags/gb.png" alt="Bandiera Britannica" class="flag-icon"> EN</button> 
-                <button class="lang-btn" data-lang="es"><img src="flags/es.png" alt="Bandiera Spagnola" class="flag-icon"> ES</button> 
-                <button class="lang-btn" data-lang="fr"><img src="flags/fr.png" alt="Bandiera Francese" class="flag-icon"> FR</button> 
-                <button class="lang-btn" data-lang="de"><img src="flags/de.png" alt="Bandiera Tedesca" class="flag-icon"> DE</button> 
-                <button class="lang-btn" data-lang="ru"><img src="flags/ru.png" alt="Bandiera Russa" class="flag-icon"> RU</button> 
+            <div id="booking-button-container">
+                <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button">
+                    <img src="icona-wa.svg" alt="WhatsApp Logo" class="whatsapp-icon-img"> 
+                    Prenota un Tavolo
+                </a>
+            </div>
+
+            <div id="review-button-container">
+                <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero" target="_blank" class="whatsapp-button review-button"> 
+                    <span class="review-icon" aria-hidden="true">⭐</span>
+                    Raccontaci la tua esperienza
+                </a>
             </div>
         </div>
 
-        <div id="main-buttons-grid">
-            <button class="menu-button" data-target="colazioni"
-                data-it="Colazione" 
-                data-en="Breakfast" 
-                data-es="Desayunos" 
-                data-fr="Petit Déjeuner" 
-                data-de="Frühstück"
-                data-ru="Завтраки">Colazione</button>
-            <button class="menu-button" data-target="bevande"
-                data-it="Bevande Analcoliche" 
-                data-en="Non-Alcoholic Drinks" 
-                data-es="Bebidas sin Alcohol" 
-                data-fr="Boissons sans Alcool" 
-                data-de="Alkoholfreie Getränke"
-                data-ru="Безалкогольные напитки">Bevande Analcoliche</button>
-            <button class="menu-button" data-target="aperitivi"
-                data-it="Aperitivi & Birre" 
-                data-en="Aperitifs & Beers" 
-                data-es="Aperitivos & Cervezas" 
-                data-fr="Apéritifs & Bières" 
-                data-de="Aperitifs & Biere"
-                data-ru="Аперитивы и пиво">Aperitivi & Birre</button>
-            <button class="menu-button" data-target="vini"
-                data-it="I Nostri Vini" 
-                data-en="Our Wines" 
-                data-es="Nuestros Vinos" 
-                data-fr="Nos Vins" 
-                data-de="Unsere Weine"
-                data-ru="Наши вина">I Nostri Vini</button>
-            <button class="menu-button" data-target="snacks"
-                data-it="Snacks" 
-                data-en="Snacks" 
-                data-es="Snacks" 
-                data-fr="Snacks" 
-                data-de="Snacks"
-                data-ru="Закуски">Snacks</button>
-            <button class="menu-button" data-target="cucina-dolci"
-                data-it="Dalla Cucina & Dolci" 
-                data-en="From the Kitchen & Desserts" 
-                data-es="De la Cocina & Postres" 
-                data-fr="De la Cuisine & Desserts" 
-                data-de="Aus der Küche & Desserts"
-                data-ru="Из Кухни и Десерты">Dalla Cucina & Dolci</button>
-                 <div id="booking-button-container">
-    <a href="https://wa.me/393428691832" 
-       target="_blank" 
-       class="whatsapp-button"
-       data-it="Prenota un Tavolo"
-       data-en="Book a Table"
-       data-es="Reservar una Mesa"
-       data-fr="Réserver une Table"
-       data-de="Tisch reservieren"
-       data-ru="Забронировать столик">
-        <img src="icona-wa.svg" alt="WhatsApp Logo" class="whatsapp-icon-img"> 
-        Prenota un Tavolo
-    </a>
-</div>
+    </div> <!-- ✅ chiusura corretta di #main-content-wrapper -->
+</body>
 
-<div id="review-button-container">
-    <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero" 
-       target="_blank" 
-       class="whatsapp-button review-button"
-       data-it="Raccontaci la tua esperienza"
-       data-en="Share your experience"
-       data-es="Cuéntanos tu experiencia"
-       data-fr="Partagez votre expérience"
-       data-de="Erzählen Sie uns von Ihrer Erfahrung"
-       data-ru="Расскажите о своем опыте"> 
-        <span class="review-icon" aria-hidden="true">⭐</span>
-        Raccontaci la tua esperienza
-    </a>
-</div>
-        </div>
         
         <section id="colazioni" class="menu-section"> 
             <h2 class="category-title" 

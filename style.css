@@ -1,63 +1,72 @@
 /* ========================================================== */
-/* FILE: style.css (Glassmorphism e Layout) */
+/* FILE: style.css (Layout Standard e Corretto) */
 /* ========================================================== */
 
-:root {
-    --primary-color: #f0f0f0; /* Bianco/Testo chiaro */
-    --secondary-color: #333; /* Testo scuro/Contenuto */
-    --glass-background: rgba(255, 255, 255, 0.2); /* Sfondo pulsanti traslucido */
-    --glass-border: rgba(255, 255, 255, 0.5); /* Bordo chiaro */
-    --font-main: 'Lato', sans-serif;
-    --font-title: 'Cinzel', serif;
-}
+/* Colori e Font (Dichiarati come semplici commenti, non come variabili CSS) */
+/* Colore primario (Testo chiaro): #f0f0f0 */
+/* Colore secondario (Testo scuro): #333 */
+/* Colore di sfondo degli elementi: rgba(255, 255, 255, 0.2) */
+
+/* ========================================================== */
+/* STILI GENERALI E SETUP INIZIALE */
+/* ========================================================== */
 
 body {
-    font-family: var(--font-main);
-    color: var(--secondary-color);
-    margin: 0;
-    padding: 0;
-    /* Sfondo animato a gradiente */
-    background-image: linear-gradient(45deg, #1abc9c, #3498db, #f39c12, #e74c3c);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite; 
-    
-    display: flex;
+    background-color: transparent; 
+    color: #f0f0f0; 
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Stili per il Canvas creato da Three.js (Sfondo fisso) */
+canvas {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10; 
+}
+
+/* ========================================================== */
+/* CONTENITORE PRINCIPALE (Centraggio e Scroll) */
+/* ========================================================== */
+
+#main-content-wrapper {
+    width: 90%;
+    max-width: 600px; 
+    margin: 0 auto;
+    padding: 10px 0 100px;
+    position: relative; 
+    z-index: 10; 
+    min-height: 100vh;
+    display: flex; 
     flex-direction: column;
     align-items: center; 
-    min-height: 100vh;
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
 
-#menu-container {
-    max-width: 900px;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
+/* ========================================================== */
 /* HEADER, LOGO E TITOLI */
+/* ========================================================== */
+
 header {
     width: 100%;
-    max-width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 0 20px; 
+    padding: 0;
+    margin: 0;
 }
+
 
 #logo-container {
     width: 100%;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0;
 }
+
 
 #restaurant-logo {
     display: block; 
@@ -68,55 +77,74 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+
 .welcome-message {
-    color: var(--primary-color);
+    color: #f0f0f0;
     text-align: center;
     font-size: 1.1em;
     font-style: italic;
-    margin: 10px 0;
+    margin: 5px 0;
+    line-height: 1.2;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     max-width: 80%;
 }
 
+
 .main-title {
-    font-family: var(--font-title);
-    color: var(--primary-color);
+    font-family: 'Cinzel', serif; 
+    color: #f0f0f0;
     font-size: 2em;
     text-align: center;
-    margin: 20px 0 30px;
+    margin: 5px 0;
+    line-height: 1;
+    display: block;
+    padding: 0;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* PULSANTI (GLASSMORHISM) */
+
+#menu-container {
+    width: 100%; 
+    /* CORREZIONE AGGIUNTA: Assicura che non ci sia padding superiore */
+    padding: 0;
+    box-sizing: border-box;
+    /* CORREZIONE: Rimosso il margine negativo da qui, era applicato all'elemento sbagliato */
+    margin-top: 0; 
+}
+
+/* ========================================================== */
+/* PULSANTI (STILE SEMITRASPARENTE) */
+/* ========================================================== */
+
 #main-buttons-grid {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 90%;
+    width: 100%; 
     max-width: 450px; 
-    margin: 30px 0;
+    margin: 10px auto 0;
 }
+
 
 .menu-button {
     width: 100%;
     padding: 15px 20px;
     text-align: center;
     text-transform: uppercase;
-    font-family: var(--font-title);
+    font-family: 'Cinzel', serif; 
     font-weight: 700;
     font-size: 1.1em;
     letter-spacing: 1px;
     
-    color: var(--primary-color);
-    background-color: var(--glass-background);
-    border: 1px solid var(--glass-border);
+    color: #f0f0f0;
+    /* Sfondo semitrasparente senza filtro */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Bordo semitrasparente */
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 15px; 
     cursor: pointer;
     transition: all 0.3s ease;
     
-    /* EFFETTO VETRO SATINATO */
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -141,14 +169,13 @@ header {
     display: flex;
     align-items: center;
     padding: 8px 12px;
-    font-family: var(--font-main);
+    font-family: 'Lato', sans-serif; 
     font-weight: 700;
-    background-color: var(--glass-background);
-    color: var(--primary-color);
-    border: 1px solid var(--glass-border);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f0f0f0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     cursor: pointer;
-    backdrop-filter: blur(8px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -183,10 +210,10 @@ header {
     border: none;
     padding: 8px 12px;
     text-align: left;
-    color: var(--secondary-color);
+    color: #333;
     cursor: pointer;
     transition: background-color 0.2s;
-    font-family: var(--font-main);
+    font-family: 'Lato', sans-serif;
     display: flex;
     align-items: center;
 }
@@ -195,30 +222,33 @@ header {
     background-color: #eee;
 }
 
+/* ========================================================== */
 /* CONTENUTI MENU */
+/* ========================================================== */
+
 .menu-section {
     display: none; 
     padding: 20px;
     margin-top: 30px;
     background-color: rgba(255, 255, 255, 0.9); 
-    color: var(--secondary-color);
+    color: #333;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
 .category-title {
-    font-family: var(--font-title);
-    color: var(--secondary-color);
+    font-family: 'Cinzel', serif;
+    color: #333;
     text-align: center;
     font-size: 1.8em;
-    border-bottom: 2px solid var(--secondary-color);
+    border-bottom: 2px solid #333;
     padding-bottom: 5px;
     margin-bottom: 25px;
     text-transform: uppercase;
 }
 
-.description-text { /* Per la descrizione sotto Snacks */
+.description-text { 
     text-align: center;
     font-style: italic;
     margin-bottom: 20px;
@@ -251,14 +281,16 @@ header {
 }
 
 .item-price {
-    font-family: var(--font-title);
-    font-weight: 700;
-    color: var(--secondary-color);
+    font-family: 'Cinzel', serif;
+    color: #333;
     font-size: 1.1em;
     white-space: nowrap; 
 }
 
+/* ========================================================== */
 /* NAVIGAZIONE SECONDARIA (SOTTO I MENU) */
+/* ========================================================== */
+
 #secondary-navigation {
     width: 100%;
     max-width: 450px; 
@@ -268,8 +300,8 @@ header {
 }
 
 .secondary-title {
-    font-family: var(--font-title);
-    color: var(--primary-color);
+    font-family: 'Cinzel', serif;
+    color: #f0f0f0;
     font-size: 1.5em;
     text-align: center;
     margin-bottom: 20px;
@@ -290,158 +322,112 @@ header {
     margin-top: 15px;
     background-color: rgba(255, 255, 255, 0.4); 
 }
+
+/* ORARI DI APERTURA (Simile al Glassmorphism, ma senza filtri di sfocatura) */
 #opening-hours {
-    /* Dimensione e Spaziatura (mantieni) */
     width: 90%;
     max-width: 400px;
     margin: 30px auto;
     padding: 20px;
     text-align: center;
     
-    /* GLASSMORPHISM - Modifiche Chiave */
-    
-    /* 1. Sfondo parzialmente trasparente */
-    background-color: rgba(255, 255, 255, 0.15); /* Bianco leggermente trasparente */
-    
-    /* 2. Filtro di sfocatura (l'effetto vetro) */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); /* Supporto per Safari */
-    
-    /* 3. Bordo sottile e leggero */
+    background-color: rgba(255, 255, 255, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.3);
-    
-    /* 4. Ombra leggera per profondità */
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); 
-    
-    /* Angoli e Colore Testo (mantieni) */
     border-radius: 12px;
     color: white; 
 }
 
-/* Aggiorna il divisore per abbinarlo al nuovo stile */
+
 #opening-hours li {
-    /* ... (altre proprietà) ... */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Rendi il divisore più chiaro */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
 }
 
-/* Assicurati che il testo sia ben leggibile */
+
 #opening-hours h3, 
 .day-range, 
 .time-range {
-    /* Potresti voler aggiungere un'ombra al testo per migliorare la leggibilità sul vetro */
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
 }
-/* Stili per il contenitore del bottone per centrarlo */
-#booking-button-container {
-    text-align: center;
-    margin: 20px 0 40px 0; /* Spazio sopra e sotto il bottone */
-}
 
-/* Stili per il bottone WhatsApp (lo stile principale) */
-.whatsapp-button {
-    /* Layout */
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 50px; /* Molto arrotondato per un look moderno */
-    
-    /* Colori e Testo */
-    background-color: #25D366; /* Colore ufficiale WhatsApp */
-    color: white;
-    font-size: 1.1em;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+/* ========================================================== */
+/* BOTTONI DI PRENOTAZIONE E RECENSIONE */
+/* ========================================================== */
 
-    /* Ombreggiatura (per farlo risaltare) */
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-    transition: background-color 0.3s, transform 0.2s; /* Effetti di transizione */
-}
-
-/* Effetto al passaggio del mouse */
-.whatsapp-button:hover {
-    background-color: #128C7E; /* Verde scuro al passaggio */
-    transform: translateY(-2px); /* Leggero sollevamento */
-}
-
-/* Stili per il contenitore del bottone */
 #booking-button-container {
     text-align: center;
     margin: 20px 0 40px 0; 
 }
 
-/* Stili per il bottone WhatsApp (stile Glassmorphism) */
+
 .whatsapp-button {
-    /* Mantieni gli stili GLASSMORPHISM qui (display: inline-flex; align-items: center; ecc.) */
     display: inline-flex;
     align-items: center;
     text-decoration: none;
     padding: 12px 25px;
     
-    /* NUOVO: Imposta una dimensione uniforme per entrambi i bottoni */
     width: 70%; 
     max-width: 350px; 
-    justify-content: center; /* Per centrare il testo e l'icona all'interno del bottone */
+    justify-content: center; 
     
-    /* ... il resto degli stili GLASSMORPHISM ... */
+    /* Stile semitrasparente */
     background-color: rgba(255, 255, 255, 0.15); 
-    /* ... ecc. */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #f0f0f0;
+    border-radius: 50px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s, transform 0.2s;
+    
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
 }
 
-/* Effetto al passaggio del mouse */
 .whatsapp-button:hover {
     background-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* NUOVI Stili per l'IMMAGINE dell'icona (sostituisce .whatsapp-icon) */
+
 .whatsapp-icon-img {
-    height: 1.2em; /* Imposta l'altezza dell'icona (ad esempio 1.2 volte la dimensione del testo) */
-    width: auto; /* Mantieni le proporzioni dell'immagine */
-    margin-right: 10px; /* Spazio tra icona e testo */
-    vertical-align: middle; /* Allinea l'immagine verticalmente al centro del testo */
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5)); /* Aggiunge una leggera ombra all'icona */
+    height: 1.2em; 
+    width: auto; 
+    margin-right: 10px; 
+    vertical-align: middle; 
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5)); 
 }
 
-/* Puoi rimuovere il blocco .whatsapp-icon se non intendi più usarlo */
-/* .whatsapp-icon { ... } */
-/* Stili per il contenitore della recensione */
+
 #review-button-container {
     text-align: center;
     margin: 20px 0 40px 0; 
 }
 
-/* Stili per l'icona della recensione (Emoji Stella) */
+
 .review-icon {
     display: inline-block; 
-    font-size: 1.4em; /* Stessa dimensione dell'icona WhatsApp/Emoji */
+    font-size: 1.4em; 
     margin-right: 10px;
     line-height: 1; 
     vertical-align: middle;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
 }
 
-/* OPZIONALE: Se vuoi un colore leggermente diverso per questo bottone, 
-   potresti usare la classe .review-button per cambiare il background-color: */
-/*
-.review-button {
-    background-color: rgba(255, 255, 255, 0.25); 
-}
-*/
-/* Stili per il Piè di Pagina (Footer) */
+/* ========================================================== */
+/* PIEDE DI PAGINA (FOOTER) */
+/* ========================================================== */
+
 footer {
     width: 100%;
     padding: 20px 0;
-    text-align: center; /* Centra il testo */
-    /* Lo sfondo del footer può essere trasparente per far vedere lo sfondo della pagina, 
-       o potresti impostare un colore scuro se necessario. */
+    text-align: center; 
     background-color: transparent; 
 }
 
 .footer-text {
     margin: 0;
-    font-size: 1.2em; /* Rendi il testo piccolo e discreto */
-    color: rgba(255, 255, 255, 0.5); /* Colore grigio chiaro per discrezione sul tuo sfondo scuro */
+    font-size: 1.2em; 
+    color: rgba(255, 255, 255, 0.5); 
     font-weight: 300;
 }
