@@ -429,3 +429,19 @@ header {
     background-color: rgba(255, 255, 255, 0.25); 
 }
 */
+/* Stili per il Piè di Pagina (Footer) */
+footer {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center; /* Centra il testo */
+    /* Lo sfondo del footer può essere trasparente per far vedere lo sfondo della pagina, 
+       o potresti impostare un colore scuro se necessario. */
+    background-color: transparent; 
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 1.2em; /* Rendi il testo piccolo e discreto */
+    color: rgba(255, 255, 255, 0.5); /* Colore grigio chiaro per discrezione sul tuo sfondo scuro */
+    font-weight: 300;
+}
