@@ -229,7 +229,7 @@ header {
 .menu-section {
     display: none; 
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: rgba(255, 255, 255, 0.9); 
     color: #333;
     border-radius: 10px;

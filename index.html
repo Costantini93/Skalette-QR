@@ -18,9 +18,12 @@
     <div id="main-content-wrapper">
 
         <header>
-            <div id="logo-container">
-                <img src="logo.png" alt="Logo Skalette Bistrò" id="restaurant-logo">
-            </div>
+           <div id="logo-container">
+  <a href="index.html">
+    <img src="logo.png" alt="Logo Skalette Bistrò" id="restaurant-logo">
+  </a>
+</div>
+
             
             <p class="welcome-message" 
                 data-it="Benvenuto da Skalette Bistrò! "
@@ -59,32 +62,52 @@
 
         <!-- ✅ I bottoni ora sono dentro il contenitore principale -->
         <div id="main-buttons-grid">
-            <button class="menu-button" data-target="colazioni">Colazione</button>
-            <button class="menu-button" data-target="bevande">Bevande Analcoliche</button>
-            <button class="menu-button" data-target="aperitivi">Aperitivi & Birre</button>
-            <button class="menu-button" data-target="vini">I Nostri Vini</button>
-            <button class="menu-button" data-target="snacks">Snacks</button>
-            <button class="menu-button" data-target="cucina-dolci">Dalla Cucina & Dolci</button>
+  <button class="menu-button" data-target="colazioni"
+      data-it="Colazione" data-en="Breakfast" data-es="Desayuno" data-fr="Petit-déjeuner" data-de="Frühstück" data-ru="Завтрак">Colazione</button>
 
-            <div id="booking-button-container">
-                <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button">
-                    <img src="icona-wa.svg" alt="WhatsApp Logo" class="whatsapp-icon-img"> 
-                    Prenota un Tavolo
-                </a>
-            </div>
+  <button class="menu-button" data-target="bevande"
+      data-it="Bevande Analcoliche" data-en="Soft Drinks" data-es="Bebidas Sin Alcohol" data-fr="Boissons Sans Alcool" data-de="Alkoholfreie Getränke" data-ru="Безалкогольные напитки">Bevande Analcoliche</button>
 
-            <div id="review-button-container">
-                <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero" target="_blank" class="whatsapp-button review-button"> 
-                    <span class="review-icon" aria-hidden="true">⭐</span>
-                    Raccontaci la tua esperienza
-                </a>
-            </div>
-        </div>
+  <button class="menu-button" data-target="aperitivi"
+      data-it="Aperitivi & Birre" data-en="Aperitifs & Beers" data-es="Aperitivos y Cervezas" data-fr="Apéritifs & Bières" data-de="Aperitifs & Biere" data-ru="Аперитивы и пиво">Aperitivi & Birre</button>
 
-    </div> <!-- ✅ chiusura corretta di #main-content-wrapper -->
-</body>
+  <button class="menu-button" data-target="vini"
+      data-it="I Nostri Vini" data-en="Our Wines" data-es="Nuestros Vinos" data-fr="Nos Vins" data-de="Unsere Weine" data-ru="Наши вина">I Nostri Vini</button>
 
-        
+  <button class="menu-button" data-target="snacks"
+      data-it="La nostra gastronomia" data-en="Our Gastronomy" data-es="Nuestra Gastronomía" data-fr="Notre Gastronomie" data-de="Unsere Gastronomie" data-ru="Наша гастрономия">La nostra gastronomia</button>
+
+  <button class="menu-button" data-target="cucina-dolci"
+      data-it="Dalla Cucina & Dolci" data-en="From the Kitchen & Desserts" data-es="De la Cocina y Postres" data-fr="De la Cuisine & Desserts" data-de="Aus der Küche & Desserts" data-ru="Из кухни и десерты">Dalla Cucina & Dolci</button>
+
+  <div id="booking-button-container">
+    <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button"
+       data-it="Prenota un Tavolo"
+       data-en="Book a Table"
+       data-es="Reserva una Mesa"
+       data-fr="Réserver une Table"
+       data-de="Tisch Reservieren"
+       data-ru="Забронировать столик">
+      <img src="icona-wa.svg" alt="WhatsApp Logo" class="whatsapp-icon-img"> 
+      Prenota un Tavolo
+    </a>
+  </div>
+
+  <div id="review-button-container">
+    <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero" target="_blank" class="whatsapp-button review-button"
+       data-it="Raccontaci la tua esperienza"
+       data-en="Share Your Experience"
+       data-es="Cuéntanos tu experiencia"
+       data-fr="Partagez votre expérience"
+       data-de="Erzählen Sie uns Ihre Erfahrung"
+       data-ru="Расскажите о вашем опыте">
+      <span class="review-icon" aria-hidden="true">⭐</span>
+      Raccontaci la tua esperienza
+    </a>
+  </div>
+</div>
+
+
         <section id="colazioni" class="menu-section"> 
             <h2 class="category-title" 
                 data-it="Caffetteria"
@@ -167,16 +190,17 @@
             </div><span class="item-price">3€</span></div>
             
             <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Caffè Doppio" data-en="Double Espresso" data-es="Café Doble" data-fr="Double Expresso" data-de="Doppelter Espresso" data-ru="Двойной Эспрессо">Caffè Doppio</h3>
-                <p class="item-description" 
-                    data-it="Due shot di espresso"
-                    data-en="Two shots of espresso"
-                    data-es="Dos chupitos de espresso"
-                    data-fr="Deux doses d'espresso"
-                    data-de="Zwei Espresso-Shots"
-                    data-ru="Две порции эспрессо">Due shot di espresso</p>
-            </div><span class="item-price">3€</span></div>
+    <h3 class="item-name" 
+        data-it="Caffè Doppio" data-en="Double Espresso" data-es="Café Doble" data-fr="Double Expresso" data-de="Doppelter Espresso" data-ru="Двойной Эспрессо">Caffè Doppio</h3>
+    <p class="item-description" 
+        data-it="Doppio espresso in tazza grande"
+        data-en="Double espresso served in a large cup"
+        data-es="Doble espresso servido en taza grande"
+        data-fr="Double espresso servi dans une grande tasse"
+        data-de="Doppelter Espresso in großer Tasse"
+        data-ru="Двойной эспрессо в большой чашке">Doppio espresso in tazza grande</p>
+</div><span class="item-price">3€</span></div>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -190,17 +214,23 @@
                     data-ru="Горячий напиток, альтернатива кофе">Bevanda calda alternativa al caffè</p>
             </div><span class="item-price">2.30€</span></div>
             
-            <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Caffè 'On the Rocks'" data-en="Espresso 'On the Rocks'" data-es="Café 'On the Rocks'" data-fr="Café 'On the Rocks'" data-de="Espresso 'On the Rocks'" data-ru="Кофе 'Он зе Рокс'">Caffè "On the Rocks"</h3>
-                <p class="item-description" 
-                    data-it="Espresso versato su ghiaccio"
-                    data-en="Espresso poured over ice"
-                    data-es="Espresso vertido sobre hielo"
-                    data-fr="Espresso versé sur glace"
-                    data-de="Espresso über Eis gegossen"
-                    data-ru="Эспрессо, налитый на лед">Espresso versato su ghiaccio</p>
-            </div><span class="item-price">3€</span></div>
+<div class="menu-item"><div class="item-details">
+    <h3 class="item-name" 
+        data-it="Caffè Skalette" 
+        data-en="Skalette Coffee" 
+        data-es="Café Skalette" 
+        data-fr="Café Skalette" 
+        data-de="Skalette Kaffee" 
+        data-ru="Кофе Skalette">Caffè Skalette</h3>
+    <p class="item-description" 
+        data-it="Doppio espresso versato su ghiaccio"
+        data-en="Double espresso poured over ice"
+        data-es="Doble espresso vertido sobre hielo"
+        data-fr="Double espresso versé sur glace"
+        data-de="Doppelter Espresso über Eis gegossen"
+        data-ru="Двойной эспрессо, налитый на лед">Doppio espresso versato su ghiaccio</p>
+</div><span class="item-price">3€</span></div>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -449,16 +479,22 @@
             </div><span class="item-price">4.50€</span></div>
             
             <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Bevanda allo Zenzero (Homemade)" data-en="Ginger Drink (Homemade)" data-es="Bebida de Jengibre (Casera)" data-fr="Boisson au Gingembre (Maison)" data-de="Ingwergetränk (Hausgemacht)" data-ru="Имбирный напиток (домашний)">Bevanda allo Zenzero (Homemade)</h3>
-                <p class="item-description" 
-                    data-it="Bevanda analcolica allo zenzero di nostra produzione"
-                    data-en="Non-alcoholic ginger drink of our production"
-                    data-es="Bebida de jengibre sin alcohol de nuestra producción"
-                    data-fr="Boisson sans alcool au gingembre de notre production"
-                    data-de="Alkoholfreies Ingwergetränk aus eigener Herstellung"
-                    data-ru="Безалкогольный имбирный напиток нашего производства">Bevanda analcolica allo zenzero di nostra produzione</p>
-            </div><span class="item-price">4€</span></div>
+    <h3 class="item-name" 
+        data-it="Homemade Gingerbeer" 
+        data-en="Homemade Gingerbeer" 
+        data-es="Gingerbeer Casera" 
+        data-fr="Gingerbeer Maison" 
+        data-de="Hausgemachte Gingerbeer" 
+        data-ru="Домашний имбирный эль">Homemade Gingerbeer</h3>
+    <p class="item-description" 
+        data-it="Bevanda analcolica allo zenzero di nostra produzione"
+        data-en="Non-alcoholic ginger drink of our production"
+        data-es="Bebida de jengibre sin alcohol de nuestra producción"
+        data-fr="Boisson sans alcool au gingembre de notre production"
+        data-de="Alkoholfreies Ingwergetränk aus eigener Herstellung"
+        data-ru="Безалкогольный имбирный напиток нашего производства">Bevanda analcolica allo zenzero di nostra produzione</p>
+</div><span class="item-price">4€</span></div>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -600,12 +636,23 @@
                     data-it="Fresco, equilibrato e piacevolmente fruttato. Ottimo come tutto pasto." data-en="Fresh, balanced, and pleasantly fruity. Great for any meal." data-es="Fresco, equilibrado y agradablemente afrutado. Excelente para toda la comida." data-fr="Frais, équilibré et agréablement fruité. Excellent pour tout le repas." data-de="Frisch, ausgewogen und angenehm fruchtig. Hervorragend als Begleiter zu jedem Gericht." data-ru="Свежее, сбалансированное и приятно фруктовое. Отлично подходит к любой трапезе.">Fresco, equilibrato e piacevolmente fruttato. Ottimo come tutto pasto.</p>
             </div><span class="item-price">5€</span></div>
             
-            <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Chardonnay 'Dolfo'" data-en="Chardonnay 'Dolfo'" data-es="Chardonnay 'Dolfo'" data-fr="Chardonnay 'Dolfo'" data-de="Chardonnay 'Dolfo'" data-ru="Шардоне 'Dolfo'">Chardonnay "Dolfo"</h3>
-                <p class="item-description" 
-                    data-it="Vino dal gusto morbido con sentori di mela matura e vaniglia (se affinato)." data-en="Soft-tasting wine with hints of ripe apple and vanilla (if aged)." data-es="Vino de sabor suave con toques de manzana madura y vainilla (si está envejecido)." data-fr="Vin au goût doux avec des notes de pomme mûre et de vanille (si vieilli)." data-de="Wein mit sanftem Geschmack und Noten von reifem Apfel und Vanille (falls gereift)." data-ru="Вино с мягким вкусом, с нотами спелого яблока и ванили (если выдержано).">Vino dal gusto morbido con sentori di mela matura e vaniglia (se affinato).</p>
-            </div><span class="item-price">6€</span></div>
+           <div class="menu-item"><div class="item-details">
+    <h3 class="item-name" 
+        data-it="Chardonnay 'Dolfo'" 
+        data-en="Chardonnay 'Dolfo'" 
+        data-es="Chardonnay 'Dolfo'" 
+        data-fr="Chardonnay 'Dolfo'" 
+        data-de="Chardonnay 'Dolfo'" 
+        data-ru="Шардоне 'Dolfo'">Chardonnay "Dolfo"</h3>
+    <p class="item-description" 
+        data-it="Vino dal gusto morbido con sentori di mela matura e vaniglia"
+        data-en="Soft-tasting wine with hints of ripe apple and vanilla"
+        data-es="Vino de sabor suave con toques de manzana madura y vainilla"
+        data-fr="Vin au goût doux avec des notes de pomme mûre et de vanille"
+        data-de="Wein mit sanftem Geschmack und Noten von reifem Apfel und Vanille"
+        data-ru="Вино с мягким вкусом, с нотами спелого яблока и ванили">Vino dal gusto morbido con sentori di mela matura e vaniglia</p>
+</div><span class="item-price">6€</span></div>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -645,13 +692,23 @@
                     data-it="Elegante e vellutato, con sentori di sottobosco e lampone. Da gustare fresco." data-en="Elegant and velvety, with hints of undergrowth and raspberry. Best enjoyed chilled." data-es="Elegante y aterciopelado, con toques de sotobosque y frambuesa. Para disfrutar fresco." data-fr="Élégant et velouté, avec des notes de sous-bois et de framboise. À déguster frais." data-de="Elegant und samtig, mit Anklängen an Unterholz und Himbeere. Kühl genießen." data-ru="Элегантное и бархатистое, с нотами подлеска и малины. Лучше всего подавать охлажденным.">Elegante e vellutato, con sentori di sottobosco e lampone. Da gustare fresco.</p>
             </div><span class="item-price">6€</span></div>
             
-            <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Cabernet Sauvignon 'Dolfo'" data-en="Cabernet Sauvignon 'Dolfo'" data-es="Cabernet Sauvignon 'Dolfo'" data-fr="Cabernet Sauvignon 'Dolfo'" data-de="Cabernet Sauvignon 'Dolfo'" data-ru="Каберне Совиньон 'Dolfo'">Cabernet Sauvignon "Dolfo"</h3>
-                <p class="item-description" 
-                    data-it="Corposo e robusto, con note decise di ribes nero e peperone verde. (Veneto)." data-en="Full-bodied and robust, with strong notes of blackcurrant and green pepper. (Veneto)." data-es="Cuerpo completo y robusto, con notas marcadas de grosella negra y pimiento verde. (Véneto)." data-fr="Corsé et robuste, avec des notes franches de cassis et de poivron vert. (Vénétie)." data-de="Kräftig und robust, mit deutlichen Noten von schwarzer Johannisbeere und grünem Pfeffer. (Venetien)." data-ru="Полнотелое и крепкое, с выраженными нотами черной смородины и зеленого перца. (Венето).">Corposo e robusto, con note decise di ribes nero e peperone verde. (Veneto).</p>
-            </div><span class="item-price">6€</span></div>
-            
+           <div class="menu-item"><div class="item-details">
+    <h3 class="item-name" 
+        data-it="Cabernet Sauvignon 'Dolfo'" 
+        data-en="Cabernet Sauvignon 'Dolfo'" 
+        data-es="Cabernet Sauvignon 'Dolfo'" 
+        data-fr="Cabernet Sauvignon 'Dolfo'" 
+        data-de="Cabernet Sauvignon 'Dolfo'" 
+        data-ru="Каберне Совиньон 'Dolfo'">Cabernet Sauvignon "Dolfo"</h3>
+    <p class="item-description" 
+        data-it="Corposo e robusto, con note decise di ribes nero e peperone verde."
+        data-en="Full-bodied and robust, with strong notes of blackcurrant and green pepper."
+        data-es="Cuerpo completo y robusto, con notas marcadas de grosella negra y pimiento verde."
+        data-fr="Corsé et robuste, avec des notes franches de cassis et de poivron vert."
+        data-de="Kräftig und robust, mit deutlichen Noten von schwarzer Johannisbeere und grünem Pfeffer."
+        data-ru="Полнотелое и крепкое, с выраженными нотами черной смородины и зеленого перца.">Corposo e robusto, con note decise di ribes nero e peperone verde.</p>
+</div><span class="item-price">6€</span></div>
+
             <h2 class="category-title" 
                 data-it="Bollicine" data-en="Sparkling Wines" data-es="Vinos Espumosos" data-fr="Vins Mousseux" data-de="Schaumweine" data-ru="Игристые вина">Bollicine</h2>
             
@@ -663,11 +720,22 @@
             </div><span class="item-price">5€</span></div>
             
             <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Franciacorta Satèn 'Berlucchi'" data-en="Franciacorta Satèn 'Berlucchi'" data-es="Franciacorta Satèn 'Berlucchi'" data-fr="Franciacorta Satèn 'Berlucchi'" data-de="Franciacorta Satèn 'Berlucchi'" data-ru="Франчакорта Сатен 'Berlucchi'">Franciacorta Satèn "Berlucchi"</h3>
-                <p class="item-description" 
-                    data-it="Bollicina cremosa e setosa, con bollicine fini e note di pane tostato. (Lombardia)." data-en="Creamy and silky sparkling wine, with fine bubbles and notes of toasted bread. (Lombardy)." data-es="Espumoso cremoso y sedoso, con burbujas finas y notas de pan tostado. (Lombardía)." data-fr="Mousseux crémeux et soyeux, avec des bulles fines et des notes de pain grillé. (Lombardie)." data-de="Cremiger und seidiger Schaumwein, mit feinen Bläschen und Noten von geröstetem Brot. (Lombardei)." data-ru="Кремовое и шелковистое игристое вино, с мелкими пузырьками и нотами тостов. (Ломбардия).">Bollicina cremosa e setosa, con bollicine fini e note di pane tostato. (Lombardia).</p>
-            </div><span class="item-price">7€</span></div>
+    <h3 class="item-name" 
+        data-it="Franciacorta Satèn 'Berlucchi'" 
+        data-en="Franciacorta Satèn 'Berlucchi'" 
+        data-es="Franciacorta Satèn 'Berlucchi'" 
+        data-fr="Franciacorta Satèn 'Berlucchi'" 
+        data-de="Franciacorta Satèn 'Berlucchi'" 
+        data-ru="Франчакорта Сатен 'Berlucchi'">Franciacorta Satèn "Berlucchi"</h3>
+    <p class="item-description" 
+        data-it="Bollicina cremosa e setosa, con bollicine fini e note di pane tostato."
+        data-en="Creamy and silky sparkling wine, with fine bubbles and notes of toasted bread."
+        data-es="Espumoso cremoso y sedoso, con burbujas finas y notas de pan tostado."
+        data-fr="Mousseux crémeux et soyeux, avec des bulles fines et des notes de pain grillé."
+        data-de="Cremiger und seidiger Schaumwein, mit feinen Bläschen und Noten von geröstetem Brot."
+        data-ru="Кремовое и шелковистое игристое вино, с мелкими пузырьками и нотами тостов.">Bollicina cremosa e setosa, con bollicine fini e note di pane tostato.</p>
+</div><span class="item-price">7€</span></div>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -692,12 +760,26 @@
         </section>
 
         <section id="snacks" class="menu-section">
-            <h2 class="category-title" 
-                data-it="Snacks dalla Vetrina" data-en="Snacks from the Display" data-es="Snacks de la Vitrina" data-fr="Snacks de la Vitrine" data-de="Snacks von der Theke" data-ru="Закуски с витрины">Snacks dalla Vetrina</h2>
-            <p class="description-text" 
-                data-it="Prodotti freschi del giorno. Chiedere al personale per la disponibilità." data-en="Fresh products of the day. Ask staff for availability." data-es="Productos frescos del día. Pregunte al personal por disponibilidad." data-fr="Produits frais du jour. Demandez au personnel la disponibilité." data-de="Tagesfrische Produkte. Fragen Sie das Personal nach der Verfügbarkeit." data-ru="Свежие продукты дня. Уточняйте наличие у персонала.">Prodotti freschi del giorno. Chiedere al personale per la disponibilità.</p>
-            
-            <div class="menu-item"><div class="item-details">
+    <h2 class="category-title" 
+        data-it="La nostra gastronomia" 
+        data-en="Our Gastronomy" 
+        data-es="Nuestra Gastronomía" 
+        data-fr="Notre Gastronomie" 
+        data-de="Unsere Gastronomie" 
+        data-ru="Наша гастрономия">La nostra gastronomia</h2>
+    
+    <p class="description-text" 
+    data-it="Prodotti freschi del giorno. Chiedere al personale per la disponibilità e per gli allergeni." 
+    data-en="Fresh products of the day. Ask staff for availability and allergens." 
+    data-es="Productos frescos del día. Pregunte al personal por disponibilidad y alérgenos." 
+    data-fr="Produits frais du jour. Demandez au personnel la disponibilité et les allergènes." 
+    data-de="Tagesfrische Produkte. Fragen Sie das Personal nach der Verfügbarkeit und Allergenen." 
+    data-ru="Свежие продукты дня. Уточняйте наличие и аллергены у персонала.">
+    Prodotti freschi del giorno. Chiedere al personale per la disponibilità e per gli allergeni.
+</p>
+
+
+        <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
                     data-it="Polpetta di Carne" data-en="Meatball" data-es="Albóndiga de Carne" data-fr="Boulette de Viande" data-de="Fleischbällchen" data-ru="Мясной шарик">Polpetta di Carne</h3>
                 <p class="item-description" 
@@ -718,12 +800,7 @@
                     data-it="Ripieno di riso e tastasal (impasto di salsiccia)." data-en="Filled with rice and tastasal (sausage mixture)." data-es="Relleno de arroz y tastasal (mezcla de salchicha)." data-fr="Rempli de riz et de tastasal (mélange de saucisse)." data-de="Gefüllt mit Reis und Tastasal (Wurstmasse)." data-ru="Начинен рисом и тастасалом (колбасный фарш).">Ripieno di riso e tastasal (impasto di salsiccia).</p>
             </div><span class="item-price">2€</span></div>
             
-            <div class="menu-item"><div class="item-details">
-                <h3 class="item-name" 
-                    data-it="Focaccia" data-en="Focaccia" data-es="Focaccia" data-fr="Focaccia" data-de="Focaccia" data-ru="Фокачча">Focaccia</h3>
-                <p class="item-description" 
-                    data-it="Pane piatto italiano cotto al forno, con ripieno a scelta." data-en="Italian flatbread baked in the oven, with a filling of your choice." data-es="Pan plano italiano horneado, con relleno a elección." data-fr="Pain plat italien cuit au four, avec une garniture au choix." data-de="Italienisches Fladenbrot im Ofen gebacken, mit Füllung nach Wahl." data-ru="Итальянский плоский хлеб, запеченный в печи, с начинкой на выбор.">Pane piatto italiano cotto al forno, con ripieno a scelta.</p>
-            </div><span class="item-price">5€</span></div>
+            
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -745,11 +822,25 @@
                 <p class="item-description" 
                     data-it="Piccola porzione ideale per un assaggio veloce." data-en="Small portion ideal for a quick taste." data-es="Pequeña porción ideal para un bocado rápido." data-fr="Petite portion idéale pour une dégustation rapide." data-de="Kleine Portion, ideal für eine schnelle Probe." data-ru="Маленькая порция, идеально подходит для быстрого перекуса.">Piccola porzione ideale per un assaggio veloce.</p>
             </div><span class="item-price">3.50€</span></div>
-        </section>
+</section>
+
+            
+        
 
         <section id="cucina-dolci" class="menu-section">
             <h2 class="category-title" 
                 data-it="I Nostri Piatti" data-en="Our Dishes" data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I Nostri Piatti</h2>
+
+                <p class="description-text" 
+    data-it="Chiedere al personale per gli allergeni." 
+    data-en="Ask staff about allergens." 
+    data-es="Pregunte al personal por los alérgenos." 
+    data-fr="Demandez au personnel les allergènes." 
+    data-de="Fragen Sie das Personal nach Allergenen." 
+    data-ru="Уточняйте у персонала информацию об аллергенах.">
+    Chiedere al personale per gli allergeni.
+</p>
+
             
             <div class="menu-item"><div class="item-details">
                 <h3 class="item-name" 
@@ -881,7 +972,7 @@
             </div><span class="item-price">6€</span></div>
             
         </section>
-        
+
         <div id="secondary-navigation" style="display: none;">
 
             <h2 class="secondary-title" 
@@ -985,11 +1076,19 @@
     </div>
 </section>
 
+
+    </div> <!-- ✅ chiusura corretta di #main-content-wrapper -->
+</body>
+
+        
+        
+        
+        
     </main>
     
     <script src="script.js"></script>
     <footer>
-    <p class="footer-text">Powered by Skalette</p>
+    <p class="footer-text">Powered by Skalette Bistrò</p>
 </footer>
 </body>
 </html>
