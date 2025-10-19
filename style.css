@@ -478,3 +478,9 @@ footer {
     color: rgba(255, 255, 255, 0.5); 
     font-weight: 300;
 }
+
+.lang-btn.active-lang {
+  opacity: 0.5;
+  cursor: default;
+}
+
