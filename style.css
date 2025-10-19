@@ -448,7 +448,7 @@ header {
 
 .instagram-icon {
   width: 24px;
-  height: 24px;
+  height: auto;
   vertical-align: middle;
 }
 
