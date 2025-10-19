@@ -395,7 +395,7 @@ header {
     width: auto; 
     margin-right: 10px; 
     vertical-align: middle; 
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5)); 
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); 
 }
 
 
@@ -413,6 +413,53 @@ header {
     vertical-align: middle;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
 }
+
+#instagram-button-container {
+  text-align: center;
+  margin: 20px 0 40px 0;
+}
+
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 12px 25px;
+  width: 70%;
+  max-width: 350px;
+
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #f0f0f0;
+  border-radius: 50px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.instagram-button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.instagram-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.instagram-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+
+
 
 /* ========================================================== */
 /* PIEDE DI PAGINA (FOOTER) */
