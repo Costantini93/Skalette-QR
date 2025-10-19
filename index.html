@@ -307,7 +307,8 @@
                     <h3 class="item-name" data-it="Avocado Toast" data-en="Avocado Toast" data-es="Tostada de Aguacate"
                         data-fr="Toast à l'Avocat" data-de="Avocado Toast" data-ru="Тост с авокадо">Avocado Toast</h3>
                     <p class="item-description translatable
-                        data-it="Pane tostato, salsa alla robiola, avocado, uovo in camicia. Con bacon croccante (+3€) o salmone (+3€)."
+                        data-it=" Pane tostato, salsa alla robiola, avocado, uovo in camicia. Con bacon croccante (+3€)
+                        o salmone (+3€)."
                         data-en="Toasted bread, robiola sauce, avocado, poached egg. With crispy bacon (+3€) or salmon (+3€)."
                         data-es="Pan tostado, salsa de robiola, aguacate, huevo escalfado. Con tocino crujiente (+3€) o salmón (+3€)."
                         data-fr="Pain grillé, sauce robiola, avocat, œuf poché. Avec bacon croustillant (+3€) ou saumon (+3€)."
@@ -1418,43 +1419,65 @@
     </div>
 
     <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // 1. Lingua preferita: manuale o browser
-    const savedLang = localStorage.getItem("preferredLang");
-    const browserLang = navigator.language.slice(0, 2).toLowerCase();
-    const lang = savedLang || browserLang;
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Lingua preferita: manuale o browser
+            const savedLang = localStorage.getItem("preferredLang");
+            const browserLang = navigator.language.slice(0, 2).toLowerCase();
+            const lang = savedLang || browserLang;
 
-    // 2. Funzione per applicare la lingua
-    function applyLanguage(lang) {
-      const elements = document.querySelectorAll(".translatable");
-      elements.forEach(el => {
-        const text = el.dataset[lang];
-        if (text) el.textContent = text;
+            // 2. Funzione per applicare la lingua
+            function applyLanguage(lang) {
+                const elements = document.querySelectorAll(".translatable");
+                elements.forEach(el => {
+                    const text = el.dataset[lang];
+                    if (text) el.textContent = text;
 
-        const placeholder = el.dataset[`placeholder${lang}`];
-        if (placeholder) el.setAttribute("placeholder", placeholder);
+                    const placeholder = el.dataset[`placeholder${lang}`];
+                    if (placeholder) el.setAttribute("placeholder", placeholder);
 
-        const title = el.dataset[`title${lang}`];
-        if (title) el.setAttribute("title", title);
+                    const title = el.dataset[`title${lang}`];
+                    if (title) el.setAttribute("title", title);
 
-        const alt = el.dataset[`alt${lang}`];
-        if (alt) el.setAttribute("alt", alt);
-      });
-    }
+                    const alt = el.dataset[`alt${lang}`];
+                    if (alt) el.setAttribute("alt", alt);
+                });
+            }
 
-    applyLanguage(lang); // Applica la lingua iniziale
+            applyLanguage(lang); // Applica la lingua iniziale
 
-    // 3. Gestione selettore manuale
-    const langButtons = document.querySelectorAll(".lang-btn");
-    langButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const selectedLang = btn.dataset.lang;
-        localStorage.setItem("preferredLang", selectedLang);
-        applyLanguage(selectedLang); // Applica subito la lingua scelta
-      });
-    });
-  });
-</script>
+            // 4. Aggiorna la bandierina del menu a tendina
+            const currentLangBtn = document.getElementById("current-lang-btn");
+            if (currentLangBtn) {
+                currentLangBtn.setAttribute("data-lang", lang);
+
+                // Aggiorna immagine bandiera
+                const flagImg = currentLangBtn.querySelector("img");
+                if (flagImg) {
+                    flagImg.src = `flags/${lang}.png`;
+                    flagImg.alt = `Bandiera ${lang.toUpperCase()}`;
+                }
+
+                // Aggiorna codice lingua (es. IT, EN, FR)
+                const langCode = lang.toUpperCase();
+                currentLangBtn.childNodes.forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length === 2) {
+                        node.textContent = ` ${langCode} `;
+                    }
+                });
+            }
+
+
+            // 3. Gestione selettore manuale
+            const langButtons = document.querySelectorAll(".lang-btn");
+            langButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const selectedLang = btn.dataset.lang;
+                    localStorage.setItem("preferredLang", selectedLang);
+                    applyLanguage(selectedLang); // Applica subito la lingua scelta
+                });
+            });
+        });
+    </script>
 
 
 </body>
