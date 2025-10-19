@@ -1418,29 +1418,44 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const lang = navigator.language.slice(0, 2).toLowerCase();
-            const elements = document.querySelectorAll(".translatable");
+  document.addEventListener("DOMContentLoaded", function () {
+    // 1. Lingua preferita: manuale o browser
+    const savedLang = localStorage.getItem("preferredLang");
+    const browserLang = navigator.language.slice(0, 2).toLowerCase();
+    const lang = savedLang || browserLang;
 
-            elements.forEach(el => {
-                // Testo visibile
-                const text = el.dataset[lang];
-                if (text) el.textContent = text;
+    // 2. Funzione per applicare la lingua
+    function applyLanguage(lang) {
+      const elements = document.querySelectorAll(".translatable");
+      elements.forEach(el => {
+        const text = el.dataset[lang];
+        if (text) el.textContent = text;
 
-                // Placeholder
-                const placeholder = el.dataset[`placeholder${lang}`];
-                if (placeholder) el.setAttribute("placeholder", placeholder);
+        const placeholder = el.dataset[`placeholder${lang}`];
+        if (placeholder) el.setAttribute("placeholder", placeholder);
 
-                // Title (tooltip)
-                const title = el.dataset[`title${lang}`];
-                if (title) el.setAttribute("title", title);
+        const title = el.dataset[`title${lang}`];
+        if (title) el.setAttribute("title", title);
 
-                // Alt (immagini)
-                const alt = el.dataset[`alt${lang}`];
-                if (alt) el.setAttribute("alt", alt);
-            });
-        });
-    </script>
+        const alt = el.dataset[`alt${lang}`];
+        if (alt) el.setAttribute("alt", alt);
+      });
+    }
+
+    applyLanguage(lang); // Applica la lingua iniziale
+
+    // 3. Gestione selettore manuale
+    const langButtons = document.querySelectorAll(".lang-btn");
+    langButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const selectedLang = btn.dataset.lang;
+        localStorage.setItem("preferredLang", selectedLang);
+        applyLanguage(selectedLang); // Applica subito la lingua scelta
+      });
+    });
+  });
+</script>
+
 
 </body>
 
