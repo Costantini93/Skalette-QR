@@ -1425,7 +1425,7 @@
             const browserLang = navigator.language.slice(0, 2).toLowerCase();
             const lang = savedLang || browserLang;
 
-            // 2. Funzione per applicare la lingua
+            // 2. Applica la lingua
             function applyLanguage(lang) {
                 const elements = document.querySelectorAll(".translatable");
                 elements.forEach(el => {
@@ -1443,41 +1443,49 @@
                 });
             }
 
-            applyLanguage(lang); // Applica la lingua iniziale
+            // 3. Aggiorna la bandierina principale e il menu
+            function updateCurrentFlag(lang) {
+                const currentLangBtn = document.getElementById("current-lang-btn");
+                if (currentLangBtn) {
+                    currentLangBtn.setAttribute("data-lang", lang);
 
-            // 4. Aggiorna la bandierina del menu a tendina
-            const currentLangBtn = document.getElementById("current-lang-btn");
-            if (currentLangBtn) {
-                currentLangBtn.setAttribute("data-lang", lang);
+                    const flagImg = currentLangBtn.querySelector("img");
+                    if (flagImg) {
+                        flagImg.src = `flags/${lang}.png`;
+                        flagImg.alt = `Bandiera ${lang.toUpperCase()}`;
+                    }
 
-                // Aggiorna immagine bandiera
-                const flagImg = currentLangBtn.querySelector("img");
-                if (flagImg) {
-                    flagImg.src = `flags/${lang}.png`;
-                    flagImg.alt = `Bandiera ${lang.toUpperCase()}`;
+                    const langCode = lang.toUpperCase();
+                    currentLangBtn.childNodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length === 2) {
+                            node.textContent = ` ${langCode} `;
+                        }
+                    });
                 }
 
-                // Aggiorna codice lingua (es. IT, EN, FR)
-                const langCode = lang.toUpperCase();
-                currentLangBtn.childNodes.forEach(node => {
-                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length === 2) {
-                        node.textContent = ` ${langCode} `;
-                    }
+                // Nascondi la lingua attiva dal menu a tendina
+                document.querySelectorAll(".lang-btn").forEach(btn => {
+                    btn.style.display = btn.dataset.lang === lang ? "none" : "inline-block";
                 });
             }
 
+            // 4. Applica lingua iniziale e aggiorna bandiera
+            applyLanguage(lang);
+            updateCurrentFlag(lang);
 
-            // 3. Gestione selettore manuale
+            // 5. Gestione selezione manuale
             const langButtons = document.querySelectorAll(".lang-btn");
             langButtons.forEach(btn => {
                 btn.addEventListener("click", () => {
                     const selectedLang = btn.dataset.lang;
                     localStorage.setItem("preferredLang", selectedLang);
-                    applyLanguage(selectedLang); // Applica subito la lingua scelta
+                    applyLanguage(selectedLang);
+                    updateCurrentFlag(selectedLang);
                 });
             });
         });
     </script>
+
 
 
 </body>
