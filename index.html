@@ -110,7 +110,7 @@
             </div>
 
             <div id="instagram-button-container">
-                <a href="https://www.instagram.com/skalette_bistro" target="_blank" class="instagram-button">
+                <a href="https://www.instagram.com/skalette_bistro" target="_blank" class="instagram-button transatable">
                     <img src="instagram.svg" alt="Instagram Logo" class="instagram-icon">
                     <span class="instagram-text">Seguici su Instagram</span>
                 </a>
@@ -1408,7 +1408,33 @@
         </section>
 
 
-    </div> <!-- ✅ chiusura corretta di #main-content-wrapper -->
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const lang = navigator.language.slice(0, 2).toLowerCase();
+            const elements = document.querySelectorAll(".translatable");
+
+            elements.forEach(el => {
+                // Testo visibile
+                const text = el.dataset[lang];
+                if (text) el.textContent = text;
+
+                // Placeholder
+                const placeholder = el.dataset[`placeholder${lang}`];
+                if (placeholder) el.setAttribute("placeholder", placeholder);
+
+                // Title (tooltip)
+                const title = el.dataset[`title${lang}`];
+                if (title) el.setAttribute("title", title);
+
+                // Alt (immagini)
+                const alt = el.dataset[`alt${lang}`];
+                if (alt) el.setAttribute("alt", alt);
+            });
+        });
+    </script>
+
 </body>
 
 
