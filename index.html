@@ -1420,12 +1420,10 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // 1. Lingua preferita: manuale o browser
             const savedLang = localStorage.getItem("preferredLang");
             const browserLang = navigator.language.slice(0, 2).toLowerCase();
             const lang = savedLang || browserLang;
 
-            // 2. Applica la lingua
             function applyLanguage(lang) {
                 const elements = document.querySelectorAll(".translatable");
                 elements.forEach(el => {
@@ -1443,7 +1441,6 @@
                 });
             }
 
-            // 3. Aggiorna la bandierina principale e il menu
             function updateCurrentFlag(lang) {
                 const currentLangBtn = document.getElementById("current-lang-btn");
                 if (currentLangBtn) {
@@ -1463,17 +1460,22 @@
                     });
                 }
 
-                // Nascondi la lingua attiva dal menu a tendina
+                // Nascondi la lingua attiva dal menu
                 document.querySelectorAll(".lang-btn").forEach(btn => {
-                    btn.style.display = btn.dataset.lang === lang ? "none" : "inline-block";
+                    const btnLang = btn.dataset.lang;
+                    if (btnLang === lang) {
+                        btn.style.display = "none";
+                    } else {
+                        btn.style.display = "inline-block";
+                    }
                 });
             }
 
-            // 4. Applica lingua iniziale e aggiorna bandiera
+            // Applica lingua e aggiorna bandiera
             applyLanguage(lang);
             updateCurrentFlag(lang);
 
-            // 5. Gestione selezione manuale
+            // Gestione selezione manuale
             const langButtons = document.querySelectorAll(".lang-btn");
             langButtons.forEach(btn => {
                 btn.addEventListener("click", () => {
@@ -1485,6 +1487,7 @@
             });
         });
     </script>
+
 
 
 
