@@ -351,7 +351,7 @@ header {
 }
 
 /* ========================================================== */
-/* BOTTONI DI PRENOTAZIONE E RECENSIONE */
+/* BOTTONI DI PRENOTAZIONE E RECENSIONE E INSTAGRAM */
 /* ========================================================== */
 
 #booking-button-container {
@@ -482,5 +482,7 @@ footer {
 .lang-btn.active-lang {
   opacity: 0.5;
   cursor: default;
+  pointer-events: none;
 }
+
 
