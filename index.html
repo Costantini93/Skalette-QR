@@ -30,38 +30,49 @@
             </div>
 
 
-            <p class="welcome-message" data-it="Benvenuto da Skalette Bistrò! " data-en=" Welcome to Skalette Bistrò!"
+            <p class="welcome-message translatable" data-it="Benvenuto da Skalette Bistrò! " data-en=" Welcome to Skalette Bistrò!"
                 data-es="¡Bienvenido a Skalette Bistrò! " data-fr="Bienvenue au Skalette Bistrò!"
                 data-de="Willkommen im Skalette Bistrò!" data-ru="Добро пожаловать в Skalette Bistrò!">
                 Benvenuto da Skalette Bistrò!
             </p>
 
-            <h1 class="main-title" data-it="Esplora il Menu" data-en="Explore the Menu" data-es="Explora el Menú"
+            <h1 class="main-title translatable" data-it="Esplora il Menu" data-en="Explore the Menu" data-es="Explora el Menú"
                 data-fr="Explorez le Menu" data-de="Entdecken Sie die Speisekarte" data-ru="Изучите меню">Esplora il
                 Menu</h1>
         </header>
 
         <main id="menu-container">
             <div id="language-dropdown">
-                <button id="current-lang-btn" aria-expanded="false" data-lang="">
-                    <span class="arrow">^</span>
-                </button>
-                <div id="lang-options">
-                    <button class="lang-btn" data-lang="it"><img src="flags/it.png" alt="Bandiera Italiana"
-                            class="flag-icon"> IT</button>
-                    <button class="lang-btn" data-lang="en"><img src="flags/gb.png" alt="Bandiera Britannica"
-                            class="flag-icon"> EN</button>
-                    <button class="lang-btn" data-lang="es"><img src="flags/es.png" alt="Bandiera Spagnola"
-                            class="flag-icon"> ES</button>
-                    <button class="lang-btn" data-lang="fr"><img src="flags/fr.png" alt="Bandiera Francese"
-                            class="flag-icon"> FR</button>
-                    <button class="lang-btn" data-lang="de"><img src="flags/de.png" alt="Bandiera Tedesca"
-                            class="flag-icon"> DE</button>
-                    <button class="lang-btn" data-lang="ru"><img src="flags/ru.png" alt="Bandiera Russa"
-                            class="flag-icon"> RU</button>
+                <div class="dropdown-inner">
+                    <button id="current-lang-btn" aria-expanded="false" data-lang="">
+                        <span class="arrow">^</span>
+                    </button>
+
+
+
+                    <div id="lang-options">
+                        <button class="lang-btn" data-lang="it">
+                            <img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT
+                        </button>
+                        <button class="lang-btn" data-lang="en">
+                            <img src="flags/gb.png" alt="Bandiera Britannica" class="flag-icon"> EN
+                        </button>
+                        <button class="lang-btn" data-lang="es">
+                            <img src="flags/es.png" alt="Bandiera Spagnola" class="flag-icon"> ES
+                        </button>
+                        <button class="lang-btn" data-lang="fr">
+                            <img src="flags/fr.png" alt="Bandiera Francese" class="flag-icon"> FR
+                        </button>
+                        <button class="lang-btn" data-lang="de">
+                            <img src="flags/de.png" alt="Bandiera Tedesca" class="flag-icon"> DE
+                        </button>
+                        <button class="lang-btn" data-lang="ru">
+                            <img src="flags/ru.png" alt="Bandiera Russa" class="flag-icon"> RU
+                        </button>
+                    </div>
                 </div>
-            </div>
         </main>
+
 
         <!-- ✅ I bottoni ora sono dentro il contenitore principale -->
         <div id="main-buttons-grid">
@@ -89,10 +100,10 @@
                 data-fr="De la Cuisine & Desserts" data-de="Aus der Küche & Desserts" data-ru="Из кухни и десерты">Dalla
                 Cucina & Dolci</button>
 
-            <div id="booking-button-container ">
-                <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button translatable"
-                    data-it="Prenota un Tavolo" data-en="Book a Table" data-es="Reserva una Mesa"
-                    data-fr="Réserver une Table" data-de="Tisch Reservieren" data-ru="Забронировать столик">
+            <div id="booking-button-container">
+                <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button" data-it="Prenota un Tavolo"
+                    data-en="Book a Table" data-es="Reservar una Mesa" data-fr="Réserver une Table"
+                    data-de="Tisch reservieren" data-ru="Забронировать столик">
                     <img src="icona-wa.svg" alt="WhatsApp Logo" class="whatsapp-icon-img">
                     Prenota un Tavolo
                 </a>
@@ -100,14 +111,15 @@
 
             <div id="review-button-container">
                 <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero"
-                    target="_blank" class="whatsapp-button translatable" data-it="Raccontaci la tua esperienza"
-                    data-en="Share Your Experience" data-es="Cuéntanos tu experiencia"
-                    data-fr="Partagez votre expérience" data-de="Erzählen Sie uns Ihre Erfahrung"
-                    data-ru="Расскажите о вашем опыте">
+                    target="_blank" class="review-button" data-it="Raccontaci la tua esperienza"
+                    data-en="Share your experience" data-es="Cuéntanos tu experiencia"
+                    data-fr="Partagez votre expérience" data-de="Erzählen Sie uns von Ihrer Erfahrung"
+                    data-ru="Расскажите о своем опыте">
                     <span class="review-icon" aria-hidden="true">⭐</span>
                     Raccontaci la tua esperienza
                 </a>
             </div>
+
 
             <div id="instagram-button-container">
                 <a href="https://www.instagram.com/skalette_bistro" target="_blank" class="instagram-button">
@@ -1407,7 +1419,7 @@
 
             <div id="review-button-container">
                 <a href="https://search.google.com/local/writereview?placeid=ChIJj0jPYvpff0cRdWqzOqvgero"
-                    target="_blank" class="whatsapp-button review-button" data-it="Raccontaci la tua esperienza"
+                    target="_blank" class="review-button" data-it="Raccontaci la tua esperienza"
                     data-en="Share your experience" data-es="Cuéntanos tu experiencia"
                     data-fr="Partagez votre expérience" data-de="Erzählen Sie uns von Ihrer Erfahrung"
                     data-ru="Расскажите о своем опыте">
@@ -1416,10 +1428,15 @@
                 </a>
             </div>
 
-            <div id="instagram-button-container">
+           <div id="instagram-button-container">
                 <a href="https://www.instagram.com/skalette_bistro" target="_blank" class="instagram-button">
                     <img src="instagram.svg" alt="Instagram Logo" class="instagram-icon">
-                    <span class="instagram-text">Seguici su Instagram</span>
+                    <span class="instagram-text translatable" data-it="Seguici su Instagram"
+                        data-en="Follow us on Instagram" data-fr="Suivez-nous sur Instagram"
+                        data-de="Folgen Sie uns auf Instagram" data-es="Síguenos en Instagram"
+                        data-ru="Подпишитесь на нас в Instagram">
+                        Seguici su Instagram
+                    </span>
                 </a>
             </div>
 
@@ -1467,132 +1484,70 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // 1. Definisci le lingue supportate dal tuo sito
-            const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
-            const fallbackLang = 'it'; // Lingua da usare se non c'è corrispondenza
+document.addEventListener("DOMContentLoaded", function () {
+  const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
+  const fallbackLang = 'it';
 
-            const savedLang = localStorage.getItem("preferredLang");
+  // 🔁 Determina la lingua iniziale
+  const savedLang = localStorage.getItem("preferredLang");
+  let browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
+  if (!supportedLangs.includes(browserLang)) browserLang = fallbackLang;
 
-            // Estrai la lingua del browser (es. 'it', 'en', ecc.)
-            const browserLang = navigator.language.slice(0, 2).toLowerCase();
+  const initialLang = savedLang && supportedLangs.includes(savedLang) ? savedLang : browserLang;
+  let activeLang = initialLang;
 
-            let initialLang = fallbackLang;
+  const currentLangBtn = document.getElementById("current-lang-btn");
+  const langOptions = document.getElementById("lang-options");
+  const langButtons = document.querySelectorAll(".lang-btn");
 
-            // LOGICA DI INIZIALIZZAZIONE: 
-            if (savedLang && supportedLangs.includes(savedLang)) {
-                // Priorità 1: Lingua salvata in localStorage
-                initialLang = savedLang;
-            } else if (supportedLangs.includes(browserLang)) {
-                // Priorità 2: Lingua del browser (se supportata)
-                initialLang = browserLang;
-            }
+  if (!currentLangBtn || !langOptions) return;
 
-            let activeLang = initialLang;
+  // 🔁 INIZIALIZZAZIONE E REGISTRAZIONE EVENTI (Blocco finale robusto)
 
-            const currentLangBtn = document.getElementById("current-lang-btn");
-            const langOptions = document.getElementById("lang-options");
-            const langButtons = document.querySelectorAll(".lang-btn");
-            const arrow = currentLangBtn?.querySelector(".arrow");
+try {
+    // 1. Applica la lingua al contenuto della pagina
+    applyLanguage(activeLang);
+    
+    // 2. Aggiorna e pulisci il pulsante lingua. 
+    updateCurrentFlag(activeLang);
+    
+    // 3. Assicura che il menu sia chiuso all'avvio
+    closeDropdown();
 
-            // Se non trovi il selettore, esci per evitare errori
-            if (!currentLangBtn || !langOptions || !arrow) return;
+} catch (e) {
+    // Se c'è un errore fatale nel DOM (es. pulizia imperfetta), lo cattura e lo ignora, 
+    // permettendo la registrazione dei listener.
+    console.error("Errore fatale in fase di inizializzazione del DOM (Menu Lingua bloccato, ma i listener verranno registrati:", e);
+}
 
-            // --- FUNZIONI DI GESTIONE ---
 
-            function applyLanguage(lang) {
-                const elements = document.querySelectorAll(".translatable");
-                elements.forEach(el => {
-                    const text = el.dataset[lang];
-                    if (text) el.textContent = text;
+// 🔁 Toggle menu (DEVE essere fuori dal try/catch per assicurare la registrazione)
+currentLangBtn.addEventListener('click', () => {
+    const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
+    isExpanded ? closeDropdown() : openDropdown();
+});
 
-                    const placeholder = el.dataset[`placeholder${lang}`];
-                    if (placeholder) el.setAttribute("placeholder", placeholder);
+// 🔁 Cambio lingua (DEVE essere fuori dal try/catch per assicurare la registrazione)
+langButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const selectedLang = btn.dataset.lang;
+      if (selectedLang !== activeLang) {
+        localStorage.setItem("preferredLang", selectedLang);
+        applyLanguage(selectedLang);
+        updateCurrentFlag(selectedLang);
+      }
+      closeDropdown();
+    });
+});
+});
+</script>
 
-                    const title = el.dataset[`title${lang}`];
-                    if (title) el.setAttribute("title", title);
 
-                    const alt = el.dataset[`alt${lang}`];
-                    if (alt) el.setAttribute("alt", alt);
-                });
-            }
 
-            function updateCurrentFlag(lang) {
-                // 2. Rimuovi la logica di pulizia che era necessaria prima. 
-                //    Ora ci affidiamo all'aggiornamento dei nodi esistenti.
 
-                currentLangBtn.setAttribute("data-lang", lang);
 
-                const flagImg = currentLangBtn.querySelector("img");
-                if (flagImg) {
-                    // Modificato 'gb' in 'en' se hai usato 'gb.png' come file per l'inglese
-                    const flagCode = lang === 'en' ? 'gb' : lang;
-                    flagImg.src = `flags/${flagCode}.png`;
-                    flagImg.alt = `Bandiera ${lang.toUpperCase()}`;
-                }
 
-                const langCodeSpan = currentLangBtn.querySelector(".lang-code");
-                if (langCodeSpan) {
-                    langCodeSpan.textContent = lang.toUpperCase();
-                }
 
-                // Aggiorna stato dei bottoni nel dropdown
-                langButtons.forEach(btn => {
-                    const isActive = btn.dataset.lang === lang;
-                    btn.disabled = isActive;
-                    btn.classList.toggle("active-lang", isActive);
-                    btn.style.display = "inline-block";
-                });
-            }
-
-            function closeDropdown() {
-                currentLangBtn.setAttribute('aria-expanded', 'false');
-                langOptions.style.display = 'none';
-                arrow.style.transform = 'rotate(0deg)';
-            }
-
-            function openDropdown() {
-                currentLangBtn.setAttribute('aria-expanded', 'true');
-                langOptions.style.display = 'flex'; // o 'block' a seconda del tuo CSS
-                arrow.style.transform = 'rotate(180deg)';
-            }
-
-            // --- APPLICAZIONE INIZIALE ---
-            applyLanguage(activeLang);
-            updateCurrentFlag(activeLang);
-
-            // --- GESTIONE INTERAZIONE ---
-
-            // Dropdown Toggle
-            currentLangBtn.addEventListener('click', () => {
-                const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-                if (isExpanded) {
-                    closeDropdown();
-                } else {
-                    openDropdown();
-                }
-            });
-
-            // Selezione manuale
-            langButtons.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const selectedLang = btn.dataset.lang;
-                    if (selectedLang === activeLang) {
-                        closeDropdown();
-                        return;
-                    }
-
-                    activeLang = selectedLang;
-                    localStorage.setItem("preferredLang", selectedLang);
-
-                    applyLanguage(selectedLang);
-                    updateCurrentFlag(selectedLang);
-
-                    closeDropdown(); // Chiudi il menu dopo la selezione
-                });
-            });
-        });
-    </script>
 
 
 

@@ -158,12 +158,27 @@ header {
 }
 
 /* SELETTORE LINGUA (DROPDOWN) */
+
 #language-dropdown {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
 }
+
+#lang-options {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+}
+
 
 #current-lang-btn {
     display: flex;
@@ -177,6 +192,9 @@ header {
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* 🚀 CORREZIONE FONDAMENTALE */
+    position: relative; 
+    z-index: 1; /* Assicuriamo che stia sopra il dropdown interno */
 }
 
 .flag-icon {
@@ -192,18 +210,8 @@ header {
     transition: transform 0.3s;
 }
 
-#lang-options {
-    position: absolute;
-    bottom: 100%; 
-    right: 0;
-    display: none; 
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+
+
 
 #lang-options .lang-btn {
     background: none;
@@ -221,6 +229,11 @@ header {
 #lang-options .lang-btn:hover {
     background-color: #eee;
 }
+
+.dropdown-inner {
+  position: relative;
+}
+
 
 /* ========================================================== */
 /* CONTENUTI MENU */
@@ -365,6 +378,8 @@ header {
     align-items: center;
     text-decoration: none;
     padding: 12px 25px;
+    margin: 0 auto;
+
     
     width: 70%; 
     max-width: 350px; 
@@ -396,6 +411,29 @@ header {
     margin-right: 10px; 
     vertical-align: middle; 
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); 
+}
+
+ .review-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px 25px;
+    
+    width: 70%; 
+    max-width: 350px; 
+    justify-content: center; 
+    
+    /* Stile semitrasparente */
+    background-color: rgba(255, 255, 255, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #f0f0f0;
+    border-radius: 50px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s, transform 0.2s;
+    
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 
