@@ -105,7 +105,6 @@ header {
     padding: 0;
     box-sizing: border-box;
     margin-top: 0; 
-    height: 100%;
 }
 
 /* ========================================================== */
@@ -513,46 +512,3 @@ footer {
     pointer-events: none;
 }
 
-/* Stile per la copertina */
-.cover-page-style {
-    /* La copertina rimane ABSOLUTE perché deve sempre stare in cima ed è un caso d'uso fisso */
-    z-index: 20; 
-    background-color: white; 
-    /* RIMOSSO: text-align: center; */
-    padding: 50px 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    
-    /* Assicura che la copertina usi gli stili di animazione e posizionamento */
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Altezza fissa del 100% per coprire l'altezza del menu-container */
-    height: 100%; 
-    /* Altezza minima per la responsività su mobile */
-    min-height: 70vh; 
-    
-    /* AGGIUNTO: Centra il contenuto (logo e titolo) all'interno della copertina */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra orizzontalmente */
-    justify-content: center; /* Centra verticalmente */
-}
-
-
-.cover-logo {
-    max-width: 80%;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-.cover-title {
-    font-size: 2.5em;
-    color: #333;
-}
-
-/* Classe di rotazione (Già presente nel tuo CSS) */
-.menu-section.turn-out {
-    transform: rotateY(-90deg);
-    opacity: 0.5;
-}
