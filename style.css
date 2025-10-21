@@ -532,8 +532,7 @@ footer {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     position: relative;
     transform-style: preserve-3d;
-    
-    transition: transform 3.0s ease-out; /* <-- DURATA FORZATA SOLO PER LA COPERTINA */
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
 }
 
 /* L'overlay testuale non è più necessario */
