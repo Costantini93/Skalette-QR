@@ -138,9 +138,17 @@
 
         </div>
 
+        <section id="cover-page" class="menu-section cover-page-style" style="display: none;">
+            <div class="cover-content">
+                <img src="logo.png" alt="Il Nostro Logo" class="cover-logo">
+
+                <h1 class="cover-title">Il Nostro Menu</h1>
+            </div>
+        </section>
+
 
         <section id="colazioni" class="menu-section">
-            
+
             <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="Caffetteria" data-en="Coffee Shop" data-es="Cafetería"
                 data-fr="Caféterie" data-de="Kaffee" data-ru="Кофе и напитки">Caffetteria</h2>
@@ -1126,7 +1134,7 @@
 
         <section id="cucina-dolci" class="menu-section">
             <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
-            
+
             <h2 class="category-title translatable" data-it="I Nostri Piatti" data-en="Our Dishes"
                 data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I Nostri
                 Piatti</h2>
@@ -1556,170 +1564,204 @@
         });
     </script>
 
-   <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Variabili e Selettori
-    
-    // 📌 CORREZIONE 1: Seleziona solo i pulsanti di categoria (escludendo il pulsante Home)
-    const buttons = document.querySelectorAll('.menu-button:not(#home-page-btn)'); 
-    
-    const sections = document.querySelectorAll('.menu-section');
-    const mainButtonsGrid = document.getElementById('main-buttons-grid'); 
-    
-    // Variabili per il ritorno alla Home e navigazione secondaria
-    const secondaryNav = document.getElementById('secondary-navigation'); 
-    const menuContainer = document.getElementById('menu-container'); 
-    const homePageButton = document.getElementById('home-page-btn'); // OK: Selezionato separatamente
-    
-    // Dichiarazioni di funzioni mancanti (come placeholder)
-    const buildSecondaryNavigation = (targetId) => { /* Logica per la navigazione secondaria */ };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Variabili e Selettori
 
-    // 2. Logica di Navigazione Sequenziale
-    
-    // 📌 CORREZIONE 2: categoryOrder usa i 'buttons' filtrati
-    const categoryOrder = Array.from(buttons) 
-        .map(button => button.getAttribute('data-target'))
-        .filter(id => id);
+            // Seleziona solo i pulsanti di categoria (escludendo il pulsante Home)
+            const buttons = document.querySelectorAll('.menu-button:not(#home-page-btn)');
 
-    const getNextCategory = (currentId) => {
-        const currentIndex = categoryOrder.indexOf(currentId);
-        if (currentIndex === -1) return null;
-        return categoryOrder[(currentIndex + 1) % categoryOrder.length];
-    };
+            const sections = document.querySelectorAll('.menu-section');
+            const mainButtonsGrid = document.getElementById('main-buttons-grid');
 
-    const getPrevCategory = (currentId) => {
-        const currentIndex = categoryOrder.indexOf(currentId);
-        if (currentIndex === -1) return null;
-        const prevIndex = (currentIndex - 1 + categoryOrder.length) % categoryOrder.length;
-        return categoryOrder[prevIndex];
-    };
-    
-    // --- FUNZIONE HOME ---
-    
-    // Funzione per tornare alla schermata iniziale (pulsanti categoria)
-    const showHome = () => {
-        // Nascondi tutte le sezioni di dettaglio
-        sections.forEach(section => section.style.display = 'none');
-        
-        // Mostra la griglia dei pulsanti principali
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
-        
-        // Nascondi la navigazione secondaria
-        if (secondaryNav) secondaryNav.style.display = 'none';
-        
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+            // Variabili per il ritorno alla Home e navigazione secondaria
+            const secondaryNav = document.getElementById('secondary-navigation');
+            const menuContainer = document.getElementById('menu-container');
+            const homePageButton = document.getElementById('home-page-btn');
 
-    // --- FUNZIONI DI NAVIGAZIONE E ANIMAZIONE ---
-    
-    // Funzione helper per mostrare la nuova sezione (senza animazione di uscita)
-    const showNewSection = (targetSection, targetId) => {
-        
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+            // 📌 NUOVA VARIABILE: La pagina di copertina
+            const coverPage = document.getElementById('cover-page');
 
-        sections.forEach(section => section.style.display = 'none');
-        
-        if (targetSection) {
-            // Animazione di ingresso
-            targetSection.style.opacity = '0';
-            targetSection.style.display = 'block';
-            
-            // Imposta l'origine della rotazione per l'animazione di entrata
-            targetSection.style.transformOrigin = 'left center'; 
-            void targetSection.offsetWidth; // Forza il reflow
-            targetSection.style.opacity = '1';
-        }
-        
-        // buildSecondaryNavigation(targetId); 
-        // if (secondaryNav) secondaryNav.style.display = 'block';
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Dichiarazioni di funzioni mancanti (come placeholder)
+            const buildSecondaryNavigation = (targetId) => { /* Logica per la navigazione secondaria */ };
 
-        // Attiva i listener delle frecce per la sezione appena mostrata
-        setupSequentialNav(targetId); 
-    };
-    
-    // La funzione principale che gestisce la navigazione e l'animazione del libro
-    const handleMenuNavigation = (targetId) => {
-        const targetSection = document.getElementById(targetId);
-        const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-        
-        // GESTIONE ANIMAZIONE DI USCITA (Sezione Vecchia)
-        if (currentActiveSection) {
-            
-            currentActiveSection.style.transformOrigin = 'left center';
-            currentActiveSection.classList.add('turn-out'); 
+            // 2. Logica di Navigazione Sequenziale
+            const categoryOrder = Array.from(buttons)
+                .map(button => button.getAttribute('data-target'))
+                .filter(id => id);
 
-            // Dopo la durata dell'animazione CSS (600ms), procedi
-            setTimeout(() => {
-                
-                currentActiveSection.classList.remove('turn-out');
-                currentActiveSection.style.display = 'none';
+            const getNextCategory = (currentId) => {
+                const currentIndex = categoryOrder.indexOf(currentId);
+                if (currentIndex === -1) return null;
+                return categoryOrder[(currentIndex + 1) % categoryOrder.length];
+            };
 
-                // GESTIONE ANIMAZIONE DI ENTRATA (Sezione Nuova)
-                showNewSection(targetSection, targetId);
-                
-            }, 600); 
-            
-        } else {
-            // Se non c'è una sezione attiva (es. dalla Home), vai direttamente
-            showNewSection(targetSection, targetId);
-        }
-    };
-    
-    // Configurazione dei Listener delle Frecce
-    const setupSequentialNav = (currentId) => {
-        const activeSection = document.getElementById(currentId);
-        if (!activeSection) return;
+            const getPrevCategory = (currentId) => {
+                const currentIndex = categoryOrder.indexOf(currentId);
+                if (currentIndex === -1) return null;
+                const prevIndex = (currentIndex - 1 + categoryOrder.length) % categoryOrder.length;
+                return categoryOrder[prevIndex];
+            };
 
-        const navNextButton = activeSection.querySelector('#nav-next');
-        const navPrevButton = activeSection.querySelector('#nav-prev');
+            // --- FUNZIONE HOME ---
 
-        // Listener Avanti
-        if (navNextButton) {
-            navNextButton.onclick = null;
-            navNextButton.onclick = () => {
-                const nextId = getNextCategory(currentId);
-                if (nextId) {
-                    handleMenuNavigation(nextId); 
+            // Funzione per tornare alla schermata iniziale (pulsanti categoria)
+            const showHome = () => {
+                // Nascondi tutte le sezioni di dettaglio (incluse le pagine di menu e la copertina)
+                sections.forEach(section => section.style.display = 'none');
+
+                // Mostra la griglia dei pulsanti principali
+                if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
+
+                // Nascondi la navigazione secondaria
+                if (secondaryNav) secondaryNav.style.display = 'none';
+
+                if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            // --- FUNZIONI DI NAVIGAZIONE E ANIMAZIONE ---
+
+            // Funzione helper per mostrare la nuova sezione (senza animazione di uscita)
+            const showNewSection = (targetSection, targetId) => {
+
+                if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+
+                // Nasconde tutte le sezioni per pulizia
+                sections.forEach(section => section.style.display = 'none');
+
+                if (targetSection) {
+                    // Animazione di ingresso
+                    targetSection.style.opacity = '0';
+                    targetSection.style.display = 'block';
+
+                    // Imposta l'origine della rotazione per l'animazione di entrata
+                    targetSection.style.transformOrigin = 'left center';
+                    void targetSection.offsetWidth; // Forza il reflow
+                    targetSection.style.opacity = '1';
+                }
+
+                // buildSecondaryNavigation(targetId); 
+                // if (secondaryNav) secondaryNav.style.display = 'block';
+                if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Attiva i listener delle frecce per la sezione appena mostrata
+                setupSequentialNav(targetId);
+            };
+
+            // La funzione principale che gestisce la navigazione e l'animazione del libro
+            const handleMenuNavigation = (targetId) => {
+                const targetSection = document.getElementById(targetId);
+                const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
+
+                // 📌 NUOVA LOGICA: NAVIGAZIONE DALLA HOME (Apertura del libro: Home -> Copertina -> Sezione)
+                if (!currentActiveSection && mainButtonsGrid && mainButtonsGrid.style.display !== 'none') {
+
+                    // 1. Nascondi i pulsanti principali
+                    mainButtonsGrid.style.display = 'none';
+
+                    // 2. Mostra la copertina
+                    if (coverPage) {
+                        coverPage.style.display = 'block';
+                        coverPage.style.opacity = '1';
+                        coverPage.style.transform = 'rotateY(0deg)'; // Assicura che sia piatta
+                        coverPage.classList.remove('turn-out'); // Assicura che non sia già ruotata
+                    }
+
+                    // 3. Avvia l'animazione di uscita della copertina dopo un breve ritardo
+                    setTimeout(() => {
+                        if (coverPage) {
+                            // Prepara la rotazione della copertina
+                            coverPage.style.transformOrigin = 'left center';
+                            coverPage.classList.add('turn-out');
+                        }
+
+                        // 4. Dopo l'animazione della copertina (600ms), mostra la sezione target
+                        setTimeout(() => {
+                            if (coverPage) {
+                                coverPage.classList.remove('turn-out');
+                                coverPage.style.display = 'none';
+                            }
+                            // 5. Mostra la sezione di destinazione (la prima pagina del menu)
+                            showNewSection(targetSection, targetId);
+
+                        }, 600); // Durata dell'animazione CSS
+
+                    }, 100); // Breve ritardo per vedere la copertina
+
+                }
+                // LOGICA ESISTENTE: NAVIGAZIONE INTERNA (Sezione -> Sezione)
+                else if (currentActiveSection) {
+
+                    // Logica standard di animazione "libro che gira"
+                    currentActiveSection.style.transformOrigin = 'left center';
+                    currentActiveSection.classList.add('turn-out');
+
+                    setTimeout(() => {
+                        currentActiveSection.classList.remove('turn-out');
+                        currentActiveSection.style.display = 'none';
+                        showNewSection(targetSection, targetId);
+                    }, 600);
+
+                } else {
+                    // Fallback (dovrebbe avvenire solo se la logica sopra è saltata)
+                    showNewSection(targetSection, targetId);
                 }
             };
-        }
 
-        // Listener Indietro
-        if (navPrevButton) {
-            navPrevButton.onclick = null;
-            navPrevButton.onclick = () => {
-                const prevId = getPrevCategory(currentId);
-                if (prevId) {
-                    handleMenuNavigation(prevId); 
+            // Configurazione dei Listener delle Frecce
+            const setupSequentialNav = (currentId) => {
+                const activeSection = document.getElementById(currentId);
+                if (!activeSection) return;
+
+                const navNextButton = activeSection.querySelector('#nav-next');
+                const navPrevButton = activeSection.querySelector('#nav-prev');
+
+                // Listener Avanti
+                if (navNextButton) {
+                    navNextButton.onclick = null;
+                    navNextButton.onclick = () => {
+                        const nextId = getNextCategory(currentId);
+                        if (nextId) {
+                            handleMenuNavigation(nextId);
+                        }
+                    };
+                }
+
+                // Listener Indietro
+                if (navPrevButton) {
+                    navPrevButton.onclick = null;
+                    navPrevButton.onclick = () => {
+                        const prevId = getPrevCategory(currentId);
+                        if (prevId) {
+                            handleMenuNavigation(prevId);
+                        }
+                    };
                 }
             };
-        }
-    };
-    
-    // --- INIZIALIZZAZIONE LISTENER ---
-    
-    // Listener sui pulsanti principali (SOLO categorie)
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
-            handleMenuNavigation(targetId); 
+
+            // --- INIZIALIZZAZIONE LISTENER ---
+
+            // Listener sui pulsanti principali (SOLO categorie)
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    handleMenuNavigation(targetId);
+                });
+            });
+
+            // Listener per il pulsante HOME
+            if (homePageButton) {
+                homePageButton.addEventListener('click', showHome);
+            }
+
+            // Mostra la Home o la prima sezione all'avvio
+            if (mainButtonsGrid) {
+                showHome();
+            } else if (sections.length > 0) {
+                showNewSection(sections[0], sections[0].id);
+            }
         });
-    });
-    
-    // 🎯 Listener per il pulsante HOME (Non ha conflitti)
-    if (homePageButton) {
-        homePageButton.addEventListener('click', showHome);
-    }
-
-    // Mostra la Home o la prima sezione all'avvio
-    if (mainButtonsGrid) {
-        showHome(); // Chiama showHome all'inizio per mostrare la griglia di default
-    } else if (sections.length > 0) {
-        showNewSection(sections[0], sections[0].id); 
-    }
-});
-</script>
+    </script>
 
 
 
