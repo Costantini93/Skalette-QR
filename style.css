@@ -512,3 +512,31 @@ footer {
     pointer-events: none;
 }
 
+/* ========================================================== */
+/* STILI COPERTINA (Cover Page) */
+/* ========================================================== */
+
+#cover-page {
+    display: none; /* Inizialmente nascosto, JS lo mostra */
+    width: 100%;
+    min-height: 75vh; /* Altezza minima per visualizzare l'immagine */
+    background-color: #222; /* Fallback se l'immagine non carica */
+    
+    /* Imposta l'immagine completa come sfondo */
+    background-image: url('copertina.png');
+    background-size: cover; /* Adatta l'immagine coprendo tutto lo spazio */
+    background-position: center;
+    
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform-style: preserve-3d;
+    
+    transition: transform 3.0s ease-out; /* <-- DURATA FORZATA SOLO PER LA COPERTINA */
+}
+
+/* L'overlay testuale non è più necessario */
+.cover-overlay {
+    display: none; 
+}
