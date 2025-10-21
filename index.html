@@ -30,14 +30,16 @@
             </div>
 
 
-            <p class="welcome-message translatable" data-it="Benvenuto da Skalette Bistrò! " data-en=" Welcome to Skalette Bistrò!"
-                data-es="¡Bienvenido a Skalette Bistrò! " data-fr="Bienvenue au Skalette Bistrò!"
-                data-de="Willkommen im Skalette Bistrò!" data-ru="Добро пожаловать в Skalette Bistrò!">
+            <p class="welcome-message translatable" data-it="Benvenuto da Skalette Bistrò! "
+                data-en=" Welcome to Skalette Bistrò!" data-es="¡Bienvenido a Skalette Bistrò! "
+                data-fr="Bienvenue au Skalette Bistrò!" data-de="Willkommen im Skalette Bistrò!"
+                data-ru="Добро пожаловать в Skalette Bistrò!">
                 Benvenuto da Skalette Bistrò!
             </p>
 
-            <h1 class="main-title translatable" data-it="Esplora il Menu" data-en="Explore the Menu" data-es="Explora el Menú"
-                data-fr="Explorez le Menu" data-de="Entdecken Sie die Speisekarte" data-ru="Изучите меню">Esplora il
+            <h1 class="main-title translatable" data-it="Esplora il Menu" data-en="Explore the Menu"
+                data-es="Explora el Menú" data-fr="Explorez le Menu" data-de="Entdecken Sie die Speisekarte"
+                data-ru="Изучите меню">Esplora il
                 Menu</h1>
         </header>
 
@@ -138,6 +140,8 @@
 
 
         <section id="colazioni" class="menu-section">
+            
+            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="Caffetteria" data-en="Coffee Shop" data-es="Cafetería"
                 data-fr="Caféterie" data-de="Kaffee" data-ru="Кофе и напитки">Caffetteria</h2>
 
@@ -404,6 +408,8 @@
         </section>
 
         <section id="bevande" class="menu-section">
+            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="Bevande Analcoliche" data-en="Non-Alcoholic Drinks"
                 data-es="Bebidas sin Alcohol" data-fr="Boissons sans Alcool" data-de="Alkoholfreie Getränke"
                 data-ru="Безалкогольные напитки">Bevande Analcoliche</h2>
@@ -558,6 +564,8 @@
         </section>
 
         <section id="aperitivi" class="menu-section">
+            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="Aperitivi & Birre" data-en="Aperitifs & Beers"
                 data-es="Aperitivos & Cervezas" data-fr="Apéritifs & Bières" data-de="Aperitifs & Biere"
                 data-ru="Аперитивы и пиво">Aperitivi & Birre</h2>
@@ -735,6 +743,8 @@
         </section>
 
         <section id="vini" class="menu-section">
+            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="Vini Bianchi e Rosé" data-en="White and Rosé Wines"
                 data-es="Vinos Blancos y Rosados" data-fr="Vins Blancs et Rosés" data-de="Weiß- und Roséweine"
                 data-ru="Белые и розовые вина">Vini Bianchi e Rosé</h2>
@@ -1002,6 +1012,8 @@
         </section>
 
         <section id="snacks" class="menu-section">
+            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
             <h2 class="category-title translatable" data-it="La nostra gastronomia" data-en="Our Gastronomy"
                 data-es="Nuestra Gastronomía" data-fr="Notre Gastronomie" data-de="Unsere Gastronomie"
                 data-ru="Наша гастрономия">La nostra gastronomia</h2>
@@ -1113,6 +1125,8 @@
 
 
         <section id="cucina-dolci" class="menu-section">
+            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            
             <h2 class="category-title translatable" data-it="I Nostri Piatti" data-en="Our Dishes"
                 data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I Nostri
                 Piatti</h2>
@@ -1428,7 +1442,7 @@
                 </a>
             </div>
 
-           <div id="instagram-button-container">
+            <div id="instagram-button-container">
                 <a href="https://www.instagram.com/skalette_bistro" target="_blank" class="instagram-button">
                     <img src="instagram.svg" alt="Instagram Logo" class="instagram-icon">
                     <span class="instagram-text translatable" data-it="Seguici su Instagram"
@@ -1484,63 +1498,229 @@
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
-  const fallbackLang = 'it';
+        document.addEventListener("DOMContentLoaded", function () {
+            const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
+            const fallbackLang = 'it';
 
-  // 🔁 Determina la lingua iniziale
-  const savedLang = localStorage.getItem("preferredLang");
-  let browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
-  if (!supportedLangs.includes(browserLang)) browserLang = fallbackLang;
+            // 🔁 Determina la lingua iniziale
+            const savedLang = localStorage.getItem("preferredLang");
+            let browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
+            if (!supportedLangs.includes(browserLang)) browserLang = fallbackLang;
 
-  const initialLang = savedLang && supportedLangs.includes(savedLang) ? savedLang : browserLang;
-  let activeLang = initialLang;
+            const initialLang = savedLang && supportedLangs.includes(savedLang) ? savedLang : browserLang;
+            let activeLang = initialLang;
 
-  const currentLangBtn = document.getElementById("current-lang-btn");
-  const langOptions = document.getElementById("lang-options");
-  const langButtons = document.querySelectorAll(".lang-btn");
+            const currentLangBtn = document.getElementById("current-lang-btn");
+            const langOptions = document.getElementById("lang-options");
+            const langButtons = document.querySelectorAll(".lang-btn");
 
-  if (!currentLangBtn || !langOptions) return;
+            if (!currentLangBtn || !langOptions) return;
 
-  // 🔁 INIZIALIZZAZIONE E REGISTRAZIONE EVENTI (Blocco finale robusto)
+            // 🔁 INIZIALIZZAZIONE E REGISTRAZIONE EVENTI (Blocco finale robusto)
 
-try {
-    // 1. Applica la lingua al contenuto della pagina
-    applyLanguage(activeLang);
+            try {
+                // 1. Applica la lingua al contenuto della pagina
+                applyLanguage(activeLang);
+
+                // 2. Aggiorna e pulisci il pulsante lingua. 
+                updateCurrentFlag(activeLang);
+
+                // 3. Assicura che il menu sia chiuso all'avvio
+                closeDropdown();
+
+            } catch (e) {
+                // Se c'è un errore fatale nel DOM (es. pulizia imperfetta), lo cattura e lo ignora, 
+                // permettendo la registrazione dei listener.
+                console.error("Errore fatale in fase di inizializzazione del DOM (Menu Lingua bloccato, ma i listener verranno registrati:", e);
+            }
+
+
+            // 🔁 Toggle menu (DEVE essere fuori dal try/catch per assicurare la registrazione)
+            currentLangBtn.addEventListener('click', () => {
+                const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
+                isExpanded ? closeDropdown() : openDropdown();
+            });
+
+            // 🔁 Cambio lingua (DEVE essere fuori dal try/catch per assicurare la registrazione)
+            langButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const selectedLang = btn.dataset.lang;
+                    if (selectedLang !== activeLang) {
+                        localStorage.setItem("preferredLang", selectedLang);
+                        applyLanguage(selectedLang);
+                        updateCurrentFlag(selectedLang);
+                    }
+                    closeDropdown();
+                });
+            });
+        });
+    </script>
+
+   <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Variabili e Selettori
     
-    // 2. Aggiorna e pulisci il pulsante lingua. 
-    updateCurrentFlag(activeLang);
+    // 📌 CORREZIONE 1: Seleziona solo i pulsanti di categoria (escludendo il pulsante Home)
+    const buttons = document.querySelectorAll('.menu-button:not(#home-page-btn)'); 
     
-    // 3. Assicura che il menu sia chiuso all'avvio
-    closeDropdown();
+    const sections = document.querySelectorAll('.menu-section');
+    const mainButtonsGrid = document.getElementById('main-buttons-grid'); 
+    
+    // Variabili per il ritorno alla Home e navigazione secondaria
+    const secondaryNav = document.getElementById('secondary-navigation'); 
+    const menuContainer = document.getElementById('menu-container'); 
+    const homePageButton = document.getElementById('home-page-btn'); // OK: Selezionato separatamente
+    
+    // Dichiarazioni di funzioni mancanti (come placeholder)
+    const buildSecondaryNavigation = (targetId) => { /* Logica per la navigazione secondaria */ };
 
-} catch (e) {
-    // Se c'è un errore fatale nel DOM (es. pulizia imperfetta), lo cattura e lo ignora, 
-    // permettendo la registrazione dei listener.
-    console.error("Errore fatale in fase di inizializzazione del DOM (Menu Lingua bloccato, ma i listener verranno registrati:", e);
-}
+    // 2. Logica di Navigazione Sequenziale
+    
+    // 📌 CORREZIONE 2: categoryOrder usa i 'buttons' filtrati
+    const categoryOrder = Array.from(buttons) 
+        .map(button => button.getAttribute('data-target'))
+        .filter(id => id);
 
+    const getNextCategory = (currentId) => {
+        const currentIndex = categoryOrder.indexOf(currentId);
+        if (currentIndex === -1) return null;
+        return categoryOrder[(currentIndex + 1) % categoryOrder.length];
+    };
 
-// 🔁 Toggle menu (DEVE essere fuori dal try/catch per assicurare la registrazione)
-currentLangBtn.addEventListener('click', () => {
-    const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-    isExpanded ? closeDropdown() : openDropdown();
-});
+    const getPrevCategory = (currentId) => {
+        const currentIndex = categoryOrder.indexOf(currentId);
+        if (currentIndex === -1) return null;
+        const prevIndex = (currentIndex - 1 + categoryOrder.length) % categoryOrder.length;
+        return categoryOrder[prevIndex];
+    };
+    
+    // --- FUNZIONE HOME ---
+    
+    // Funzione per tornare alla schermata iniziale (pulsanti categoria)
+    const showHome = () => {
+        // Nascondi tutte le sezioni di dettaglio
+        sections.forEach(section => section.style.display = 'none');
+        
+        // Mostra la griglia dei pulsanti principali
+        if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
+        
+        // Nascondi la navigazione secondaria
+        if (secondaryNav) secondaryNav.style.display = 'none';
+        
+        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 
-// 🔁 Cambio lingua (DEVE essere fuori dal try/catch per assicurare la registrazione)
-langButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const selectedLang = btn.dataset.lang;
-      if (selectedLang !== activeLang) {
-        localStorage.setItem("preferredLang", selectedLang);
-        applyLanguage(selectedLang);
-        updateCurrentFlag(selectedLang);
-      }
-      closeDropdown();
+    // --- FUNZIONI DI NAVIGAZIONE E ANIMAZIONE ---
+    
+    // Funzione helper per mostrare la nuova sezione (senza animazione di uscita)
+    const showNewSection = (targetSection, targetId) => {
+        
+        if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+
+        sections.forEach(section => section.style.display = 'none');
+        
+        if (targetSection) {
+            // Animazione di ingresso
+            targetSection.style.opacity = '0';
+            targetSection.style.display = 'block';
+            
+            // Imposta l'origine della rotazione per l'animazione di entrata
+            targetSection.style.transformOrigin = 'left center'; 
+            void targetSection.offsetWidth; // Forza il reflow
+            targetSection.style.opacity = '1';
+        }
+        
+        // buildSecondaryNavigation(targetId); 
+        // if (secondaryNav) secondaryNav.style.display = 'block';
+        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Attiva i listener delle frecce per la sezione appena mostrata
+        setupSequentialNav(targetId); 
+    };
+    
+    // La funzione principale che gestisce la navigazione e l'animazione del libro
+    const handleMenuNavigation = (targetId) => {
+        const targetSection = document.getElementById(targetId);
+        const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
+        
+        // GESTIONE ANIMAZIONE DI USCITA (Sezione Vecchia)
+        if (currentActiveSection) {
+            
+            currentActiveSection.style.transformOrigin = 'left center';
+            currentActiveSection.classList.add('turn-out'); 
+
+            // Dopo la durata dell'animazione CSS (600ms), procedi
+            setTimeout(() => {
+                
+                currentActiveSection.classList.remove('turn-out');
+                currentActiveSection.style.display = 'none';
+
+                // GESTIONE ANIMAZIONE DI ENTRATA (Sezione Nuova)
+                showNewSection(targetSection, targetId);
+                
+            }, 600); 
+            
+        } else {
+            // Se non c'è una sezione attiva (es. dalla Home), vai direttamente
+            showNewSection(targetSection, targetId);
+        }
+    };
+    
+    // Configurazione dei Listener delle Frecce
+    const setupSequentialNav = (currentId) => {
+        const activeSection = document.getElementById(currentId);
+        if (!activeSection) return;
+
+        const navNextButton = activeSection.querySelector('#nav-next');
+        const navPrevButton = activeSection.querySelector('#nav-prev');
+
+        // Listener Avanti
+        if (navNextButton) {
+            navNextButton.onclick = null;
+            navNextButton.onclick = () => {
+                const nextId = getNextCategory(currentId);
+                if (nextId) {
+                    handleMenuNavigation(nextId); 
+                }
+            };
+        }
+
+        // Listener Indietro
+        if (navPrevButton) {
+            navPrevButton.onclick = null;
+            navPrevButton.onclick = () => {
+                const prevId = getPrevCategory(currentId);
+                if (prevId) {
+                    handleMenuNavigation(prevId); 
+                }
+            };
+        }
+    };
+    
+    // --- INIZIALIZZAZIONE LISTENER ---
+    
+    // Listener sui pulsanti principali (SOLO categorie)
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+            handleMenuNavigation(targetId); 
+        });
     });
-});
+    
+    // 🎯 Listener per il pulsante HOME (Non ha conflitti)
+    if (homePageButton) {
+        homePageButton.addEventListener('click', showHome);
+    }
+
+    // Mostra la Home o la prima sezione all'avvio
+    if (mainButtonsGrid) {
+        showHome(); // Chiama showHome all'inizio per mostrare la griglia di default
+    } else if (sections.length > 0) {
+        showNewSection(sections[0], sections[0].id); 
+    }
 });
 </script>
+
 
 
 

@@ -149,56 +149,64 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-   const handleMenuNavigation = (targetId) => {
-        const targetSection = document.getElementById(targetId);
-        const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-        
-        // 1. GESTIONE ANIMAZIONE DI USCITA
-        if (currentActiveSection) {
-            
-            // Applica la classe di rotazione per far chiudere la pagina (animazione 0.6s)
-            currentActiveSection.classList.add('turn-out'); 
-
-            // Dopo la durata dell'animazione, procedi con il cambio effettivo
-            setTimeout(() => {
-                
-                // Rimuovi la classe e nascondi la sezione vecchia
-                currentActiveSection.classList.remove('turn-out');
-                currentActiveSection.style.display = 'none';
-
-                // 2. GESTIONE ANIMAZIONE DI ENTRATA (Sezione Nuova)
-                showNewSection(targetSection, targetId);
-                
-            }, 600); // Durata dell'animazione CSS in millisecondi
-            
-        } else {
-            // Se non c'è una sezione attiva (es. dalla Home), vai direttamente
-            showNewSection(targetSection, targetId);
-        }
-    };
+   // La funzione principale che gestisce la navigazione e l'animazione
+const handleMenuNavigation = (targetId) => {
+    const targetSection = document.getElementById(targetId);
+    const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
     
-    // Funzione helper per evitare codice duplicato
-    const showNewSection = (targetSection, targetId) => {
+    // 1. GESTIONE ANIMAZIONE DI USCITA (Sezione Vecchia)
+    if (currentActiveSection) {
         
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+        // Forza il perno di rotazione verso sinistra
+        currentActiveSection.style.transformOrigin = 'left center';
+        // Applica la classe di rotazione (deve essere definita nel tuo CSS)
+        currentActiveSection.classList.add('turn-out'); 
 
-        // Nascondi TUTTE le sezioni per pulizia (anche se l'animata è già nascosta)
-        sections.forEach(section => section.style.display = 'none');
-        
-        if (targetSection) {
-            // Animazione di ingresso (il tuo fade-in esistente)
-            targetSection.style.opacity = '0';
-            targetSection.style.display = 'block';
+        // Dopo la durata dell'animazione CSS (es. 600ms), procedi
+        setTimeout(() => {
             
-            // Forza il reflow prima del cambio di opacità
-            void targetSection.offsetWidth; 
-            targetSection.style.opacity = '1';
-        }
+            // Rimuovi la classe e nascondi la sezione vecchia
+            currentActiveSection.classList.remove('turn-out');
+            currentActiveSection.style.display = 'none';
+
+            // 2. GESTIONE ANIMAZIONE DI ENTRATA (Sezione Nuova)
+            showNewSection(targetSection, targetId);
+            
+        }, 600); // 🚨 ASSICURATI che 600ms corrisponda alla durata della tua transizione CSS!
         
-        buildSecondaryNavigation(targetId);
-        if (secondaryNav) secondaryNav.style.display = 'block';
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        // 3. Se non c'è una sezione attiva (es. dalla Home), vai direttamente
+        showNewSection(targetSection, targetId);
     }
+};
+    
+   // Funzione helper per evitare codice duplicato
+const showNewSection = (targetSection, targetId) => {
+    
+    if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+
+    // Nascondi TUTTE le sezioni per pulizia
+    sections.forEach(section => section.style.display = 'none');
+    
+    if (targetSection) {
+        // Animazione di ingresso (il tuo fade-in esistente)
+        targetSection.style.opacity = '0';
+        targetSection.style.display = 'block';
+        
+        // Imposta l'origine della rotazione per l'animazione di entrata
+        targetSection.style.transformOrigin = 'left center'; 
+        // Forza il reflow e imposta l'opacità
+        void targetSection.offsetWidth; 
+        targetSection.style.opacity = '1';
+    }
+    
+    buildSecondaryNavigation(targetId);
+    if (secondaryNav) secondaryNav.style.display = 'block';
+    if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // ✅ CHIAMATA FONDAMENTALE: Attiva i listener delle frecce
+    setupSequentialNav(targetId); 
+};
 
 // --- LOGICA DEL DROPDOWN LINGUA (dal codice funzionante) ---
     
