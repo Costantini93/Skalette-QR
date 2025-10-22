@@ -143,7 +143,7 @@
 
         <section id="colazioni" class="menu-section">
 
-            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
+            <div class="nav-arrow-container" id="nav-next">next &#10095;</div>
             <h2 class="category-title translatable" data-it="Caffetteria" data-en="Coffee Shop" data-es="Cafetería"
                 data-fr="Caféterie" data-de="Kaffee" data-ru="Кофе и напитки">Caffetteria</h2>
 
@@ -410,8 +410,8 @@
         </section>
 
         <section id="bevande" class="menu-section">
-            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
-            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
+            <div class="nav-arrow-container" id="nav-prev">&#10094; prev</div>
+            <div class="nav-arrow-container" id="nav-next">next &#10095;</div>
             <h2 class="category-title translatable" data-it="Bevande Analcoliche" data-en="Non-Alcoholic Drinks"
                 data-es="Bebidas sin Alcohol" data-fr="Boissons sans Alcool" data-de="Alkoholfreie Getränke"
                 data-ru="Безалкогольные напитки">Bevande Analcoliche</h2>
@@ -566,8 +566,8 @@
         </section>
 
         <section id="aperitivi" class="menu-section">
-            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
-            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
+            <div class="nav-arrow-container" id="nav-prev">&#10094; prev</div>
+            <div class="nav-arrow-container" id="nav-next">next &#10095;</div>
             <h2 class="category-title translatable" data-it="Aperitivi & Birre" data-en="Aperitifs & Beers"
                 data-es="Aperitivos & Cervezas" data-fr="Apéritifs & Bières" data-de="Aperitifs & Biere"
                 data-ru="Аперитивы и пиво">Aperitivi & Birre</h2>
@@ -745,8 +745,8 @@
         </section>
 
         <section id="vini" class="menu-section">
-            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
-            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
+            <div class="nav-arrow-container" id="nav-prev">&#10094; prev</div>
+            <div class="nav-arrow-container" id="nav-next">next &#10095;</div>
             <h2 class="category-title translatable" data-it="Vini Bianchi e Rosé" data-en="White and Rosé Wines"
                 data-es="Vinos Blancos y Rosados" data-fr="Vins Blancs et Rosés" data-de="Weiß- und Roséweine"
                 data-ru="Белые и розовые вина">Vini Bianchi e Rosé</h2>
@@ -1014,8 +1014,8 @@
         </section>
 
         <section id="snacks" class="menu-section">
-            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
-            <div class="nav-arrow-container" id="nav-next">&#10095;</div>
+            <div class="nav-arrow-container" id="nav-prev">&#10094; prev</div>
+            <div class="nav-arrow-container" id="nav-next">next &#10095;</div>
             <h2 class="category-title translatable" data-it="La nostra gastronomia" data-en="Our Gastronomy"
                 data-es="Nuestra Gastronomía" data-fr="Notre Gastronomie" data-de="Unsere Gastronomie"
                 data-ru="Наша гастрономия">La nostra gastronomia</h2>
@@ -1127,7 +1127,7 @@
 
 
         <section id="cucina-dolci" class="menu-section">
-            <div class="nav-arrow-container" id="nav-prev">&#10094;</div>
+            <div class="nav-arrow-container" id="nav-prev">&#10094; prev</div>
 
             <h2 class="category-title translatable" data-it="I Nostri Piatti" data-en="Our Dishes"
                 data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I Nostri
@@ -1559,218 +1559,181 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Variabili e Selettori
+    document.addEventListener('DOMContentLoaded', () => {
+  // Elementi principali
+  const buttons = document.querySelectorAll('.menu-button:not(#home-page-btn)');
+  const sections = document.querySelectorAll('.menu-section');
+  const mainButtonsGrid = document.getElementById('main-buttons-grid');
+  const secondaryNav = document.getElementById('secondary-navigation');
+  const menuContainer = document.getElementById('menu-container');
+  const homePageButton = document.getElementById('home-page-btn');
+  const coverPage = document.getElementById('cover-page');
 
-            // Seleziona solo i pulsanti di categoria (escludendo il pulsante Home)
-            const buttons = document.querySelectorAll('.menu-button:not(#home-page-btn)');
+  // Ordine delle categorie
+  const categoryOrder = Array.from(buttons)
+    .map(button => button.getAttribute('data-target'))
+    .filter(id => id);
 
-            const sections = document.querySelectorAll('.menu-section');
-            const mainButtonsGrid = document.getElementById('main-buttons-grid');
+  const getNextCategory = (currentId) => {
+    const currentIndex = categoryOrder.indexOf(currentId);
+    if (currentIndex === -1) return null;
+    return categoryOrder[(currentIndex + 1) % categoryOrder.length];
+  };
 
-            // Variabili per il ritorno alla Home e navigazione secondaria
-            const secondaryNav = document.getElementById('secondary-navigation');
-            const menuContainer = document.getElementById('menu-container');
-            const homePageButton = document.getElementById('home-page-btn');
+  const getPrevCategory = (currentId) => {
+    const currentIndex = categoryOrder.indexOf(currentId);
+    if (currentIndex === -1) return null;
+    return categoryOrder[(currentIndex - 1 + categoryOrder.length) % categoryOrder.length];
+  };
 
-            // 📌 NUOVA VARIABILE: La pagina di copertina
-            const coverPage = document.getElementById('cover-page');
+  const showHome = () => {
+    sections.forEach(section => {
+      section.style.display = 'none';
+      section.classList.remove('turn-out-forward', 'turn-out-backward', 'turn-in');
+    });
+    if (coverPage) coverPage.style.display = 'none';
+    if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
+    if (secondaryNav) secondaryNav.style.display = 'none';
+    if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-            // Dichiarazioni di funzioni mancanti (come placeholder)
-            const buildSecondaryNavigation = (targetId) => { /* Logica per la navigazione secondaria */ };
+  const showNewSection = (targetSection, targetId, originIn = 'left center') => {
+    if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
 
-            // 2. Logica di Navigazione Sequenziale
-            const categoryOrder = Array.from(buttons)
-                .map(button => button.getAttribute('data-target'))
-                .filter(id => id);
+    sections.forEach(section => {
+      if (section.id !== targetId) {
+        section.style.display = 'none';
+        section.classList.remove('turn-out-forward', 'turn-out-backward', 'turn-in');
+      }
+    });
 
-            const getNextCategory = (currentId) => {
-                const currentIndex = categoryOrder.indexOf(currentId);
-                if (currentIndex === -1) return null;
-                return categoryOrder[(currentIndex + 1) % categoryOrder.length];
-            };
+    if (targetSection) {
+      targetSection.style.opacity = '0';
+      targetSection.style.display = 'block';
+      targetSection.style.transformOrigin = originIn;
+      targetSection.classList.add('turn-in');
+      void targetSection.offsetWidth;
+      targetSection.style.opacity = '1';
 
-            const getPrevCategory = (currentId) => {
-                const currentIndex = categoryOrder.indexOf(currentId);
-                if (currentIndex === -1) return null;
-                const prevIndex = (currentIndex - 1 + categoryOrder.length) % categoryOrder.length;
-                return categoryOrder[prevIndex];
-            };
+      // ✅ Ricollega le frecce dopo che la sezione è visibile
+      setTimeout(() => {
+        setupSequentialNav(targetId);
+      }, 50);
+    }
 
-            // --- FUNZIONE HOME ---
+    if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-            // Funzione per tornare alla schermata iniziale (pulsanti categoria)
-            const showHome = () => {
-                // Nascondi tutte le sezioni di dettaglio (incluse le pagine di menu e la copertina)
-                sections.forEach(section => section.style.display = 'none');
-                if (coverPage) coverPage.style.display = 'none'; // Nasconde esplicitamente la copertina
+  const handleMenuNavigation = (targetId, direction = 'next') => {
+    const targetSection = document.getElementById(targetId);
+    const currentActiveSection = Array.from(sections).find(section => section.offsetParent !== null);
 
-                // Mostra la griglia dei pulsanti principali
-                if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
+    const originOut = direction === 'next' ? 'left center' : 'right center';
+    const originIn = direction === 'next' ? 'left center' : 'right center';
+    const outClass = direction === 'next' ? 'turn-out-forward' : 'turn-out-backward';
 
-                // Nascondi la navigazione secondaria
-                if (secondaryNav) secondaryNav.style.display = 'none';
+    if (!currentActiveSection && mainButtonsGrid && mainButtonsGrid.style.display !== 'none') {
+      mainButtonsGrid.style.display = 'none';
 
-                if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            };
+      if (coverPage) {
+        coverPage.style.display = 'block';
+        coverPage.style.opacity = '1';
+        coverPage.style.transform = 'rotateY(0deg)';
+        coverPage.classList.remove('turn-out-forward', 'turn-out-backward');
+      }
 
-            // --- FUNZIONI DI NAVIGAZIONE E ANIMAZIONE ---
+      setTimeout(() => {
+        if (coverPage) {
+          coverPage.style.transformOrigin = originOut;
+          coverPage.classList.add(outClass);
+        }
 
-            // Funzione helper per mostrare la nuova sezione (senza animazione di uscita)
-            const showNewSection = (targetSection, targetId) => {
+        setTimeout(() => {
+          if (coverPage) {
+            coverPage.classList.remove(outClass);
+            coverPage.style.display = 'none';
+          }
+          showNewSection(targetSection, targetId, originIn);
+        }, 600);
+      }, 100);
+    } else if (currentActiveSection) {
+      currentActiveSection.style.transformOrigin = originOut;
+      currentActiveSection.classList.remove('turn-in');
+      currentActiveSection.classList.add(outClass);
 
-                if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+      setTimeout(() => {
+        currentActiveSection.classList.remove(outClass);
+        currentActiveSection.style.display = 'none';
+        showNewSection(targetSection, targetId, originIn);
+      }, 600);
+    } else {
+      showNewSection(targetSection, targetId, originIn);
+    }
+  };
 
-                // Nasconde tutte le sezioni per pulizia (tranne quella di destinazione che verrà mostrata subito dopo)
-                sections.forEach(section => {
-                    if (section.id !== targetId) {
-                        section.style.display = 'none';
-                        section.classList.remove('turn-out', 'turn-in');
-                    }
-                });
+  const setupSequentialNav = (currentId) => {
+    const activeSection = document.getElementById(currentId);
+    if (!activeSection) return;
+
+    const navNextButton = activeSection.querySelector('#nav-next, .nav-next');
+    const navPrevButton = activeSection.querySelector('#nav-prev, .nav-prev');
+
+    const nextId = getNextCategory(currentId);
+    const prevId = getPrevCategory(currentId);
+
+    if (navNextButton) {
+      navNextButton.onclick = null;
+      navNextButton.onclick = () => {
+        if (nextId) handleMenuNavigation(nextId, 'next');
+      };
+    }
+
+    if (navPrevButton) {
+      navPrevButton.onclick = null;
+      navPrevButton.onclick = () => {
+        if (prevId) handleMenuNavigation(prevId, 'prev');
+      };
+    }
+  };
+
+  // ✅ Listener sui bottoni categoria
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      const currentId = Array.from(sections).find(section => section.offsetParent !== null)?.id;
+
+      const direction = currentId
+        ? categoryOrder.indexOf(targetId) > categoryOrder.indexOf(currentId)
+          ? 'next'
+          : 'prev'
+        : 'next';
+
+      if (currentId === targetId) {
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.remove('turn-out-forward', 'turn-out-backward', 'turn-in');
+          setupSequentialNav(targetId);
+        }
+      } else {
+        handleMenuNavigation(targetId, direction);
+      }
+    });
+  });
+
+  // ✅ Listener per il pulsante HOME
+  if (homePageButton) {
+    homePageButton.addEventListener('click', showHome);
+  }
+
+  // ✅ Inizializzazione
+  if (mainButtonsGrid) {
+    showHome();
+  } else if (sections.length > 0) {
+    showNewSection(sections[0], sections[0].id);
+  }
+});
 
 
-                if (targetSection) {
-                    // Animazione di ingresso
-                    targetSection.style.opacity = '0';
-                    targetSection.style.display = 'block';
-
-                    // Imposta l'origine della rotazione per l'animazione di entrata
-                    targetSection.style.transformOrigin = 'left center';
-                    void targetSection.offsetWidth; // Forza il reflow
-                    targetSection.style.opacity = '1';
-                }
-
-                // buildSecondaryNavigation(targetId); 
-                // if (secondaryNav) secondaryNav.style.display = 'block';
-                if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                // 📌 CHIAVE: Chiama setupSequentialNav con il targetId corrente
-                // Questo è essenziale per assicurare che le frecce sappiano dove si trovano.
-                setupSequentialNav(targetId);
-            };
-
-            // La funzione principale che gestisce la navigazione e l'animazione del libro
-            const handleMenuNavigation = (targetId) => {
-                const targetSection = document.getElementById(targetId);
-                const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-
-                // 📌 NUOVA LOGICA: NAVIGAZIONE DALLA HOME (Apertura del libro: Home -> Copertina -> Sezione)
-                if (!currentActiveSection && mainButtonsGrid && mainButtonsGrid.style.display !== 'none') {
-
-                    // 1. Nascondi i pulsanti principali
-                    mainButtonsGrid.style.display = 'none';
-
-                    // 2. Mostra la copertina
-                    if (coverPage) {
-                        coverPage.style.display = 'block';
-                        coverPage.style.opacity = '1';
-                        coverPage.style.transform = 'rotateY(0deg)'; // Assicura che sia piatta
-                        coverPage.classList.remove('turn-out'); // Assicura che non sia già ruotata
-                    }
-
-                    // 3. Avvia l'animazione di uscita della copertina dopo un breve ritardo
-                    setTimeout(() => {
-                        if (coverPage) {
-                            // Prepara la rotazione della copertina
-                            coverPage.style.transformOrigin = 'left center';
-                            coverPage.classList.add('turn-out');
-                        }
-
-                        // 4. Dopo l'animazione della copertina (600ms), mostra la sezione target
-                        setTimeout(() => {
-                            if (coverPage) {
-                                coverPage.classList.remove('turn-out');
-                                coverPage.style.display = 'none';
-                            }
-                            // 5. Mostra la sezione di destinazione (la prima pagina del menu)
-                            showNewSection(targetSection, targetId);
-
-                        }, 600); // Durata dell'animazione CSS
-
-                    }, 100); // Breve ritardo per vedere la copertina
-
-                }
-                // LOGICA ESISTENTE: NAVIGAZIONE INTERNA (Sezione -> Sezione)
-                else if (currentActiveSection) {
-
-                    // Logica standard di animazione "libro che gira"
-                    currentActiveSection.style.transformOrigin = 'left center';
-                    currentActiveSection.classList.add('turn-out');
-
-                    setTimeout(() => {
-                        currentActiveSection.classList.remove('turn-out');
-                        currentActiveSection.style.display = 'none';
-                        
-                        // **MODIFICA CHIAVE:** CHIAMATA A showNewSection CHE CONTIENE setupSequentialNav(targetId)
-                        showNewSection(targetSection, targetId); 
-                    }, 600);
-                    
-                    // Nota: Non c'è bisogno di chiamare showNewSection due volte. 
-                    // Il problema precedente era che la funzione non veniva chiamata 
-                    // affatto nel blocco 'else if' del tuo codice originale.
-
-                } else {
-                    // Fallback (dovrebbe avvenire solo se la logica sopra è saltata)
-                    showNewSection(targetSection, targetId);
-                }
-            };
-
-            // Configurazione dei Listener delle Frecce
-            const setupSequentialNav = (currentId) => {
-                const activeSection = document.getElementById(currentId);
-                if (!activeSection) return;
-
-                const navNextButton = activeSection.querySelector('#nav-next');
-                const navPrevButton = activeSection.querySelector('#nav-prev');
-                
-                // ⚠️ IMPORTANTE: Sgancia i vecchi listener. Il tuo codice lo faceva già correttamente.
-
-                // Listener Avanti
-                if (navNextButton) {
-                    navNextButton.onclick = null;
-                    navNextButton.onclick = () => {
-                        const nextId = getNextCategory(currentId);
-                        if (nextId) {
-                            handleMenuNavigation(nextId);
-                        }
-                    };
-                }
-
-                // Listener Indietro
-                if (navPrevButton) {
-                    navPrevButton.onclick = null;
-                    navPrevButton.onclick = () => {
-                        const prevId = getPrevCategory(currentId);
-                        if (prevId) {
-                            handleMenuNavigation(prevId);
-                        }
-                    };
-                }
-            };
-
-            // --- INIZIALIZZAZIONE LISTENER ---
-
-            // Listener sui pulsanti principali (SOLO categorie)
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.getAttribute('data-target');
-                    handleMenuNavigation(targetId);
-                });
-            });
-
-            // Listener per il pulsante HOME
-            if (homePageButton) {
-                homePageButton.addEventListener('click', showHome);
-            }
-
-            // Mostra la Home o la prima sezione all'avvio
-            if (mainButtonsGrid) {
-                showHome();
-            } else if (sections.length > 0) {
-                showNewSection(sections[0], sections[0].id);
-            }
-        });
     </script>
 
 
