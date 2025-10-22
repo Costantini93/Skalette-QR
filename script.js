@@ -70,266 +70,272 @@ animateBackground();
 /* ========================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Variabili e Selettori
-    const mainButtonsGrid = document.getElementById('main-buttons-grid');
-    const sections = document.querySelectorAll('.menu-section');
-    const menuContainer = document.getElementById('menu-container');
+  // 1. Variabili e Selettori
+  const mainButtonsGrid = document.getElementById('main-buttons-grid');
+  const sections = document.querySelectorAll('.menu-section');
+  const menuContainer = document.getElementById('menu-container');
 
-    const secondaryNav = document.getElementById('secondary-navigation');
-    const secondaryGrid = document.getElementById('secondary-buttons-grid');
-    const homePageButton = document.getElementById('home-page-btn');
+  const secondaryNav = document.getElementById('secondary-navigation');
+  const secondaryGrid = document.getElementById('secondary-buttons-grid');
+  const homePageButton = document.getElementById('home-page-btn');
 
-    const currentLangBtn = document.getElementById('current-lang-btn');
-    const langOptions = document.getElementById('lang-options');
-    const langButtons = document.querySelectorAll('#lang-options .lang-btn');
-    const translatableElements = document.querySelectorAll('[data-it]');
-    
-    // Lingue supportate e Fallback
-    const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
-    const fallbackLang = 'it';
-    
-    // 2. Logica di Inizializzazione della Lingua
-    const savedLang = localStorage.getItem("preferredLang");
-    const browserLangCode = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
+  const currentLangBtn = document.getElementById('current-lang-btn');
+  const langOptions = document.getElementById('lang-options');
+  const langButtons = document.querySelectorAll('#lang-options .lang-btn');
+  const translatableElements = document.querySelectorAll('[data-it]');
 
-    let initialLang = fallbackLang;
-    if (savedLang && supportedLangs.includes(savedLang)) {
-        initialLang = savedLang;
-    } else if (supportedLangs.includes(browserLangCode)) {
-        initialLang = browserLangCode;
-    }
+  const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
+  const fallbackLang = 'it';
+  const savedLang = localStorage.getItem("preferredLang");
+  const browserLangCode = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
 
-    let activeLang = initialLang;
-    
-    // --- FUNZIONI DI BASE (Traduzione e Navigazione) ---
-    // Le funzioni devono essere definite prima di essere utilizzate negli addEventListener!
+  let initialLang = fallbackLang;
+  if (savedLang && supportedLangs.includes(savedLang)) {
+    initialLang = savedLang;
+  } else if (supportedLangs.includes(browserLangCode)) {
+    initialLang = browserLangCode;
+  }
 
-    const translatePage = (lang) => {
-        translatableElements.forEach(element => {
-            const translation = element.getAttribute(`data-${lang}`);
-            if (translation) {
-                const iconElement = element.querySelector('.whatsapp-icon-img') || element.querySelector('.review-icon');
-                if (iconElement) {
-                    Array.from(element.childNodes).forEach(node => {
-                        if (node.nodeType === 3) element.removeChild(node);
-                    });
-                    element.appendChild(document.createTextNode(` ${translation}`));
-                } else {
-                    element.textContent = translation;
-                }
-            }
-        });
+  let activeLang = initialLang;
 
-        if (secondaryNav && secondaryNav.style.display !== 'none') {
-            const activeSection = document.querySelector('.menu-section[style*="display: block"]');
-            if (activeSection) buildSecondaryNavigation(activeSection.id);
+  // --- FUNZIONI ---
+
+  const translatePage = (lang) => {
+    translatableElements.forEach(element => {
+      const translation = element.getAttribute(`data-${lang}`);
+      if (translation) {
+        const iconElement = element.querySelector('.whatsapp-icon-img') || element.querySelector('.review-icon');
+        if (iconElement) {
+          Array.from(element.childNodes).forEach(node => {
+            if (node.nodeType === 3) element.removeChild(node);
+          });
+          element.appendChild(document.createTextNode(` ${translation}`));
+        } else {
+          element.textContent = translation;
         }
-    };
+      }
+    });
 
-    const buildSecondaryNavigation = (activeTargetId) => {
-        if (!secondaryGrid) return;
-        secondaryGrid.innerHTML = '';
-        mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
-            const targetId = originalButton.getAttribute('data-target');
-            if (targetId !== activeTargetId) {
-                const newButton = originalButton.cloneNode(true);
-                const translation = originalButton.getAttribute(`data-${activeLang}`);
-                if (translation) newButton.textContent = translation;
-                newButton.removeAttribute('id');
-                newButton.addEventListener('click', () => handleMenuNavigation(targetId));
-                secondaryGrid.appendChild(newButton);
-            }
-        });
-    };
-
-    const showHome = () => {
-        sections.forEach(section => section.style.display = 'none');
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
-        if (secondaryNav) secondaryNav.style.display = 'none';
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-   // La funzione principale che gestisce la navigazione e l'animazione
-const handleMenuNavigation = (targetId) => {
-    const targetSection = document.getElementById(targetId);
-    const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-    
-    // 1. GESTIONE ANIMAZIONE DI USCITA (Sezione Vecchia)
-    if (currentActiveSection) {
-        
-        // Forza il perno di rotazione verso sinistra
-        currentActiveSection.style.transformOrigin = 'left center';
-        // Applica la classe di rotazione (deve essere definita nel tuo CSS)
-        currentActiveSection.classList.add('turn-out'); 
-
-        // Dopo la durata dell'animazione CSS (es. 600ms), procedi
-        setTimeout(() => {
-            
-            // Rimuovi la classe e nascondi la sezione vecchia
-            currentActiveSection.classList.remove('turn-out');
-            currentActiveSection.style.display = 'none';
-
-            // 2. GESTIONE ANIMAZIONE DI ENTRATA (Sezione Nuova)
-            showNewSection(targetSection, targetId);
-            
-        }, 600); // 🚨 ASSICURATI che 600ms corrisponda alla durata della tua transizione CSS!
-        
-    } else {
-        // 3. Se non c'è una sezione attiva (es. dalla Home), vai direttamente
-        showNewSection(targetSection, targetId);
+    if (secondaryNav && secondaryNav.style.display !== 'none') {
+      const activeSection = document.querySelector('.menu-section[style*="display: block"]');
+      if (activeSection) buildSecondaryNavigation(activeSection.id);
     }
-};
-    
-   // Funzione helper per evitare codice duplicato
-const showNewSection = (targetSection, targetId) => {
-    
-    if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+  };
 
-    // Nascondi TUTTE le sezioni per pulizia
+  const buildSecondaryNavigation = (activeTargetId) => {
+    if (!secondaryGrid) return;
+    secondaryGrid.innerHTML = '';
+    mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
+      const targetId = originalButton.getAttribute('data-target');
+      if (targetId !== activeTargetId) {
+        const newButton = originalButton.cloneNode(true);
+        const translation = originalButton.getAttribute(`data-${activeLang}`);
+        if (translation) newButton.textContent = translation;
+        newButton.removeAttribute('id');
+        newButton.addEventListener('click', () => handleMenuNavigation(targetId));
+        secondaryGrid.appendChild(newButton);
+      }
+    });
+  };
+
+  const setupSequentialNav = (currentId) => {
+    const activeSection = document.getElementById(currentId);
+    if (!activeSection) return;
+
+    const navNextButton = activeSection.querySelector('#nav-next, .nav-next');
+    const navPrevButton = activeSection.querySelector('#nav-prev, .nav-prev');
+
+    const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
+    const currentIndex = allIds.indexOf(currentId);
+    const nextId = allIds[(currentIndex + 1) % allIds.length];
+    const prevId = allIds[(currentIndex - 1 + allIds.length) % allIds.length];
+
+    if (navNextButton) {
+      navNextButton.onclick = () => handleMenuNavigation(nextId);
+    }
+
+    if (navPrevButton) {
+      navPrevButton.onclick = () => handleMenuNavigation(prevId);
+    }
+  };
+
+  const showHome = () => {
     sections.forEach(section => section.style.display = 'none');
-    
-    if (targetSection) {
-        // Animazione di ingresso (il tuo fade-in esistente)
-        targetSection.style.opacity = '0';
-        targetSection.style.display = 'block';
-        
-        // Imposta l'origine della rotazione per l'animazione di entrata
-        targetSection.style.transformOrigin = 'left center'; 
-        // Forza il reflow e imposta l'opacità
-        void targetSection.offsetWidth; 
-        targetSection.style.opacity = '1';
-    }
-    
-    buildSecondaryNavigation(targetId);
-    if (secondaryNav) secondaryNav.style.display = 'block';
+    if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
+    if (secondaryNav) secondaryNav.style.display = 'none';
     if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-    // ✅ CHIAMATA FONDAMENTALE: Attiva i listener delle frecce
-    setupSequentialNav(targetId); 
+ const showNewSection = (targetSection, targetId, originIn = 'left center') => {
+  if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+  sections.forEach(section => section.style.display = 'none');
+
+  if (targetSection) {
+    targetSection.style.display = 'block';
+    targetSection.style.opacity = '0';
+    targetSection.style.transform = 'rotateY(90deg)';
+    targetSection.style.transformOrigin = originIn;
+    targetSection.classList.remove('turn-in');
+    void targetSection.offsetWidth;
+
+    requestAnimationFrame(() => {
+      targetSection.classList.add('turn-in');
+      targetSection.style.opacity = '1';
+
+      setTimeout(() => {
+        targetSection.classList.remove('turn-in');
+        targetSection.style.transform = 'rotateY(0deg)';
+      }, 300);
+    });
+
+    setTimeout(() => {
+      setupSequentialNav(targetId);
+    }, 50);
+  }
+
+  buildSecondaryNavigation(targetId);
+  if (secondaryNav) secondaryNav.style.display = 'block';
+  if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
-// --- LOGICA DEL DROPDOWN LINGUA (dal codice funzionante) ---
-    
-    const arrow = currentLangBtn?.querySelector('.arrow');
-    
-    // Controlliamo che gli elementi essenziali per il toggle esistano
-    const isLangDropdownReady = currentLangBtn && langOptions; // Lasciato come controllo MINIMO
 
-    const closeDropdown = () => {
-        if (isLangDropdownReady) {
-            currentLangBtn.setAttribute('aria-expanded', 'false');
-            langOptions.style.display = 'none';
-            // ✅ CORREZIONE: Controlla se 'arrow' esiste prima di usarlo
-            if (arrow) arrow.style.transform = 'rotate(0deg)'; 
-        }
-    };
 
-    const openDropdown = () => {
-        if (isLangDropdownReady) {
-            currentLangBtn.setAttribute('aria-expanded', 'true');
-            langOptions.style.display = 'flex';
-            // ✅ CORREZIONE: Controlla se 'arrow' esiste prima di usarlo
-            if (arrow) arrow.style.transform = 'rotate(180deg)';
-        }
-    };
 
-    const updateCurrentFlagAndButtons = (lang) => {
-        activeLang = lang;
-        currentLangBtn.setAttribute('data-lang', lang);
-        
-        // 1. Pulizia: Rimuovi bandiera e codice precedenti
-        Array.from(currentLangBtn.childNodes).forEach(node => {
-            const isArrow = node.classList?.contains('arrow');
-            if (node.nodeType === 3 || (node.nodeType === 1 && !isArrow)) { 
-                currentLangBtn.removeChild(node);
-            }
-        });
-        
-        // 2. Trova il bottone corrispondente nel dropdown
-        const selectedBtn = langOptions.querySelector(`.lang-btn[data-lang="${lang}"]`);
 
-        if (selectedBtn) {
-            // 3. Inserisce la nuova bandiera clonando
-            const newFlag = selectedBtn.querySelector('.flag-icon')?.cloneNode(true);
-            
-            // ✅ CORREZIONE CRITICA (Aggiunto Fallback 1): Inserisce PRIMA della freccia, o in fondo
-            if (newFlag && arrow) currentLangBtn.insertBefore(newFlag, arrow);
-            else if (newFlag) currentLangBtn.appendChild(newFlag);
 
-            // 4. Inserisce il codice lingua
-            const newCode = document.createElement('span');
-            newCode.className = 'lang-code';
-            newCode.textContent = lang.toUpperCase();
-            
-            // ✅ CORREZIONE CRITICA (Aggiunto Fallback 2): Inserisce PRIMA della freccia, o in fondo
-            if (arrow) currentLangBtn.insertBefore(newCode, arrow);
-            else currentLangBtn.appendChild(newCode); 
-        }
+  const handleMenuNavigation = (targetId) => {
+  const targetSection = document.getElementById(targetId);
+  const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
 
-        // 5. Aggiorna stato dei bottoni
-        langButtons.forEach(btn => {
-            const isActive = btn.getAttribute('data-lang') === lang;
-            btn.disabled = isActive;
-            btn.classList.toggle('active-lang', isActive);
-            btn.style.display = 'inline-flex';
-        });
-    };
+  const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
+  const currentIndex = allIds.indexOf(currentActiveSection?.id);
+  const targetIndex = allIds.indexOf(targetId);
 
-    // --- GESTIONE EVENTI INTERFACCIA E NAVIGAZIONE ---
-    
-    // 1. NAVIGAZIONE CATEGORIE 👈 FUNZIONA DI NUOVO PERCHÉ LE FUNZIONI SONO SOPRA
-    if (mainButtonsGrid) {
-        mainButtonsGrid.querySelectorAll('.menu-button').forEach(button => {
-            button.addEventListener('click', () => {
-                const targetId = button.getAttribute('data-target');
-                handleMenuNavigation(targetId);
-            });
-        });
-    }
+  // ✅ Direzione corretta
+  let direction = 'forward';
+  if (targetIndex < currentIndex) direction = 'backward';
+  if (targetIndex > currentIndex) direction = 'forward';
 
-    if (homePageButton) {
-        homePageButton.addEventListener('click', showHome);
-    }
+  const outClass = direction === 'forward' ? 'turn-out-forward' : 'turn-out-backward';
+  const originOut = direction === 'forward' ? 'right center' : 'left center';
+const originIn = direction === 'forward' ? 'right center' : 'left center';
 
-    // 2. DROPDOWN LINGUA
+
+  if (currentActiveSection) {
+    currentActiveSection.style.transformOrigin = originOut;
+    currentActiveSection.classList.add(outClass);
+
+    setTimeout(() => {
+      currentActiveSection.classList.remove(outClass);
+      currentActiveSection.style.display = 'none';
+      showNewSection(targetSection, targetId, originIn);
+    }, 600);
+  } else {
+    showNewSection(targetSection, targetId, originIn);
+  }
+};
+
+
+
+
+
+
+
+  // --- DROPDOWN LINGUA ---
+  const arrow = currentLangBtn?.querySelector('.arrow');
+  const isLangDropdownReady = currentLangBtn && langOptions;
+
+  const closeDropdown = () => {
     if (isLangDropdownReady) {
-        // Toggle (Apre/Chiude il menu)
-        currentLangBtn.addEventListener('click', () => {
-            const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) {
-                closeDropdown();
-            } else {
-                openDropdown();
-            }
-        });
+      currentLangBtn.setAttribute('aria-expanded', 'false');
+      langOptions.style.display = 'none';
+      if (arrow) arrow.style.transform = 'rotate(0deg)';
+    }
+  };
 
-        // Cambio Lingua
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const selectedLang = btn.getAttribute('data-lang');
-                
-                if (selectedLang === activeLang) {
-                    closeDropdown();
-                    return;
-                }
+  const openDropdown = () => {
+    if (isLangDropdownReady) {
+      currentLangBtn.setAttribute('aria-expanded', 'true');
+      langOptions.style.display = 'flex';
+      if (arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+  };
 
-                localStorage.setItem("preferredLang", selectedLang);
-                
-                updateCurrentFlagAndButtons(selectedLang);
-                closeDropdown();
-                translatePage(selectedLang);
-            });
-        });
+  const updateCurrentFlagAndButtons = (lang) => {
+    activeLang = lang;
+    currentLangBtn.setAttribute('data-lang', lang);
+
+    Array.from(currentLangBtn.childNodes).forEach(node => {
+      const isArrow = node.classList?.contains('arrow');
+      if (node.nodeType === 3 || (node.nodeType === 1 && !isArrow)) {
+        currentLangBtn.removeChild(node);
+      }
+    });
+
+    const selectedBtn = langOptions.querySelector(`.lang-btn[data-lang="${lang}"]`);
+    if (selectedBtn) {
+      const newFlag = selectedBtn.querySelector('.flag-icon')?.cloneNode(true);
+      if (newFlag && arrow) currentLangBtn.insertBefore(newFlag, arrow);
+      else if (newFlag) currentLangBtn.appendChild(newFlag);
+
+      const newCode = document.createElement('span');
+      newCode.className = 'lang-code';
+      newCode.textContent = lang.toUpperCase();
+      if (arrow) currentLangBtn.insertBefore(newCode, arrow);
+      else currentLangBtn.appendChild(newCode);
     }
 
-    // --- INIZIALIZZAZIONE FINALE ---
-    
-    // Esegui l'aggiornamento visuale e la traduzione con la lingua iniziale
-    if (currentLangBtn) {
-        updateCurrentFlagAndButtons(initialLang);
-        closeDropdown(); // Assicura che il menu sia CHIUSO all'avvio
-    }
+    langButtons.forEach(btn => {
+      const isActive = btn.getAttribute('data-lang') === lang;
+      btn.disabled = isActive;
+      btn.classList.toggle('active-lang', isActive);
+      btn.style.display = 'inline-flex';
+    });
+  };
 
-    translatePage(initialLang);
-    showHome();
+  // --- EVENTI ---
+
+  if (mainButtonsGrid) {
+    mainButtonsGrid.querySelectorAll('.menu-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        handleMenuNavigation(targetId);
+      });
+    });
+  }
+
+  if (homePageButton) {
+    homePageButton.addEventListener('click', showHome);
+  }
+
+  if (isLangDropdownReady) {
+    currentLangBtn.addEventListener('click', () => {
+      const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
+      isExpanded ? closeDropdown() : openDropdown();
+    });
+
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedLang = btn.getAttribute('data-lang');
+        if (selectedLang === activeLang) {
+          closeDropdown();
+          return;
+        }
+
+        localStorage.setItem("preferredLang", selectedLang);
+        updateCurrentFlagAndButtons(selectedLang);
+        closeDropdown();
+        translatePage(selectedLang);
+      });
+    });
+  }
+
+  // --- INIZIALIZZAZIONE ---
+  if (currentLangBtn) {
+    updateCurrentFlagAndButtons(initialLang);
+    closeDropdown();
+  }
+
+  translatePage(initialLang);
+  showHome();
 });

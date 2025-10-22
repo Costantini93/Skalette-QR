@@ -41,6 +41,7 @@ canvas {
     align-items: center; 
     /* Prospettiva necessaria per l'effetto 3D di rotazione */
     perspective: 1500px; 
+    transform-style: preserve-3d;
 }
 
 
@@ -105,6 +106,7 @@ header {
     padding: 0;
     box-sizing: border-box;
     margin-top: 0; 
+    
 }
 
 /* ========================================================== */
@@ -224,10 +226,6 @@ header {
 }
 
 
-/* ========================================================== */
-/* CONTENUTI MENU & ANIMAZIONE PAGINA (3D) */
-/* ========================================================== */
-
 .menu-section {
   display: none;
   padding: 20px;
@@ -241,7 +239,6 @@ header {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-  /* Animazione e 3D */
   transform: rotateY(0deg);
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -250,14 +247,14 @@ header {
 
 /* Uscita in avanti (da sinistra verso destra) */
 .menu-section.turn-out-forward {
-  transform-origin: left center;
+  transform-origin: right center;
   transform: rotateY(-90deg);
   opacity: 0.5;
 }
 
 /* Uscita all’indietro (da destra verso sinistra) */
 .menu-section.turn-out-backward {
-  transform-origin: right center;
+  transform-origin: left center;
   transform: rotateY(90deg);
   opacity: 0.5;
 }
@@ -268,34 +265,36 @@ header {
   opacity: 1;
 }
 
+
 /* ========================================================== */
 /* FRECCE DI NAVIGAZIONE SEQUENZIALE (Prev/Next) */
 /* ========================================================== */
 
 .nav-arrow-container {
-    position: absolute;
-    top: 5px; /* Vicino al bordo superiore della sezione */
-    z-index: 20; /* Sopra il contenuto della sezione */
-    font-size: 2em; /* Dimensione delle frecce */
-    color: #333;
-    cursor: pointer;
-    padding: 5px;
-    transition: opacity 0.2s, color 0.2s;
+  position: absolute;
+  top: 5px;
+  z-index: 20;
+  font-size: 2em;
+  color: #333;
+  cursor: pointer;
+  padding: 5px;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .nav-arrow-container:hover {
-    color: #000;
+  color: #000;
 }
 
 /* Freccia a Sinistra (Indietro) */
 #nav-prev {
-    left: 5px;
+  left: 5px;
 }
 
 /* Freccia a Destra (Avanti) */
 #nav-next {
-    right: 5px;
+  right: 5px;
 }
+
 
 /* Titolo al Centro, per non interferire con le frecce */
 .category-title {
