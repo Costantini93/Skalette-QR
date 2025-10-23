@@ -3,8 +3,8 @@
 /* ========================================================== */
 
 let frag = `
-vec4 abyssColor = vec4(0, 0, 0, 0);
-vec4 tunnelColor = vec4(1.5, 1.2, 1.1, 1);
+vec4 abyssColor = vec4(0.0, 0.0, 0.0, 0.0); // nero trasparente
+vec4 tunnelColor = vec4(0.5, 1.0, 1.5, 2.0); // blu notte brillante
 
 uniform float time;
 uniform vec2 resolution;
@@ -18,67 +18,66 @@ void main() {
     x = smoothstep(0.5, 0.01, x);
     gl_FragColor = mix(tunnelColor, abyssColor, x) * y;
 }
+
 `;
 
 let scene, camera, renderer, animationId;
 let geometry, material, mesh;
 let startTime = Date.now();
 
-function initBackground() {
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2);
-  camera.position.z = 1;
-
-  geometry = new THREE.PlaneGeometry(10, 10);
-  material = new THREE.ShaderMaterial({
-    uniforms: {
-      time: { type: 'f', value: 1.0 },
-      resolution: { type: 'v2', value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-    },
-    fragmentShader: frag
-  });
-
-  mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-}
-
-function animateBackground() {
-  animationId = requestAnimationFrame(animateBackground);
-  let elapsedMilliseconds = Date.now() - startTime;
-  material.uniforms.time.value = elapsedMilliseconds / 1000.0;
-  renderer.render(scene, camera);
-}
-
-function resizeBackground() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-window.addEventListener('resize', resizeBackground);
-
-initBackground();
-animateBackground();
-
 /* ========================================================== */
-/* INTERFACCIA E TRADUZIONE - VERSIONE CORRETTA E CONSOLIDATA */
+/* INTERFACCIA E TRADUZIONE */
 /* ========================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Variabili e Selettori
+  // === Shader ===
+  function initBackground() {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2);
+    camera.position.z = 1;
+
+    geometry = new THREE.PlaneGeometry(10, 10);
+    material = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { type: 'f', value: 1.0 },
+        resolution: { type: 'v2', value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+      },
+      fragmentShader: frag
+    });
+
+    mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+  }
+
+  function animateBackground() {
+    animationId = requestAnimationFrame(animateBackground);
+    let elapsedMilliseconds = Date.now() - startTime;
+    material.uniforms.time.value = elapsedMilliseconds / 1000.0;
+    renderer.render(scene, camera);
+  }
+
+  function resizeBackground() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  window.addEventListener('resize', resizeBackground);
+  initBackground();
+  animateBackground();
+
+  // === Selettori ===
   const mainButtonsGrid = document.getElementById('main-buttons-grid');
   const sections = document.querySelectorAll('.menu-section');
   const menuContainer = document.getElementById('menu-container');
-
   const secondaryNav = document.getElementById('secondary-navigation');
   const secondaryGrid = document.getElementById('secondary-buttons-grid');
   const homePageButton = document.getElementById('home-page-btn');
-
   const currentLangBtn = document.getElementById('current-lang-btn');
   const langOptions = document.getElementById('lang-options');
   const langButtons = document.querySelectorAll('#lang-options .lang-btn');
@@ -98,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activeLang = initialLang;
 
-  // --- FUNZIONI ---
-
+  // === Traduzione ===
   const translatePage = (lang) => {
     translatableElements.forEach(element => {
       const translation = element.getAttribute(`data-${lang}`);
@@ -132,31 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const translation = originalButton.getAttribute(`data-${activeLang}`);
         if (translation) newButton.textContent = translation;
         newButton.removeAttribute('id');
-        newButton.addEventListener('click', () => handleMenuNavigation(targetId));
+        newButton.addEventListener('click', () => {
+          const pageIndex = Array.from(document.querySelectorAll('#flipbook .page')).findIndex(
+            page => page.id === targetId
+          );
+          if (pageIndex >= 0) {
+            $("#flipbook").turn("page", pageIndex + 1);
+          }
+        });
         secondaryGrid.appendChild(newButton);
       }
     });
-  };
-
-  const setupSequentialNav = (currentId) => {
-    const activeSection = document.getElementById(currentId);
-    if (!activeSection) return;
-
-    const navNextButton = activeSection.querySelector('#nav-next, .nav-next');
-    const navPrevButton = activeSection.querySelector('#nav-prev, .nav-prev');
-
-    const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
-    const currentIndex = allIds.indexOf(currentId);
-    const nextId = allIds[(currentIndex + 1) % allIds.length];
-    const prevId = allIds[(currentIndex - 1 + allIds.length) % allIds.length];
-
-    if (navNextButton) {
-      navNextButton.onclick = () => handleMenuNavigation(nextId);
-    }
-
-    if (navPrevButton) {
-      navPrevButton.onclick = () => handleMenuNavigation(prevId);
-    }
   };
 
   const showHome = () => {
@@ -166,82 +150,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
- const showNewSection = (targetSection, targetId, originIn = 'left center') => {
-  if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
-  sections.forEach(section => section.style.display = 'none');
+  // === Turn.js ===
+  $("#flipbook").turn({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  autoCenter: true,
+  duration: 500,
+  elevation: 50,
+  gradients: true
+});
 
-  if (targetSection) {
-    targetSection.style.display = 'block';
-    targetSection.style.opacity = '0';
-    targetSection.style.transform = 'rotateY(90deg)';
-    targetSection.style.transformOrigin = originIn;
-    targetSection.classList.remove('turn-in');
-    void targetSection.offsetWidth;
 
-    requestAnimationFrame(() => {
-      targetSection.classList.add('turn-in');
-      targetSection.style.opacity = '1';
+  document.getElementById('nav-next').onclick = () => $("#flipbook").turn("next");
+  document.getElementById('nav-prev').onclick = () => $("#flipbook").turn("previous");
 
-      setTimeout(() => {
-        targetSection.classList.remove('turn-in');
-        targetSection.style.transform = 'rotateY(0deg)';
-      }, 300);
+  document.querySelectorAll('.menu-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      document.getElementById('main-buttons-grid').style.display = 'none';
+      document.getElementById('flipbook').style.display = 'block';
+      document.querySelector('.nav-buttons').style.display = 'block';
+
+      const pageIndex = Array.from(document.querySelectorAll('#flipbook .page')).findIndex(
+        page => page.id === targetId
+      );
+      if (pageIndex >= 0) {
+        $("#flipbook").turn("page", pageIndex + 1);
+      }
     });
+  });
 
-    setTimeout(() => {
-      setupSequentialNav(targetId);
-    }, 50);
-  }
-
-  buildSecondaryNavigation(targetId);
-  if (secondaryNav) secondaryNav.style.display = 'block';
-  if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
-
-
-
-
-
-
-  const handleMenuNavigation = (targetId) => {
-  const targetSection = document.getElementById(targetId);
-  const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-
-  const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
-  const currentIndex = allIds.indexOf(currentActiveSection?.id);
-  const targetIndex = allIds.indexOf(targetId);
-
-  // ✅ Direzione corretta
-  let direction = 'forward';
-  if (targetIndex < currentIndex) direction = 'backward';
-  if (targetIndex > currentIndex) direction = 'forward';
-
-  const outClass = direction === 'forward' ? 'turn-out-forward' : 'turn-out-backward';
-  const originOut = direction === 'forward' ? 'right center' : 'left center';
-const originIn = direction === 'forward' ? 'right center' : 'left center';
-
-
-  if (currentActiveSection) {
-    currentActiveSection.style.transformOrigin = originOut;
-    currentActiveSection.classList.add(outClass);
-
-    setTimeout(() => {
-      currentActiveSection.classList.remove(outClass);
-      currentActiveSection.style.display = 'none';
-      showNewSection(targetSection, targetId, originIn);
-    }, 600);
-  } else {
-    showNewSection(targetSection, targetId, originIn);
-  }
-};
-
-
-
-
-
-
-
-  // --- DROPDOWN LINGUA ---
+  // === Dropdown lingua ===
   const arrow = currentLangBtn?.querySelector('.arrow');
   const isLangDropdownReady = currentLangBtn && langOptions;
 
@@ -284,7 +223,6 @@ const originIn = direction === 'forward' ? 'right center' : 'left center';
       if (arrow) currentLangBtn.insertBefore(newCode, arrow);
       else currentLangBtn.appendChild(newCode);
     }
-
     langButtons.forEach(btn => {
       const isActive = btn.getAttribute('data-lang') === lang;
       btn.disabled = isActive;
@@ -293,21 +231,7 @@ const originIn = direction === 'forward' ? 'right center' : 'left center';
     });
   };
 
-  // --- EVENTI ---
-
-  if (mainButtonsGrid) {
-    mainButtonsGrid.querySelectorAll('.menu-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-target');
-        handleMenuNavigation(targetId);
-      });
-    });
-  }
-
-  if (homePageButton) {
-    homePageButton.addEventListener('click', showHome);
-  }
-
+  // === Eventi lingua ===
   if (isLangDropdownReady) {
     currentLangBtn.addEventListener('click', () => {
       const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
@@ -324,13 +248,13 @@ const originIn = direction === 'forward' ? 'right center' : 'left center';
 
         localStorage.setItem("preferredLang", selectedLang);
         updateCurrentFlagAndButtons(selectedLang);
-        closeDropdown();
         translatePage(selectedLang);
+        closeDropdown();
       });
     });
   }
 
-  // --- INIZIALIZZAZIONE ---
+  // === Inizializzazione ===
   if (currentLangBtn) {
     updateCurrentFlagAndButtons(initialLang);
     closeDropdown();
@@ -339,3 +263,4 @@ const originIn = direction === 'forward' ? 'right center' : 'left center';
   translatePage(initialLang);
   showHome();
 });
+
