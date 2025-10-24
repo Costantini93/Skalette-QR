@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuContainer = document.getElementById('menu-container');
   const secondaryNav = document.getElementById('secondary-navigation');
   const secondaryGrid = document.getElementById('secondary-buttons-grid');
-  const homePageButton = document.getElementById('home-page-btn');
   const currentLangBtn = document.getElementById('current-lang-btn');
   const langOptions = document.getElementById('lang-options');
   const langButtons = document.querySelectorAll('#lang-options .lang-btn');
@@ -131,17 +130,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if (translation) newButton.textContent = translation;
         newButton.removeAttribute('id');
         newButton.addEventListener('click', () => {
-          const pageIndex = Array.from(document.querySelectorAll('#flipbook .page')).findIndex(
-            page => page.id === targetId
-          );
-          if (pageIndex >= 0) {
-            $("#flipbook").turn("page", pageIndex + 1);
-          }
-        });
+  const newTargetId = newButton.getAttribute('data-target');
+  handleMenuNavigation(newTargetId);
+});
         secondaryGrid.appendChild(newButton);
       }
     });
   };
+
+  function setupSequentialNav(targetId) {
+  const sectionOrder = Array.from(document.querySelectorAll('.menu-section')).map(s => s.id);
+  const currentIndex = sectionOrder.indexOf(targetId);
+  const currentSection = document.getElementById(targetId);
+
+  const prevArrow = currentSection.querySelector('.nav-prev');
+  const nextArrow = currentSection.querySelector('.nav-next');
+
+  if (prevArrow) {
+    prevArrow.style.display = currentIndex > 0 ? 'inline-block' : 'none';
+    prevArrow.onclick = () => handleMenuNavigation(sectionOrder[currentIndex - 1]);
+  }
+
+  if (nextArrow) {
+    nextArrow.style.display = currentIndex < sectionOrder.length - 1 ? 'inline-block' : 'none';
+    nextArrow.onclick = () => handleMenuNavigation(sectionOrder[currentIndex + 1]);
+  }
+}
+
 
   const showHome = () => {
     sections.forEach(section => section.style.display = 'none');
@@ -150,35 +165,104 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // === Turn.js ===
-  $("#flipbook").turn({
-  width: window.innerWidth,
-  height: window.innerHeight,
-  autoCenter: true,
-  duration: 500,
-  elevation: 50,
-  gradients: true
+  
+
+  const showNewSection = (targetSection, targetId, originIn = 'left center') => {
+  if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
+  sections.forEach(section => section.style.display = 'none');
+
+  if (targetSection) {
+    targetSection.style.display = 'block';
+    targetSection.style.opacity = '0';
+    targetSection.style.transformOrigin = originIn;
+    targetSection.classList.remove('turn-in'); // pulizia
+
+    // 🔁 Forza reflow e imposta stato iniziale
+    targetSection.style.transform = 'rotateY(90deg)';
+    void targetSection.offsetWidth;
+
+    // ✅ Applica la classe animata nel frame successivo
+    requestAnimationFrame(() => {
+      targetSection.classList.add('turn-in');
+      targetSection.style.opacity = '1';
+
+      // ✅ Rimuove la classe dopo la transizione
+      setTimeout(() => {
+        targetSection.classList.remove('turn-in');
+        targetSection.style.transform = 'rotateY(0deg)';
+      }, 600);
+    });
+
+    setTimeout(() => {
+      setupSequentialNav(targetId);
+    }, 50);
+  }
+
+  buildSecondaryNavigation(targetId);
+  if (secondaryNav) secondaryNav.style.display = 'block';
+  if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+document.querySelectorAll('.menu-header').forEach(header => {
+  const targetId = header.getAttribute('data-target');
+  const allIds = Array.from(document.querySelectorAll('.menu-header')).map(h => h.getAttribute('data-target'));
+  const currentIndex = allIds.indexOf(targetId);
+
+  const prevArrow = header.querySelector('.nav-prev');
+  const nextArrow = header.querySelector('.nav-next');
+
+  if (prevArrow && currentIndex > 0) {
+    const prevId = allIds[currentIndex - 1];
+    prevArrow.addEventListener('click', () => {
+      handleMenuNavigation(prevId);
+    });
+  }
+
+  if (nextArrow && currentIndex < allIds.length - 1) {
+    const nextId = allIds[currentIndex + 1];
+    nextArrow.addEventListener('click', () => {
+      handleMenuNavigation(nextId);
+    });
+  }
 });
 
 
-  document.getElementById('nav-next').onclick = () => $("#flipbook").turn("next");
-  document.getElementById('nav-prev').onclick = () => $("#flipbook").turn("previous");
 
-  document.querySelectorAll('.menu-button').forEach(button => {
-    button.addEventListener('click', () => {
-      const targetId = button.getAttribute('data-target');
-      document.getElementById('main-buttons-grid').style.display = 'none';
-      document.getElementById('flipbook').style.display = 'block';
-      document.querySelector('.nav-buttons').style.display = 'block';
 
-      const pageIndex = Array.from(document.querySelectorAll('#flipbook .page')).findIndex(
-        page => page.id === targetId
-      );
-      if (pageIndex >= 0) {
-        $("#flipbook").turn("page", pageIndex + 1);
-      }
-    });
-  });
+
+
+const handleMenuNavigation = (targetId) => {
+  const targetSection = document.getElementById(targetId);
+  const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
+
+  const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
+  const currentIndex = allIds.indexOf(currentActiveSection?.id);
+  const targetIndex = allIds.indexOf(targetId);
+  const direction = targetIndex > currentIndex ? 'backward' : 'forward';
+
+  const outClass = direction === 'forward' ? 'turn-out-forward' : 'turn-out-backward';
+  const originOut = direction === 'forward' ? 'left center' : 'right center';
+  const originIn = direction === 'forward' ? 'left center' : 'right center';
+
+  if (currentActiveSection) {
+    currentActiveSection.style.transformOrigin = originOut;
+    currentActiveSection.classList.add(outClass);
+
+    setTimeout(() => {
+      currentActiveSection.classList.remove(outClass);
+      currentActiveSection.style.display = 'none';
+      showNewSection(targetSection, targetId, originIn);
+    }, 600); // deve combaciare con la durata della transizione CSS
+  } else {
+    showNewSection(targetSection, targetId, originIn);
+  }
+};
+
+
+
+
+
+
 
   // === Dropdown lingua ===
   const arrow = currentLangBtn?.querySelector('.arrow');
@@ -262,5 +346,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   translatePage(initialLang);
   showHome();
+
+  document.querySelectorAll('.menu-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const targetId = button.getAttribute('data-target');
+    handleMenuNavigation(targetId);
+  });
+});
+
 });
 
