@@ -72,7 +72,7 @@ header {
     height: auto;
     margin: 0 auto; 
     border-radius: 50%; 
-    box-shadow: 0 4px 10px rgb(212, 175, 55);
+    box-shadow: 0 6px 10px rgb(212, 175, 55);
     
 }
 
@@ -140,12 +140,11 @@ header {
     border-radius: 15px; 
     cursor: pointer;
     transition: all 0.3s ease;
-    
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgb(212, 175, 55);
 }
 
 .menu-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(212, 175, 55, 0.4);
     transform: scale(1.02);
 }
 
@@ -192,6 +191,9 @@ header {
     z-index: 1; 
 }
 
+
+  
+
 .flag-icon {
     width: 20px;
     height: 14px;
@@ -216,10 +218,11 @@ header {
     font-family: 'Lato', sans-serif;
     display: flex;
     align-items: center;
+    
 }
 
 #lang-options .lang-btn:hover {
-    background-color: #eee;
+    background-color: rgba(212, 175, 55, 0.4);
 }
 
 .dropdown-inner {
@@ -280,6 +283,7 @@ header {
 
 .arrow-button:hover {
   transform: scale(1.2);
+  background-color: rgba(212, 175, 55, 0.4);
 }
 
 
@@ -297,6 +301,7 @@ header {
   text-align: center;
   text-transform: uppercase;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgb(212, 175, 55);
 }
 
 .category-header {
@@ -318,6 +323,7 @@ header {
 .nav-arrow-container:hover {
   color:black;
   transform: scale(1.2);
+  background-color: rgba(212, 175, 55, 0.4);
 }
 
 
@@ -376,6 +382,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Cinzel', serif; 
 }
 
 #secondary-buttons-grid {
@@ -453,7 +460,7 @@ header {
     padding: 12px 25px;
     width: 70%; 
     max-width: 350px; 
-    
+    font-family: 'Cinzel', serif; 
     background-color: rgba(255, 255, 255, 0.15); 
     border: 2px solid rgb(212, 175, 55);
     color: rgb(212, 175, 55);
@@ -468,7 +475,7 @@ header {
 .whatsapp-button:hover,
 .review-button:hover,
 .instagram-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(212, 175, 55, 0.4);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
