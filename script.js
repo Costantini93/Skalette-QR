@@ -97,46 +97,70 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeLang = initialLang;
 
   // === Traduzione ===
-  const translatePage = (lang) => {
-    translatableElements.forEach(element => {
-      const translation = element.getAttribute(`data-${lang}`);
-      if (translation) {
-        const iconElement = element.querySelector('.whatsapp-icon-img') || element.querySelector('.review-icon');
-        if (iconElement) {
-          Array.from(element.childNodes).forEach(node => {
-            if (node.nodeType === 3) element.removeChild(node);
-          });
-          element.appendChild(document.createTextNode(` ${translation}`));
-        } else {
-          element.textContent = translation;
-        }
-      }
-    });
+ const translatePage = (lang) => {
+  translatableElements.forEach(element => {
+    const translation = element.getAttribute(`data-${lang}`);
+    const italian = element.getAttribute('data-it');
 
-    if (secondaryNav && secondaryNav.style.display !== 'none') {
-      const activeSection = document.querySelector('.menu-section[style*="display: block"]');
-      if (activeSection) buildSecondaryNavigation(activeSection.id);
+    if (!translation) return;
+
+    // Caso speciale: icona interna
+    const iconElement = element.querySelector('.whatsapp-icon-img') || element.querySelector('.review-icon');
+    if (iconElement) {
+      Array.from(element.childNodes).forEach(node => {
+        if (node.nodeType === 3) element.removeChild(node);
+      });
+      element.appendChild(document.createTextNode(` ${translation}`));
+      return;
     }
-  };
 
-  const buildSecondaryNavigation = (activeTargetId) => {
-    if (!secondaryGrid) return;
-    secondaryGrid.innerHTML = '';
-    mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
-      const targetId = originalButton.getAttribute('data-target');
-      if (targetId !== activeTargetId) {
-        const newButton = originalButton.cloneNode(true);
-        const translation = originalButton.getAttribute(`data-${activeLang}`);
-        if (translation) newButton.textContent = translation;
-        newButton.removeAttribute('id');
-        newButton.addEventListener('click', () => {
-  const newTargetId = newButton.getAttribute('data-target');
-  handleMenuNavigation(newTargetId);
-});
-        secondaryGrid.appendChild(newButton);
+    // Aggiorna contenuto principale
+    element.textContent = translation;
+
+    // Se è un nome di piatto, mostra la traduzione italiana solo se la lingua NON è italiano
+    if (element.classList.contains('item-name')) {
+      let translationSpan = element.nextElementSibling;
+      if (!translationSpan || !translationSpan.classList.contains('item-translation-it')) {
+        translationSpan = document.createElement('span');
+        translationSpan.className = 'item-translation-it';
+        element.parentNode.insertBefore(translationSpan, element.nextSibling);
       }
+
+      translationSpan.textContent = lang !== 'it' ? italian : '';
+      translationSpan.style.display = lang !== 'it' ? 'block' : 'none';
+    }
+  });
+
+  // Ricostruisce la navigazione secondaria se visibile
+  if (secondaryNav && secondaryNav.style.display !== 'none') {
+    const activeSection = document.querySelector('.menu-section[style*="display: block"]');
+    if (activeSection) buildSecondaryNavigation(activeSection.id);
+  }
+};
+
+
+
+ const buildSecondaryNavigation = (activeTargetId) => {
+  if (!secondaryGrid) return;
+  secondaryGrid.innerHTML = '';
+
+  mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
+    const targetId = originalButton.getAttribute('data-target');
+    if (targetId === activeTargetId) return;
+
+    const newButton = originalButton.cloneNode(true);
+    const translation = originalButton.getAttribute(`data-${activeLang}`);
+    if (translation) newButton.textContent = translation;
+
+    newButton.removeAttribute('id');
+    newButton.addEventListener('click', () => {
+      handleMenuNavigation(targetId);
     });
-  };
+
+    secondaryGrid.appendChild(newButton);
+  });
+};
+
 
   function setupSequentialNav(targetId) {
   const sectionOrder = Array.from(document.querySelectorAll('.menu-section')).map(s => s.id);
@@ -190,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         targetSection.classList.remove('turn-in');
         targetSection.style.transform = 'rotateY(0deg)';
-      }, 600);
+      }, 100);
     });
 
     setTimeout(() => {
@@ -252,7 +276,7 @@ const handleMenuNavigation = (targetId) => {
       currentActiveSection.classList.remove(outClass);
       currentActiveSection.style.display = 'none';
       showNewSection(targetSection, targetId, originIn);
-    }, 600); // deve combaciare con la durata della transizione CSS
+    }, 100); 
   } else {
     showNewSection(targetSection, targetId, originIn);
   }
