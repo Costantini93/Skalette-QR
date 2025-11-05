@@ -381,8 +381,10 @@ document.querySelectorAll('.menu-button').forEach(btn => {
   btn.addEventListener('click', () => {
     const targetId = btn.getAttribute('data-target');
     const target = document.getElementById(targetId);
-    target.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    
   });
 });
+
+
 });
 
