@@ -48,15 +48,16 @@
         </header>
 
         <main id="menu-container">
+
             <div id="language-dropdown">
                 <div class="dropdown-inner">
+
                     <button id="current-lang-btn" aria-expanded="false" data-lang="">
                         <span class="arrow">^</span>
                     </button>
 
+                    <div id="lang-options" style="display: none;">
 
-
-                    <div id="lang-options">
                         <button class="lang-btn" data-lang="it">
                             <img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT
                         </button>
@@ -78,6 +79,7 @@
                     </div>
                 </div>
             </div>
+
         </main>
 
 
@@ -2079,11 +2081,7 @@
             }
 
 
-            // 🔁 Toggle menu (DEVE essere fuori dal try/catch per assicurare la registrazione)
-            currentLangBtn.addEventListener('click', () => {
-                const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-                isExpanded ? closeDropdown() : openDropdown();
-            });
+            
 
             // 🔁 Cambio lingua (DEVE essere fuori dal try/catch per assicurare la registrazione)
             langButtons.forEach(btn => {
