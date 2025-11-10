@@ -28,6 +28,10 @@ body {
     min-height: 100vh;
     background-size: cover;
     background-position: center;
+    overflow-x: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
 }
 
 /* Stili per il Canvas creato da Three.js (Sfondo fisso) */
@@ -729,7 +733,7 @@ footer {
     font-family: 'Cinzel', serif;
     color: var(--text-dark);
     font-size: 1em;
-    font-weight: bold;
+    font-weight: normal;
     white-space: nowrap;
 }
 
