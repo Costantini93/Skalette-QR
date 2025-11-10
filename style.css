@@ -685,6 +685,7 @@ footer {
     height: 24px;
     vertical-align: middle;
     margin: 0 5px;
+    filter: drop-shadow(0 0 2px var(--primary-gold)) brightness(0) saturate(100%) invert(76%) sepia(52%) saturate(476%) hue-rotate(7deg);
 }
 
 /* ========================================================== */
