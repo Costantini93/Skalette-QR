@@ -23,13 +23,13 @@
 /* ========================================================== */
 
 html, body {
-    height: auto;
     overflow-x: hidden;
 }
 
 body {
     background-color: transparent; 
     color: var(--primary-gold);
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     overflow-x: hidden;
@@ -106,8 +106,7 @@ canvas {
     padding: 10px 0 100px;
     position: relative; 
     z-index: var(--z-content);
-    min-height: auto;
-    height: auto;
+    min-height: 100vh;
     display: flex; 
     flex-direction: column;
     align-items: center;
