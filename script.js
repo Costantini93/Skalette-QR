@@ -3,8 +3,8 @@
 /* ========================================================== */
 
 let frag = `
-vec4 abyssColor = vec4(0.0, 0.0, 0.0, 0.0);
-vec4 tunnelColor = vec4(0.5, 1.0, 1.5, 2.0);
+vec4 abyssColor = vec4(0.0, 0.0, 0.0, 0.0); // nero trasparente
+vec4 tunnelColor = vec4(0.5, 1.0, 1.5, 2.0); // blu notte brillante
 
 uniform float time;
 uniform vec2 resolution;
@@ -18,6 +18,7 @@ void main() {
     x = smoothstep(0.5, 0.01, x);
     gl_FragColor = mix(tunnelColor, abyssColor, x) * y;
 }
+
 `;
 
 let scene, camera, renderer, animationId;
@@ -29,298 +30,254 @@ let startTime = Date.now();
 /* ========================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ========================================================== 
+  // CACHE DOM ELEMENTS
+  // ========================================================== 
+  const elements = {
+    mainButtonsGrid: document.getElementById('main-buttons-grid'),
+    sections: document.querySelectorAll('.menu-section'),
+    menuContainer: document.getElementById('menu-container'),
+    secondaryNav: document.getElementById('secondary-navigation'),
+    secondaryGrid: document.getElementById('secondary-buttons-grid'),
+    currentLangBtn: document.getElementById('current-lang-btn'),
+    langOptions: document.getElementById('lang-options'),
+    langButtons: document.querySelectorAll('#lang-options .lang-btn'),
+    translatableElements: document.querySelectorAll('[data-it]')
+  };
 
-    // === 1. DEFINIZIONI INIZIALI (Shader) ===
-    function initBackground() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2);
-        camera.position.z = 1;
+  // Language configuration
+  const langConfig = {
+    supported: ['it', 'en', 'es', 'fr', 'de', 'ru'],
+    fallback: 'it',
+    saved: localStorage.getItem("preferredLang"),
+    browser: (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase()
+  };
 
-        geometry = new THREE.PlaneGeometry(10, 10);
-        material = new THREE.ShaderMaterial({
-            uniforms: {
-                time: { type: 'f', value: 1.0 },
-                resolution: { type: 'v2', value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-            },
-            fragmentShader: frag
+  // Initialize language
+  const activeLang = {
+    current: langConfig.saved && langConfig.supported.includes(langConfig.saved) 
+      ? langConfig.saved 
+      : langConfig.supported.includes(langConfig.browser) 
+        ? langConfig.browser 
+        : langConfig.fallback
+  };
+
+  // Animation helpers
+  const animations = {
+    fadeIn: (element, duration = 300) => {
+      element.style.opacity = '0';
+      element.style.display = 'block';
+      requestAnimationFrame(() => {
+        element.style.transition = `opacity ${duration}ms`;
+        element.style.opacity = '1';
+      });
+    },
+    rotate: (element, degrees, duration = 300) => {
+      element.style.transition = `transform ${duration}ms`;
+      element.style.transform = `rotate(${degrees}deg)`;
+    }
+  };
+
+  // ========================================================== 
+  // CORE FUNCTIONS
+  // ========================================================== 
+  const core = {
+    translatePage: (lang) => {
+      elements.translatableElements.forEach(element => {
+        const translation = element.getAttribute(`data-${lang}`);
+        if (!translation) return;
+
+        const isMenuItem = element.classList.contains('item-name');
+        const hasIcon = element.querySelector('.whatsapp-icon-img, .review-icon');
+
+        if (hasIcon) {
+          element.childNodes.forEach(node => {
+            if (node.nodeType === 3) node.remove();
+          });
+          element.appendChild(document.createTextNode(` ${translation}`));
+          return;
+        }
+
+        element.textContent = translation;
+
+        if (isMenuItem) {
+          core.handleMenuItemTranslation(element, lang);
+        }
+      });
+
+      if (elements.secondaryNav?.style.display !== 'none') {
+        const activeSection = document.querySelector('.menu-section[style*="display: block"]');
+        if (activeSection) core.buildSecondaryNavigation(activeSection.id);
+      }
+    },
+
+    handleMenuItemTranslation: (element, lang) => {
+      let translationSpan = element.nextElementSibling;
+      const italian = element.getAttribute('data-it');
+
+      if (!translationSpan?.classList.contains('item-translation-it')) {
+        translationSpan = document.createElement('span');
+        translationSpan.className = 'item-translation-it';
+        element.parentNode.insertBefore(translationSpan, element.nextSibling);
+      }
+
+      translationSpan.textContent = lang !== 'it' ? italian : '';
+      translationSpan.style.display = lang !== 'it' ? 'block' : 'none';
+    },
+
+    initBackground: () => {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2);
+      camera.position.z = 1;
+
+      geometry = new THREE.PlaneGeometry(10, 10);
+      material = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { type: 'f', value: 1.0 },
+          resolution: { type: 'v2', value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+        },
+        fragmentShader: frag
+      });
+
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+    },
+
+    animateBackground: () => {
+      animationId = requestAnimationFrame(core.animateBackground);
+      let elapsedMilliseconds = Date.now() - startTime;
+      material.uniforms.time.value = elapsedMilliseconds / 1000.0;
+      renderer.render(scene, camera);
+    },
+
+    resizeBackground: () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+
+    buildSecondaryNavigation: (activeTargetId) => {
+      if (!elements.secondaryGrid) return;
+      elements.secondaryGrid.innerHTML = '';
+
+      elements.mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
+        const targetId = originalButton.getAttribute('data-target');
+        if (targetId === activeTargetId) return;
+
+        const newButton = originalButton.cloneNode(true);
+        const translation = originalButton.getAttribute(`data-${activeLang.current}`);
+        if (translation) newButton.textContent = translation;
+
+        newButton.removeAttribute('id');
+        newButton.addEventListener('click', () => {
+          handlers.menuNavigation(targetId);
         });
 
-        mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+        elements.secondaryGrid.appendChild(newButton);
+      });
+    },
 
-        renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-    }
+    setupSequentialNav: (targetId) => {
+      const sectionOrder = Array.from(document.querySelectorAll('.menu-section')).map(s => s.id);
+      const currentIndex = sectionOrder.indexOf(targetId);
+      const currentSection = document.getElementById(targetId);
 
-    function animateBackground() {
-        animationId = requestAnimationFrame(animateBackground);
-        let elapsedMilliseconds = Date.now() - startTime;
-        material.uniforms.time.value = elapsedMilliseconds / 1000.0;
-        renderer.render(scene, camera);
-    }
+      const prevArrow = currentSection.querySelector('.nav-prev');
+      const nextArrow = currentSection.querySelector('.nav-next');
 
-    function resizeBackground() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    }
+      if (prevArrow) {
+        prevArrow.style.display = currentIndex > 0 ? 'inline-block' : 'none';
+        prevArrow.onclick = () => handlers.menuNavigation(sectionOrder[currentIndex - 1]);
+      }
 
-    window.addEventListener('resize', resizeBackground);
-    initBackground();
-    animateBackground();
+      if (nextArrow) {
+        nextArrow.style.display = currentIndex < sectionOrder.length - 1 ? 'inline-block' : 'none';
+        nextArrow.onclick = () => handlers.menuNavigation(sectionOrder[currentIndex + 1]);
+      }
+    },
 
-   // === 2. SELETTORI E VARIABILI GLOBALI (Lingua e Navigazione) ===
-const mainButtonsGrid = document.getElementById('main-buttons-grid');
-const sections = document.querySelectorAll('.menu-section');
-const menuContainer = document.getElementById('menu-container');
-const secondaryNav = document.getElementById('secondary-navigation');
-const secondaryGrid = document.getElementById('secondary-buttons-grid');
-const translatableElements = document.querySelectorAll('[data-it]');
-const dropdownContainer = document.getElementById('language-dropdown');
+    getNavigationDirection: (currentId, targetId) => {
+      const allIds = Array.from(elements.mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
+      const currentIndex = allIds.indexOf(currentId);
+      const targetIndex = allIds.indexOf(targetId);
+      return targetIndex > currentIndex ? 'backward' : 'forward';
+    },
 
-const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
-const fallbackLang = 'it';
-
-// Selettori Lingua
-const currentLangBtn = document.getElementById('current-lang-btn');
-const langOptions = document.getElementById('lang-options');
-const langButtons = document.querySelectorAll('#lang-options .lang-btn');
-const arrow = currentLangBtn?.querySelector('.arrow');
-const dropdownInner = document.querySelector('.dropdown-inner');
-
-// Calcolo lingua iniziale
-const savedLang = localStorage.getItem("preferredLang");
-const browserLangCode = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
-
-let initialLang = fallbackLang;
-if (savedLang && supportedLangs.includes(savedLang)) {
-  initialLang = savedLang;
-} else if (supportedLangs.includes(browserLangCode)) {
-  initialLang = browserLangCode;
-}
-let activeLang = initialLang;
-
-// === 3. FUNZIONI DI BASE LINGUA ===
-const closeDropdown = () => {
-  if (!currentLangBtn || !langOptions) return;
-  currentLangBtn.setAttribute('aria-expanded', 'false');
-  langOptions.style.display = 'none';
-  if (arrow) arrow.style.transform = 'rotate(0deg)';
-};
-
-const openDropdown = () => {
-  if (!currentLangBtn || !langOptions) return;
-  currentLangBtn.setAttribute('aria-expanded', 'true');
-  langOptions.style.display = 'block'; // Usiamo 'block' come verificato
-  if (arrow) arrow.style.transform = 'rotate(180deg)';
-};
-
-
-    const updateCurrentFlagAndButtons = (lang) => {
-        if (!currentLangBtn || !langOptions || !arrow) return;
-
-        activeLang = lang;
-        currentLangBtn.setAttribute('data-lang', lang);
-
-        // Pulisce il contenuto (codice lingua e bandiera)
-        Array.from(currentLangBtn.childNodes).forEach(node => {
-            const isArrow = node.classList?.contains('arrow');
-            if (node.nodeType === 3 || (node.nodeType === 1 && !isArrow)) {
-                currentLangBtn.removeChild(node);
-            }
-        });
-
-        // Trova il bottone selezionato nel menu dropdown
-        const selectedBtn = langOptions.querySelector(`.lang-btn[data-lang="${lang}"]`);
-        
-        if (selectedBtn) {
-            // Clona e inserisce bandiera
-            const newFlag = selectedBtn.querySelector('.flag-icon')?.cloneNode(true);
-            if (newFlag) currentLangBtn.insertBefore(newFlag, arrow);
-
-            // Inserisce il codice lingua
-            const newCode = document.createElement('span');
-            newCode.className = 'lang-code';
-            newCode.textContent = lang.toUpperCase();
-            currentLangBtn.insertBefore(newCode, arrow);
-
-            // Aggiorna la classe 'active' nei bottoni del menu
-            langButtons.forEach(btn => {
-                const isActive = btn.getAttribute('data-lang') === lang;
-                btn.classList.toggle('active-lang', isActive);
-                btn.disabled = isActive;
-            });
-        }
-        localStorage.setItem("preferredLang", lang);
-    };
-
-    // === 4. FUNZIONI DI TRADUZIONE E NAVIGAZIONE ===
-    
-    const translatePage = (lang) => {
-        translatableElements.forEach(element => {
-            const translation = element.getAttribute(`data-${lang}`);
-            const italian = element.getAttribute('data-it');
-            if (!translation) return;
-
-            const iconElement = element.querySelector('.whatsapp-icon-img') || element.querySelector('.review-icon');
-            if (iconElement) {
-                // Gestisce pulsanti con icone (per non cancellare l'icona)
-                Array.from(element.childNodes).forEach(node => {
-                    if (node.nodeType === 3) element.removeChild(node);
-                    if (node.nodeType === 1 && node.tagName !== 'IMG' && !node.classList.contains('review-icon')) element.removeChild(node);
-                });
-                element.appendChild(document.createTextNode(` ${translation}`));
-                return;
-            }
-
-            element.textContent = translation;
-
-            // Gestione della traduzione affiancata per i nomi degli item
-            if (element.classList.contains('item-name')) {
-                let translationSpan = element.nextElementSibling;
-                if (!translationSpan || !translationSpan.classList.contains('item-translation-it')) {
-                    translationSpan = document.createElement('span');
-                    translationSpan.className = 'item-translation-it';
-                    element.parentNode.insertBefore(translationSpan, element.nextSibling);
-                }
-
-                translationSpan.textContent = lang !== 'it' ? italian : '';
-                translationSpan.style.display = lang !== 'it' ? 'block' : 'none';
-            }
-        });
-
-        if (secondaryNav && secondaryNav.style.display !== 'none') {
-            const activeSection = document.querySelector('.menu-section[style*="display: block"]');
-            if (activeSection) buildSecondaryNavigation(activeSection.id);
-        }
-    };
-
-    const buildSecondaryNavigation = (activeTargetId) => {
-        if (!secondaryGrid) return;
-        secondaryGrid.innerHTML = '';
-
-        mainButtonsGrid.querySelectorAll('.menu-button').forEach(originalButton => {
-            const targetId = originalButton.getAttribute('data-target');
-            if (targetId === activeTargetId) return;
-
-            const newButton = originalButton.cloneNode(true);
-            const translation = originalButton.getAttribute(`data-${activeLang}`);
-            if (translation) newButton.textContent = translation;
-
-            newButton.removeAttribute('id');
-            newButton.addEventListener('click', () => {
-                handleMenuNavigation(targetId);
-            });
-
-            secondaryGrid.appendChild(newButton);
-        });
-    };
-
-    function setupSequentialNav(targetId) {
-        const sectionOrder = Array.from(document.querySelectorAll('.menu-section')).map(s => s.id);
-        const currentIndex = sectionOrder.indexOf(targetId);
-        const currentSection = document.getElementById(targetId);
-
-        const prevArrow = currentSection.querySelector('.nav-prev');
-        const nextArrow = currentSection.querySelector('.nav-next');
-
-        if (prevArrow) {
-            prevArrow.style.display = currentIndex > 0 ? 'inline-block' : 'none';
-            prevArrow.onclick = () => handleMenuNavigation(sectionOrder[currentIndex - 1], 'forward');
-        }
-
-        if (nextArrow) {
-            nextArrow.style.display = currentIndex < sectionOrder.length - 1 ? 'inline-block' : 'none';
-            nextArrow.onclick = () => handleMenuNavigation(sectionOrder[currentIndex + 1], 'backward');
-        }
-    }
-
-    const showHome = () => {
-        sections.forEach(section => section.style.display = 'none');
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'flex';
-        if (secondaryNav) secondaryNav.style.display = 'none';
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    const showNewSection = (targetSection, targetId, originIn = 'left center') => {
-        if (mainButtonsGrid) mainButtonsGrid.style.display = 'none';
-        sections.forEach(section => section.style.display = 'none');
-
-        if (targetSection) {
-            targetSection.style.display = 'block';
-            targetSection.style.opacity = '0';
-            targetSection.style.transformOrigin = originIn;
-            targetSection.classList.remove('turn-in');
-            targetSection.style.transform = 'rotateY(90deg)';
-            void targetSection.offsetWidth;
-
-            requestAnimationFrame(() => {
-                targetSection.classList.add('turn-in');
-                targetSection.style.opacity = '1';
-
-                setTimeout(() => {
-                    targetSection.classList.remove('turn-in');
-                    targetSection.style.transform = 'rotateY(0deg)';
-                }, 100);
-            });
-
-            setTimeout(() => {
-                setupSequentialNav(targetId);
-            }, 50);
-        }
-
-        buildSecondaryNavigation(targetId);
-        if (secondaryNav) secondaryNav.style.display = 'block';
-        if (menuContainer) menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    const handleMenuNavigation = (targetId, explicitDirection = null) => {
-        const targetSection = document.getElementById(targetId);
-        const currentActiveSection = document.querySelector('.menu-section[style*="display: block"]');
-
-        const allIds = Array.from(mainButtonsGrid.querySelectorAll('.menu-button')).map(btn => btn.getAttribute('data-target'));
-        const currentIndex = allIds.indexOf(currentActiveSection?.id);
-        const targetIndex = allIds.indexOf(targetId);
-        
-        let direction;
-        if (explicitDirection) {
-            direction = explicitDirection;
-        } else {
-            direction = targetIndex > currentIndex ? 'backward' : 'forward';
-        }
-
+    animateMenuTransition: (current, target, direction) => {
+      if (current) {
         const outClass = direction === 'forward' ? 'turn-out-forward' : 'turn-out-backward';
         const originOut = direction === 'forward' ? 'left center' : 'right center';
-        const originIn = direction === 'forward' ? 'left center' : 'right center';
+        current.style.transformOrigin = originOut;
+        current.classList.add(outClass);
 
-        if (currentActiveSection) {
-            currentActiveSection.style.transformOrigin = originOut;
-            currentActiveSection.classList.add(outClass);
+        // Attendi che l'animazione termini (500ms da CSS @keyframes)
+        setTimeout(() => {
+          current.classList.remove(outClass);
+          current.style.display = 'none';
+          current.style.transform = 'rotateY(0deg)';
+          current.style.opacity = '1';
+          core.showNewSection(target);
+        }, 500); 
+      } else {
+        core.showNewSection(target);
+      }
+    },
 
-            setTimeout(() => {
-                currentActiveSection.classList.remove(outClass);
-                currentActiveSection.style.display = 'none';
-                showNewSection(targetSection, targetId, originIn);
-            }, 100);
-        } else {
-            showNewSection(targetSection, targetId, originIn);
-        }
-    };
-    
-    // === 5. REGISTRAZIONE EVENTI ===
-    
-    // 5.1 Navigazione Menu Principale
-    document.querySelectorAll('.menu-button').forEach(button => {
+    showNewSection: (targetSection) => {
+      elements.sections.forEach(section => {
+        section.style.display = section === targetSection ? 'block' : 'none';
+      });
+      if (elements.mainButtonsGrid) elements.mainButtonsGrid.style.display = 'none';
+      if (elements.secondaryNav) elements.secondaryNav.style.display = 'block';
+      if (elements.menuContainer) elements.menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Animazione page flip in
+      targetSection.style.transformOrigin = 'left center';
+      targetSection.classList.add('turn-in');
+
+      setTimeout(() => {
+        targetSection.classList.remove('turn-in');
+        targetSection.style.transform = 'rotateY(0deg)';
+        targetSection.style.opacity = '1';
+      }, 500);
+
+      setTimeout(() => {
+        core.setupSequentialNav(targetSection.id);
+      }, 50);
+
+      core.buildSecondaryNavigation(targetSection.id);
+    },
+
+    // Initialize
+    init: () => {
+      core.translatePage(activeLang.current);
+      core.initBackground();
+      core.animateBackground();
+      core.setupEventListeners();
+      core.showHome();
+    },
+
+    setupEventListeners: () => {
+      window.addEventListener('resize', core.resizeBackground);
+
+      // Bottoni categorie
+      elements.mainButtonsGrid.querySelectorAll('.menu-button').forEach(button => {
         button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
-            handleMenuNavigation(targetId);
+          const targetId = button.getAttribute('data-target');
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            core.showNewSection(targetSection);
+          }
         });
-    });
+      });
 
-    // 5.2 Navigazione Freccette Header
-    document.querySelectorAll('.menu-header').forEach(header => {
+      // Frecce navigazione intestazioni
+      document.querySelectorAll('.menu-header').forEach(header => {
         const targetId = header.getAttribute('data-target');
         const allIds = Array.from(document.querySelectorAll('.menu-header')).map(h => h.getAttribute('data-target'));
         const currentIndex = allIds.indexOf(targetId);
@@ -329,81 +286,225 @@ const openDropdown = () => {
         const nextArrow = header.querySelector('.nav-next');
 
         if (prevArrow && currentIndex > 0) {
-            const prevId = allIds[currentIndex - 1];
-            prevArrow.addEventListener('click', () => {
-                handleMenuNavigation(prevId, 'forward'); 
-            });
+          const prevId = allIds[currentIndex - 1];
+          prevArrow.addEventListener('click', () => {
+            const prevSection = document.getElementById(prevId);
+            if (prevSection) core.showNewSection(prevSection);
+          });
         }
 
         if (nextArrow && currentIndex < allIds.length - 1) {
-            const nextId = allIds[currentIndex + 1];
-            nextArrow.addEventListener('click', () => {
-                handleMenuNavigation(nextId, 'backward'); 
-            });
+          const nextId = allIds[currentIndex + 1];
+          nextArrow.addEventListener('click', () => {
+            const nextSection = document.getElementById(nextId);
+            if (nextSection) core.showNewSection(nextSection);
+          });
         }
+      });
+
+      // Lingua: selezione dal menu a tendina
+      if (isLangDropdownReady) {
+        elements.langButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const selectedLang = btn.getAttribute('data-lang');
+            if (selectedLang === activeLang.current) {
+              closeDropdown();
+              return;
+            }
+            activeLang.current = selectedLang;
+            localStorage.setItem("preferredLang", selectedLang);
+            updateCurrentFlagAndButtons(selectedLang);
+            core.translatePage(selectedLang);
+            closeDropdown();
+          });
+        });
+      }
+
+      // ========================================================== 
+      // TOUCH SWIPE SUPPORT (Mobile Page Flip)
+      // ========================================================== 
+      let touchStartX = 0;
+      let touchStartY = 0;
+      const swipeThreshold = 50; // Minimo pixels per registrare swipe
+
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+      }, false);
+
+      document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
+
+        // Solo se lo swipe è principalmente orizzontale (non verticale)
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
+          const activeSectionId = Array.from(elements.sections).find(
+            s => s.style.display === 'block'
+          )?.id;
+
+          if (!activeSectionId) return; // Non c'è sezione attiva
+
+          const allSectionIds = Array.from(elements.sections).map(s => s.id);
+          const currentIndex = allSectionIds.indexOf(activeSectionId);
+
+          if (diffX > 0) {
+            // Swipe sinistro → Vai alla pagina SUCCESSIVA (forward)
+            if (currentIndex < allSectionIds.length - 1) {
+              const nextId = allSectionIds[currentIndex + 1];
+              handlers.menuNavigation(nextId);
+            }
+          } else {
+            // Swipe destro → Vai alla pagina PRECEDENTE (backward)
+            if (currentIndex > 0) {
+              const prevId = allSectionIds[currentIndex - 1];
+              handlers.menuNavigation(prevId);
+            }
+          }
+        }
+      }, false);
+    },
+
+    showHome: () => {
+      elements.sections.forEach(section => section.style.display = 'none');
+      if (elements.mainButtonsGrid) elements.mainButtonsGrid.style.display = 'flex';
+      if (elements.secondaryNav) elements.secondaryNav.style.display = 'none';
+      if (elements.menuContainer) elements.menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // UI updates
+  const ui = {
+    updateLanguageUI: (lang) => {
+      elements.langButtons.forEach(btn => {
+        const isActive = btn.getAttribute('data-lang') === lang;
+        btn.disabled = isActive;
+        btn.classList.toggle('active-lang', isActive);
+        btn.style.display = 'inline-flex';
+      });
+
+      const selectedBtn = elements.langOptions.querySelector(`.lang-btn[data-lang="${lang}"]`);
+      if (selectedBtn) {
+        const newFlag = selectedBtn.querySelector('.flag-icon')?.cloneNode(true);
+        if (newFlag && elements.currentLangBtn.querySelector('.arrow')) {
+          elements.currentLangBtn.insertBefore(newFlag, elements.currentLangBtn.querySelector('.arrow'));
+        } else if (newFlag) {
+          elements.currentLangBtn.appendChild(newFlag);
+        }
+
+        const newCode = document.createElement('span');
+        newCode.className = 'lang-code';
+        newCode.textContent = lang.toUpperCase();
+        elements.currentLangBtn.appendChild(newCode);
+      }
+    }
+  };
+
+  // Event handlers
+  const handlers = {
+    languageChange: (lang) => {
+      localStorage.setItem("preferredLang", lang);
+      activeLang.current = lang;
+      core.translatePage(lang);
+      ui.updateLanguageUI(lang);
+    },
+
+    menuNavigation: (targetId) => {
+      const current = document.querySelector('.menu-section[style*="display: block"]');
+      const target = document.getElementById(targetId);
+      
+      if (!target) return;
+
+      const direction = core.getNavigationDirection(current?.id, targetId);
+      core.animateMenuTransition(current, target, direction);
+    }
+  };
+
+  // === Dropdown lingua ===
+  const arrow = elements.currentLangBtn?.querySelector('.arrow');
+  const isLangDropdownReady = elements.currentLangBtn && elements.langOptions;
+
+  // ========================================================== 
+  // DROPDOWN FUNCTIONS
+  // ========================================================== 
+  const closeDropdown = () => {
+    if (isLangDropdownReady) {
+      elements.currentLangBtn.setAttribute('aria-expanded', 'false');
+      elements.langOptions.style.display = 'none';
+      if (arrow) arrow.style.transform = 'rotate(0deg)';
+    }
+  };
+
+  const openDropdown = () => {
+    if (isLangDropdownReady) {
+      elements.currentLangBtn.setAttribute('aria-expanded', 'true');
+      elements.langOptions.style.display = 'flex';
+      if (arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+  };
+
+  const updateCurrentFlagAndButtons = (lang) => {
+    activeLang.current = lang;
+    elements.currentLangBtn.setAttribute('data-lang', lang);
+
+    Array.from(elements.currentLangBtn.childNodes).forEach(node => {
+      const isArrow = node.classList?.contains('arrow');
+      if (node.nodeType === 3 || (node.nodeType === 1 && !isArrow)) {
+        elements.currentLangBtn.removeChild(node);
+      }
     });
 
+    const selectedBtn = elements.langOptions.querySelector(`.lang-btn[data-lang="${lang}"]`);
+    if (selectedBtn) {
+      const newFlag = selectedBtn.querySelector('.flag-icon')?.cloneNode(true);
+      if (newFlag && arrow) elements.currentLangBtn.insertBefore(newFlag, arrow);
+      else if (newFlag) elements.currentLangBtn.appendChild(newFlag);
 
-    // 5.3 Eventi Lingua
-    
-    
-    // Toggle (Apertura/Chiusura)
-    currentLangBtn.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-        isExpanded ? closeDropdown() : openDropdown();
+      const newCode = document.createElement('span');
+      newCode.className = 'lang-code';
+      newCode.textContent = lang.toUpperCase();
+      if (arrow) elements.currentLangBtn.insertBefore(newCode, arrow);
+      else elements.currentLangBtn.appendChild(newCode);
+    }
+    elements.langButtons.forEach(btn => {
+      const isActive = btn.getAttribute('data-lang') === lang;
+      btn.disabled = isActive;
+      btn.classList.toggle('active-lang', isActive);
+      btn.style.display = 'inline-flex';
+    });
+  };
+
+  // === Eventi lingua ===
+  if (isLangDropdownReady) {
+    elements.currentLangBtn.addEventListener('click', () => {
+      const isExpanded = elements.currentLangBtn.getAttribute('aria-expanded') === 'true';
+      isExpanded ? closeDropdown() : openDropdown();
     });
 
-   // Selezione Lingua
-langButtons.forEach(btn => {
-    btn.addEventListener('click', (event) => { // <-- Accetta l'oggetto event
-        event.stopPropagation(); // ✅ AGGIUNGI QUESTO
-        
+    elements.langButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
         const selectedLang = btn.getAttribute('data-lang');
         if (selectedLang === activeLang) {
-            closeDropdown();
-            return;
+          closeDropdown();
+          return;
         }
+
+        localStorage.setItem("preferredLang", selectedLang);
         updateCurrentFlagAndButtons(selectedLang);
-        translatePage(selectedLang);
+        core.translatePage(selectedLang);
         closeDropdown();
+      });
     });
-});
+  }
 
-    
-    // Chiudi il menu quando si clicca fuori (listener globale)
-    // Usiamo il contenitore più esterno (#language-dropdown) che include sia il bottone che le opzioni.
-    document.addEventListener('click', (event) => {
-        const dropdownContainer = document.getElementById('language-dropdown'); // Rileggi l'elemento se non è già definito
-        
-        // Se l'elemento esiste E se il click NON è all'interno del contenitore del dropdown
-        if (dropdownContainer && !dropdownContainer.contains(event.target)) {
-            closeDropdown();
-        }
-    });
-
-    // === 6. AVVIO INIZIALE ===
-    
-    // Inizializza lingua e traduce
-    updateCurrentFlagAndButtons(initialLang);
-    translatePage(initialLang);
-    
-    // Chiudi il menu e mostra la Home
+  // INIZIALIZZAZIONE
+  if (elements.currentLangBtn) {
+    updateCurrentFlagAndButtons(activeLang.current);
     closeDropdown();
-    showHome(); 
+  }
 
-    // Esposizione delle funzioni globali (per uso esterno se necessario)
-    window.applyLanguage = function(lang) {
-        activeLang = lang;
-        updateCurrentFlagAndButtons(lang);
-        translatePage(lang);
-    };
-
-    window.updateCurrentFlag = function(lang) {
-        updateCurrentFlagAndButtons(lang);
-    };
-
-    window.closeDropdown = closeDropdown;
-    window.openDropdown = openDropdown;
-
+  core.init();
 });
+

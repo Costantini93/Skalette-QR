@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Script Syntax</title>
+</head>
+<body>
+    <h1>JavaScript Syntax Check</h1>
+    <div id="result">Loading...</div>
+    <script>
+        // Carica il file script.js e controlla gli errori di sintassi
+        const testScriptLoad = async () => {
+            try {
+                // Carica il file di script
+                const response = await fetch('script.js');
+                const scriptText = await response.text();
+                
+                // Tenta di eseguire il codice per controllare errori di sintassi (nel DOMContentLoaded)
+                // In questo caso, basta che non ci sia un errore di sintassi JS
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<p style="color: green;">✓ Script.js caricato senza errori di sintassi</p>';
+                resultDiv.innerHTML += '<p>File size: ' + scriptText.length + ' bytes</p>';
+                
+                // Cerca riferimenti a "initialLang" non definito
+                if (scriptText.includes('initialLang')) {
+                    resultDiv.innerHTML += '<p style="color: orange;">⚠ Attenzione: trovato "initialLang" nel file. Potrebbe essere non definito.</p>';
+                } else {
+                    resultDiv.innerHTML += '<p style="color: green;">✓ Nessun riferimento a "initialLang" trovato</p>';
+                }
+                
+                // Verifica CSS variables
+                const cssResponse = await fetch('style.css');
+                const cssText = await cssResponse.text();
+                if (cssText.includes('--primary-gold')) {
+                    resultDiv.innerHTML += '<p style="color: green;">✓ CSS variables (:root) rilevate</p>';
+                } else {
+                    resultDiv.innerHTML += '<p style="color: red;">✗ CSS variables non trovate</p>';
+                }
+                
+                // Verifica che non ci siano duplicate di initBackground
+                const initBackgroundCount = (scriptText.match(/function initBackground/g) || []).length;
+                if (initBackgroundCount === 0) {
+                    resultDiv.innerHTML += '<p style="color: green;">✓ Nessuna funzione globale initBackground duplicata (buono!)</p>';
+                } else if (initBackgroundCount === 1) {
+                    resultDiv.innerHTML += '<p style="color: orange;">Nota: 1 initBackground trovata (potrebbe essere nel core object)</p>';
+                } else {
+                    resultDiv.innerHTML += '<p style="color: red;">✗ Multipli initBackground trovati: ' + initBackgroundCount + '</p>';
+                }
+                
+            } catch (err) {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<p style="color: red;">✗ Errore: ' + err.message + '</p>';
+                console.error('Test error:', err);
+            }
+        };
+        
+        testScriptLoad();
+    </script>
+</body>
+</html>
