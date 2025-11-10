@@ -53,10 +53,12 @@ canvas {
 @keyframes turnOutForward {
     0% {
         opacity: 1;
+        -webkit-transform: rotateY(0deg);
         transform: rotateY(0deg);
     }
     100% {
         opacity: 0;
+        -webkit-transform: rotateY(-90deg);
         transform: rotateY(-90deg);
     }
 }
@@ -64,10 +66,12 @@ canvas {
 @keyframes turnOutBackward {
     0% {
         opacity: 1;
+        -webkit-transform: rotateY(0deg);
         transform: rotateY(0deg);
     }
     100% {
         opacity: 0;
+        -webkit-transform: rotateY(90deg);
         transform: rotateY(90deg);
     }
 }
@@ -75,23 +79,28 @@ canvas {
 @keyframes turnIn {
     0% {
         opacity: 0;
+        -webkit-transform: rotateY(90deg);
         transform: rotateY(90deg);
     }
     100% {
         opacity: 1;
+        -webkit-transform: rotateY(0deg);
         transform: rotateY(0deg);
     }
 }
 
 .turn-out-forward {
+    -webkit-animation: turnOutForward 0.5s ease-in-out forwards !important;
     animation: turnOutForward 0.5s ease-in-out forwards !important;
 }
 
 .turn-out-backward {
+    -webkit-animation: turnOutBackward 0.5s ease-in-out forwards !important;
     animation: turnOutBackward 0.5s ease-in-out forwards !important;
 }
 
 .turn-in {
+    -webkit-animation: turnIn 0.5s ease-in-out forwards !important;
     animation: turnIn 0.5s ease-in-out forwards !important;
 }
 
@@ -110,7 +119,9 @@ canvas {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    -webkit-perspective: 1200px;
     perspective: 1200px; 
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 
@@ -344,7 +355,9 @@ header {
   color: var(--text-dark);
   border-radius: 10px;
 
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transition: opacity 0.3s ease-in-out;
 }
@@ -500,9 +513,9 @@ header {
 
 #secondary-navigation {
   width: 100%;
-  max-width: 450px;
+  max-width: 100%;
   margin: 50px auto 0;
-  padding: 20px 0;
+  padding: 20px 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -517,8 +530,8 @@ header {
   align-items: center;
   gap: 16px;
   padding: 20px;
-  width: 100%;
-  max-width: 450px;
+  width: 90%;
+  max-width: 500px;
   margin: 0 auto;
 }
 
