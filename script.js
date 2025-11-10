@@ -328,27 +328,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const swipeThreshold = 50; // Minimo pixels per registrare swipe
 
       document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
-      }, false);
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      }, { passive: true });
 
       document.addEventListener('touchend', (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
+        if (e.changedTouches.length === 0) return;
+        
+        const touch = e.changedTouches[0];
+        const touchEndX = touch.clientX;
+        const touchEndY = touch.clientY;
 
         const diffX = touchStartX - touchEndX;
-        const diffY = touchStartY - touchEndY;
+        const diffY = Math.abs(touchStartY - touch.clientY);
 
         // Solo se lo swipe è principalmente orizzontale (non verticale)
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
-          const activeSectionId = Array.from(elements.sections).find(
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
+          // Trova la sezione attiva
+          const activeSection = Array.from(elements.sections).find(
             s => s.style.display === 'block'
-          )?.id;
+          );
 
-          if (!activeSectionId) return; // Non c'è sezione attiva
+          if (!activeSection) return; // Non c'è sezione attiva
 
           const allSectionIds = Array.from(elements.sections).map(s => s.id);
-          const currentIndex = allSectionIds.indexOf(activeSectionId);
+          const currentIndex = allSectionIds.indexOf(activeSection.id);
 
           if (diffX > 0) {
             // Swipe sinistro → Vai alla pagina SUCCESSIVA (forward)
@@ -364,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         }
-      }, false);
+      }, { passive: true });
     },
 
     showHome: () => {
