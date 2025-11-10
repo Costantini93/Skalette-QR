@@ -472,6 +472,10 @@ header {
     border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
 }
 
+.menu-item.no-border {
+    border-bottom: none;
+}
+
 /* ... (continua con gli stili dei prodotti e il resto del menu) ... */
 
 .item-details {
@@ -725,6 +729,10 @@ footer {
     align-items: flex-start;
     padding: 15px 0;
     border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+}
+
+.wine-item.no-border {
+    border-bottom: none;
 }
 
 .wine-info {
