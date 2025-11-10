@@ -30,7 +30,6 @@ html, body {
 body {
     background-color: transparent; 
     color: var(--primary-gold);
-    min-height: 100vh;
     background-size: cover;
     background-position: center;
     overflow-x: hidden;
@@ -43,7 +42,8 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: var(--z-canvas); /* Assicura che sia dietro tutti i contenuti */
+    z-index: var(--z-canvas);
+    pointer-events: none;
 }
 
 /* ========================================================== */
@@ -106,11 +106,12 @@ canvas {
     padding: 10px 0 100px;
     position: relative; 
     z-index: var(--z-content);
+    min-height: auto;
+    height: auto;
     display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /* Prospettiva necessaria per l'effetto 3D di rotazione */
     perspective: 1200px; 
     transform-style: preserve-3d;
 }
