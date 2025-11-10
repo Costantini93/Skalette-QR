@@ -109,8 +109,8 @@ canvas {
     /* Prospettiva necessaria per l'effetto 3D di rotazione */
     perspective: 1200px; 
     transform-style: preserve-3d;
-    overflow: hidden;
-    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
