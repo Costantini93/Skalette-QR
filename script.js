@@ -510,6 +510,32 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDropdown();
   }
 
+  /* ========================================================== */
+  /* 📜 SCROLL REVEAL ANIMATION */
+  /* ========================================================== */
+  const observerOptions = {
+    threshold: 0.1,  // Trigger quando il 10% dell'elemento è visibile
+    rootMargin: '0px 0px -100px 0px'  // Attiva 100px prima che appaia
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Aggiungi la classe 'reveal' per attivare l'animazione
+        entry.target.classList.add('reveal');
+        // Una volta rivelato, smetti di osservarlo
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Osserva TUTTI i menu-item
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.menu-item').forEach(item => {
+      observer.observe(item);
+    });
+  }, { once: true });
+
   core.init();
 });
 

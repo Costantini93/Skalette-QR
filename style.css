@@ -341,13 +341,17 @@ header {
   z-index: var(--z-content);
   box-sizing: border-box;
 
-  background-color: var(--panel-bg-dark);
+  /* 🎨 GLASSMORPHISM EFFECT */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
   color: var(--text-dark);
   border-radius: 10px;
 
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
 }
 
 /* RESPONSIVE: Su desktop allarga il menu */
@@ -460,12 +464,34 @@ header {
     color: var(--text-dark);
 }
 
+/* 📜 SCROLL REVEAL ANIMATION */
+@keyframes scrollReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .menu-item {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 12px 0;
     border-bottom: 1px dashed var(--border-light);
+    
+    /* Stato iniziale: invisibile */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+/* Quando l'elemento è visibile (aggiunto da JavaScript) */
+.menu-item.reveal {
+    animation: scrollReveal 0.6s ease forwards;
 }
 
 /* ... (continua con gli stili dei prodotti e il resto del menu) ... */
