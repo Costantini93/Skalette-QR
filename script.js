@@ -3,8 +3,8 @@
 /* ========================================================== */
 
 let frag = `
-vec4 abyssColor = vec4(0.1, 0.2, 0.35, 0.0); // blu navy più luminoso
-vec4 tunnelColor = vec4(0.35, 0.6, 1.0, 2.0); // blu brillante e luminoso con turchesi
+vec4 abyssColor = vec4(0.0, 0.0, 0.0, 0.0); // nero trasparente
+vec4 tunnelColor = vec4(0.5, 1.0, 1.5, 2.0); // blu notte brillante
 
 uniform float time;
 uniform vec2 resolution;
@@ -230,21 +230,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showNewSection: (targetSection) => {
       elements.sections.forEach(section => {
-        section.style.display = section === targetSection ? 'block' : 'none';
+        if (section !== targetSection) {
+          section.classList.add('hidden');
+          setTimeout(() => {
+            section.style.display = 'none';
+            section.classList.remove('hidden');
+          }, 800);
+        }
       });
+      
+      targetSection.style.display = 'block';
+      
       if (elements.mainButtonsGrid) elements.mainButtonsGrid.style.display = 'none';
       if (elements.secondaryNav) elements.secondaryNav.style.display = 'block';
       if (elements.menuContainer) elements.menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Animazione page flip in
-      targetSection.style.transformOrigin = 'left center';
-      targetSection.classList.add('turn-in');
-
-      setTimeout(() => {
-        targetSection.classList.remove('turn-in');
-        targetSection.style.transform = 'rotateY(0deg)';
-        targetSection.style.opacity = '1';
-      }, 500);
 
       setTimeout(() => {
         core.setupSequentialNav(targetSection.id);
@@ -510,9 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDropdown();
   }
 
-  /* ========================================================== */
-  /* 📄 PAGINAZIONE MENU - Massimo 7 prodotti per pagina */
-  
   core.init();
 });
 
