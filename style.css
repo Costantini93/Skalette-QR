@@ -351,10 +351,10 @@ header {
   z-index: var(--z-content);
   box-sizing: border-box;
 
-  /* 🎨 GLASSMORPHISM EFFECT - Sfondo più opaco per leggibilità */
-  background: rgba(255, 255, 255, 0.15);
+  /* 🎨 GLASSMORPHISM EFFECT - Sfondo blu navy trasparente */
+  background: rgba(13, 27, 42, 0.4);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   
   color: #ffffff;
   border-radius: 10px;
