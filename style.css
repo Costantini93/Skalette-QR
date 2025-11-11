@@ -351,10 +351,10 @@ header {
   z-index: var(--z-content);
   box-sizing: border-box;
 
-  /* 🎨 GLASSMORPHISM EFFECT - Sfondo blu navy trasparente */
-  background: rgba(13, 27, 42, 0.4);
+  /* 🎨 GLASSMORPHISM EFFECT - Sfondo blu navy più luminoso e visibile */
+  background: rgba(30, 50, 80, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   
   color: #ffffff;
   border-radius: 10px;
