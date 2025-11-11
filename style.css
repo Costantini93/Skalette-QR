@@ -768,6 +768,16 @@ footer {
 }
 
 
+/* Sottotitolo centrato con line-break */
+.category-title.with-break {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5;
+}
+
+
 
 
 

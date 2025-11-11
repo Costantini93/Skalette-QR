@@ -510,6 +510,9 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDropdown();
   }
 
+  /* ========================================================== */
+  /* 📄 PAGINAZIONE MENU - Massimo 7 prodotti per pagina */
+  
   core.init();
 });
 
