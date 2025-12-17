@@ -805,7 +805,166 @@ footer {
     margin-top: 5px;
 }
 
+/* ========================================================== */
+/* MODAL MENU DI CAPODANNO */
+/* ========================================================== */
+.capodanno-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease-in;
+    overflow-y: auto;
+    padding: 10px;
+}
 
+.capodanno-modal-content {
+    position: relative;
+    margin: 5vh auto;
+    padding: 0;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    animation: slideDown 0.4s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.capodanno-close {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    color: var(--primary-gold);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+    background: rgba(0, 0, 0, 0.8);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+}
+
+.capodanno-close:hover,
+.capodanno-close:focus {
+    color: #fff;
+    background: var(--primary-gold);
+    transform: rotate(90deg);
+}
+
+.capodanno-image {
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+/* Container per l'immagine nella sezione dedicata */
+.capodanno-image-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.capodanno-full-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.capodanno-full-image:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive per mobile */
+@media screen and (max-width: 768px) {
+    .capodanno-modal {
+        padding: 15px !important;
+    }
+    
+    .capodanno-modal-content {
+        width: 85% !important;
+        max-width: 100% !important;
+        margin: 5vh auto !important;
+        max-height: 70vh !important;
+    }
+    
+    .capodanno-image {
+        max-height: 65vh !important;
+        border-radius: 5px !important;
+    }
+    
+    .capodanno-close {
+        top: 5px !important;
+        right: 5px !important;
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 25px !important;
+        border-width: 1px !important;
+    }
+    
+    .capodanno-image-container {
+        padding: 10px !important;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+    .capodanno-modal {
+        padding: 20px 10px !important;
+    }
+    
+    .capodanno-modal-content {
+        width: 80% !important;
+        margin: 8vh auto !important;
+        max-height: 60vh !important;
+    }
+    
+    .capodanno-image {
+        max-height: 55vh !important;
+    }
+    
+    .capodanno-close {
+        top: 2px !important;
+        right: 2px !important;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 22px !important;
+    }
+}
 
 
 

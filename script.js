@@ -31,6 +31,71 @@ let startTime = Date.now();
 
 document.addEventListener('DOMContentLoaded', () => {
   // ========================================================== 
+  // MODAL MENU DI CAPODANNO
+  // ========================================================== 
+  const capodannoModal = document.getElementById('capodanno-modal');
+  const capodannoClose = document.querySelector('.capodanno-close');
+  const capodannoModalImg = document.getElementById('capodanno-modal-img');
+  const capodannoSectionImg = document.getElementById('capodanno-section-img');
+
+  // Mostra il modal all'apertura del sito
+  if (capodannoModal) {
+    setTimeout(() => {
+      capodannoModal.style.display = 'block';
+    }, 500);
+  }
+
+  // Chiudi il modal quando si clicca sulla X
+  if (capodannoClose) {
+    capodannoClose.onclick = function() {
+      capodannoModal.style.display = 'none';
+    };
+  }
+
+  // Chiudi il modal quando si clicca fuori dall'immagine
+  if (capodannoModal) {
+    capodannoModal.onclick = function(event) {
+      if (event.target === capodannoModal) {
+        capodannoModal.style.display = 'none';
+      }
+    };
+  }
+
+  // Click sull'immagine nella sezione per aprire il modal
+  if (capodannoSectionImg) {
+    capodannoSectionImg.onclick = function() {
+      if (capodannoModal) {
+        capodannoModal.style.display = 'block';
+      }
+    };
+  }
+
+  // Funzione per aggiornare l'immagine in base alla lingua
+  function updateCapodannoImage(lang) {
+    // Per italiano usa l'immagine di default, per le altre lingue usa il formato con spazio + codice lingua maiuscolo
+    let imagePath;
+    if (lang === 'it') {
+      imagePath = 'CENA DI CAPODANNO.png';
+    } else {
+      imagePath = `CENA DI CAPODANNO ${lang.toUpperCase()}.png`;
+    }
+    
+    const defaultImage = 'CENA DI CAPODANNO.png';
+    
+    // Prova a caricare l'immagine tradotta, altrimenti usa quella di default
+    const img = new Image();
+    img.onload = function() {
+      if (capodannoModalImg) capodannoModalImg.src = imagePath;
+      if (capodannoSectionImg) capodannoSectionImg.src = imagePath;
+    };
+    img.onerror = function() {
+      if (capodannoModalImg) capodannoModalImg.src = defaultImage;
+      if (capodannoSectionImg) capodannoSectionImg.src = defaultImage;
+    };
+    img.src = imagePath;
+  }
+
+  // ========================================================== 
   // CACHE DOM ELEMENTS
   // ========================================================== 
   const elements = {
@@ -104,6 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
           core.handleMenuItemTranslation(element, lang);
         }
       });
+
+      // Aggiorna l'immagine del menu di Capodanno
+      updateCapodannoImage(lang);
 
       if (elements.secondaryNav?.style.display !== 'none') {
         const activeSection = document.querySelector('.menu-section[style*="display: block"]');
@@ -255,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize
     init: () => {
       core.translatePage(activeLang.current);
+      updateCapodannoImage(activeLang.current); // Carica l'immagine giusta all'avvio
       core.initBackground();
       core.animateBackground();
       core.setupEventListeners();

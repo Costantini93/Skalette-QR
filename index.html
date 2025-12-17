@@ -12,12 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
     <!-- Include il CSS per lo stile del menu -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 
 </head>
 
 <body>
   
+    <!-- MODAL MENU DI CAPODANNO -->
+    <div id="capodanno-modal" class="capodanno-modal">
+        <div class="capodanno-modal-content">
+            <span class="capodanno-close">&times;</span>
+            <img id="capodanno-modal-img" src="CENA DI CAPODANNO.png" alt="Menu di Capodanno" class="capodanno-image">
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -107,6 +114,14 @@
                     data-en="From the Kitchen & Desserts" data-es="De la Cocina y Postres"
                     data-fr="De la Cuisine & Desserts" data-de="Aus der Küche & Desserts" data-ru="Из кухни и десерты">Dalla
                     Cucina & Dolci</button>
+
+                <button class="menu-button translatable" data-target="capodanno" 
+                    data-it="Menu di Capodanno" 
+                    data-en="New Year's Menu" 
+                    data-es="Menú de Año Nuevo" 
+                    data-fr="Menu du Nouvel An" 
+                    data-de="Silvestermenü" 
+                    data-ru="Новогоднее меню">Menu di Capodanno</button>
 
                 <div id="booking-button-container">
                     <a href="https://wa.me/393428691832" target="_blank" class="whatsapp-button" data-it="Prenota un Tavolo"
@@ -1532,6 +1547,7 @@
                     data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I
                     Nostri
                     Piatti</h2>
+                <div class="nav-arrow-container nav-next">&#10095;</div>
             </div>
 
             <p class="description-text translatable" data-it="Chiedere al personale per gli allergeni."
@@ -2065,6 +2081,29 @@
             </div>
 
 
+        </section>
+
+        <!-- SEZIONE MENU DI CAPODANNO -->
+        <section id="capodanno" class="menu-section">
+            <div class="menu-carousel">
+                <section class="menu-page" id="capodanno-page">
+                    <div class="category-header" data-target="capodanno">
+                        <div class="nav-arrow-container nav-prev">&#10094;</div>
+                        <h2 class="category-title translatable" 
+                            data-it="Menu di Capodanno" 
+                            data-en="New Year's Menu" 
+                            data-es="Menú de Año Nuevo" 
+                            data-fr="Menu du Nouvel An" 
+                            data-de="Silvestermenü" 
+                            data-ru="Новогоднее меню">
+                            Menu di Capodanno
+                        </h2>
+                    </div>
+                    <div class="capodanno-image-container">
+                        <img id="capodanno-section-img" src="CENA DI CAPODANNO.png" alt="Menu di Capodanno" class="capodanno-full-image">
+                    </div>
+                </section>
+            </div>
         </section>
 
 
