@@ -565,9 +565,9 @@ header {
     font-size: 0.7em;
     font-weight: 500;
     letter-spacing: 0.5px;
-    background: rgba(255, 255, 255, 0.03);
-    color: rgba(212, 175, 55, 0.8);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.08);
+    color: rgb(212, 175, 55);
+    border: 1.5px solid rgb(212, 175, 55);
     transition: all 0.2s ease;
     cursor: help;
     text-transform: uppercase;
