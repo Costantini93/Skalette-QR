@@ -909,6 +909,16 @@ footer {
     transform: scale(1.02);
 }
 
+/* Nasconde il titolo nella sezione capodanno */
+#capodanno .category-header h2 {
+    display: none;
+}
+
+#capodanno .category-header {
+    justify-content: center;
+    padding: 10px 0;
+}
+
 /* Responsive per mobile */
 @media screen and (max-width: 768px) {
     .capodanno-modal {
@@ -916,14 +926,14 @@ footer {
     }
     
     .capodanno-modal-content {
-        width: 85% !important;
+        width: 90% !important;
         max-width: 100% !important;
-        margin: 5vh auto !important;
-        max-height: 70vh !important;
+        margin: 3vh auto !important;
+        max-height: 80vh !important;
     }
     
     .capodanno-image {
-        max-height: 65vh !important;
+        max-height: 75vh !important;
         border-radius: 5px !important;
     }
     
@@ -944,17 +954,17 @@ footer {
 /* Extra small devices */
 @media screen and (max-width: 480px) {
     .capodanno-modal {
-        padding: 20px 10px !important;
+        padding: 15px 10px !important;
     }
     
     .capodanno-modal-content {
-        width: 80% !important;
-        margin: 8vh auto !important;
-        max-height: 60vh !important;
+        width: 90% !important;
+        margin: 3vh auto !important;
+        max-height: 75vh !important;
     }
     
     .capodanno-image {
-        max-height: 55vh !important;
+        max-height: 70vh !important;
     }
     
     .capodanno-close {
