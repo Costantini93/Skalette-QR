@@ -585,8 +585,9 @@ header {
     .allergen-badge {
         font-size: 0.65em;
         padding: 3px 8px;
-        border: 1.5px solid rgba(212, 175, 55, 0.6);
-        background: rgba(212, 175, 55, 0.08);
+        border: 1.5px solid rgba(212, 175, 55, 0.9) !important;
+        background: rgba(212, 175, 55, 0.08) !important;
+        color: rgba(212, 175, 55, 0.95) !important;
     }
     
     .allergen-container {
