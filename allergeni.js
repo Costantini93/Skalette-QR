@@ -117,6 +117,7 @@ const allergeniPiatti = {
   "Toast": ["Glutine", "Lattosio"],
   "Focaccia": ["Glutine", "Lattosio"],
   "Pizzetta": ["Glutine", "Lattosio"],
+  "Nachos (fino alle 22:00)": ["Glutine", "Lattosio"],
   
   // Colazioni
   "English Breakfast": ["Glutine", "Uova", "Lattosio"],
