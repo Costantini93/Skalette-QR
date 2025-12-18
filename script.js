@@ -38,11 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const capodannoModalImg = document.getElementById('capodanno-modal-img');
   const capodannoSectionImg = document.getElementById('capodanno-section-img');
 
-  // Mostra il modal all'apertura del sito
+  // Mostra il modal all'apertura del sito (solo la prima volta in questa sessione)
   if (capodannoModal) {
-    setTimeout(() => {
-      capodannoModal.style.display = 'block';
-    }, 500);
+    const capodannoShown = sessionStorage.getItem('capodannoModalShown');
+    if (!capodannoShown) {
+      setTimeout(() => {
+        capodannoModal.style.display = 'block';
+        sessionStorage.setItem('capodannoModalShown', 'true');
+      }, 500);
+    }
   }
 
   // Chiudi il modal quando si clicca sulla X
