@@ -1,0 +1,39 @@
+GASTRONOMIA (snacks):
+- Polpetta di Carne: Glutine, Uova, Lattosio
+- Polpetta Vegetariana: Glutine, Uova, Lattosio (ricotta)
+- Arancino al Tastasal: Glutine
+- Pizza Margherita: Glutine, Lattosio
+- Pizza Farcita: Glutine, Lattosio
+- Toast: Glutine, Lattosio
+- Focaccia: Glutine
+- Pizzetta: Glutine, Lattosio
+
+CUCINA & DOLCI (cucina-dolci):
+- Tagliere di Salumi e Formaggi: Lattosio, Glutine, Senape, Sedano (già fatto)
+- Pata Negra de Bellota: Glutine
+- Vellutata di Verdure: Lattosio, Sedano, Crostacei (gamberi opzionale)
+- Battuta di Manzo alla Francese: Uova, Senape
+- Insalata Mista di Pollo: Lattosio, Uova (salsa yogurt)
+- Acciuga del Cantabrico: Pesce, Glutine, Lattosio
+- Ovetto Poché: Uova, Lattosio
+- Tagliatelle al Ragù di Quaglia: Glutine, Uova, Lattosio
+- Pad Thai: Arachidi, Crostacei, Soia, Sesamo
+- Gyoza: Glutine, Soia, Sesamo
+- Gnocchi alla Zucca: Glutine, Lattosio
+- Ravioli alla Gricia: Glutine, Uova, Lattosio
+- Tagliata di Manzo: Lattosio
+- Yakitori: Soia, Sesamo
+- Guancetta di Maiale: Solfiti (Amarone)
+- Moscardini in Umido: Molluschi
+- Trancio di Salmone: Pesce
+- Burrito: Glutine, Lattosio
+- Bacon Cheeseburger: Glutine, Lattosio, Uova (maionese)
+- Club Sandwich: Glutine, Uova, Lattosio
+- Avocado Toast: Glutine, Lattosio, Uova
+- Veggie Burger: Glutine, Lattosio
+
+DESSERT:
+- Tiramisù: Glutine, Uova, Lattosio
+- Panna Cotta: Lattosio
+- Crema Catalana: Uova, Lattosio
+- Sbrisolona e Grappa: Glutine, Frutta a guscio (mandorle)

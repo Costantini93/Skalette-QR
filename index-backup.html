@@ -12,17 +12,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
     <!-- Include il CSS per lo stile del menu -->
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
   
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="allergeni.js"></script>
     <script src="script.js"></script>
 
     <div id="main-content-wrapper">
@@ -207,9 +207,6 @@
                                         data-ru="Кофе и взбитое молоко с кремовой пеной">Caffè e latte montato con schiuma
                                         cremosa
                                     </p>
-                                    <div class="allergen-container">
-                                        <span class="allergen-badge" title="Contiene lattosio">Lattosio</span>
-                                    </div>
                                 </div><span class="item-price">2.50€</span>
                             </div>
 
@@ -859,6 +856,24 @@
                                 rinfrescante con un tocco luppolato.</p>
                         </div><span class="item-price">6€</span>
                     </div>
+
+                    <div class="menu-item no-border">
+                        <div class="item-details">
+                            <h3 class="item-name translatable" data-it="Session IPA 'Beavertown' 0,4L"
+                                data-en="Session IPA 'Beavertown' 0.4L" data-es="Session IPA 'Beavertown' 0.4L"
+                                data-fr="Session IPA 'Beavertown' 0.4L" data-de="Session IPA 'Beavertown' 0,4L"
+                                data-ru="Session IPA 'Beavertown' 0,4л">Session IPA "Beavertown" 0,4L</h3>
+                            <p class="item-description translatable"
+                                data-it="IPA a bassa gradazione, aromatica e facile da bere con note agrumate."
+                                data-en="Low ABV, aromatic, and easy-drinking IPA with citrus notes."
+                                data-es="IPA de baja graduación, aromática y fácil de beber con notas cítricas."
+                                data-fr="IPA à faible teneur en alcool, aromatique et facile à boire avec des notes d'agrumes."
+                                data-de="Aromatisches und leicht trinkbares IPA mit niedrigem Alkoholgehalt und Zitrusnoten."
+                                data-ru="Низкоалкогольный, ароматный и легко пьющийся IPA с цитрусовыми нотками.">IPA a
+                                bassa
+                                gradazione, aromatica e facile da bere con note agrumate.</p>
+                        </div><span class="item-price">6€</span>
+                    </div>
                 </section>
 
                 <section id="vini" class="menu-section">
@@ -1326,113 +1341,28 @@
                     </div>
                 </div>
 
-                <div class="wine-item">
+                <div class="wine-item no-border">
                     <div class="wine-info">
-                        <h3 class="item-name translatable" data-it="Champagne 'Diebolt Vallois' Blanc de Blancs"
-                            data-en="Champagne 'Diebolt Vallois' Blanc de Blancs" data-es="Champagne 'Diebolt Vallois' Blanc de Blancs"
-                            data-fr="Champagne 'Diebolt Vallois' Blanc de Blancs" data-de="Champagne 'Diebolt Vallois' Blanc de Blancs"
-                            data-ru="Шампанское 'Diebolt Vallois' Blanc de Blancs">Champagne "Diebolt Vallois" Blanc de Blancs</h3>
-                        <p class="item-name-italian">Champagne "Diebolt Vallois" Blanc de Blancs</p>
+                        <h3 class="item-name translatable" data-it="Champagne 'Louis Constant'"
+                            data-en="Champagne 'Louis Constant'" data-es="Champagne 'Louis Constant'"
+                            data-fr="Champagne 'Louis Constant'" data-de="Champagne 'Louis Constant'"
+                            data-ru="Шампанское 'Louis Constant'">Champagne "Louis Constant"</h3>
+                        <p class="item-name-italian">Champagne "Louis Constant"</p>
                     </div>
                     <span class="wine-price-glass">10€</span>
                     <span class="wine-price-bottle">65€</span>
 
                     <div class="wine-description">
                         <p class="item-description translatable"
-                            data-it="Elegante Blanc de Blancs con note di agrumi freschi e mineralità."
-                            data-en="Elegant Blanc de Blancs with fresh citrus notes and minerality."
-                            data-es="Elegante Blanc de Blancs con notas de cítricos frescos y mineralidad."
-                            data-fr="Élégant Blanc de Blancs aux notes d'agrumes frais et de minéralité."
-                            data-de="Eleganter Blanc de Blancs mit frischen Zitrustönen und Mineralität."
-                            data-ru="Элегантный Blanc de Blancs с нотами свежих цитрусов и минеральностью.">Elegante Blanc de Blancs con note di agrumi freschi e mineralità.</p>
-                    </div>
-                </div>
-
-                <div class="wine-item">
-                    <div class="wine-info">
-                        <h3 class="item-name translatable" data-it="Champagne 'Drappier' Brut Nature"
-                            data-en="Champagne 'Drappier' Brut Nature" data-es="Champagne 'Drappier' Brut Nature"
-                            data-fr="Champagne 'Drappier' Brut Nature" data-de="Champagne 'Drappier' Brut Nature"
-                            data-ru="Шампанское 'Drappier' Brut Nature">Champagne "Drappier" Brut Nature</h3>
-                        <p class="item-name-italian">Champagne "Drappier" Brut Nature</p>
-                    </div>
-                    <span class="wine-price-glass">-</span>
-                    <span class="wine-price-bottle">80€</span>
-
-                    <div class="wine-description">
-                        <p class="item-description translatable"
-                            data-it="Champagne senza dosaggio, puro e autentico con carattere deciso."
-                            data-en="Zero dosage champagne, pure and authentic with bold character."
-                            data-es="Champagne sin dosificación, puro y auténtico con carácter audaz."
-                            data-fr="Champagne sans dosage, pur et authentique au caractère affirmé."
-                            data-de="Champagner ohne Dosage, rein und authentisch mit ausgeprägtem Charakter."
-                            data-ru="Шампанское без дозажа, чистое и аутентичное с ярким характером.">Champagne senza dosaggio, puro e autentico con carattere deciso.</p>
-                    </div>
-                </div>
-
-                <div class="wine-item">
-                    <div class="wine-info">
-                        <h3 class="item-name translatable" data-it="'Bollinger' Special Cuvée"
-                            data-en="'Bollinger' Special Cuvée" data-es="'Bollinger' Special Cuvée"
-                            data-fr="'Bollinger' Special Cuvée" data-de="'Bollinger' Special Cuvée"
-                            data-ru="'Bollinger' Special Cuvée">"Bollinger" Special Cuvée</h3>
-                        <p class="item-name-italian">"Bollinger" Special Cuvée</p>
-                    </div>
-                    <span class="wine-price-glass">-</span>
-                    <span class="wine-price-bottle">120€</span>
-
-                    <div class="wine-description">
-                        <p class="item-description translatable"
-                            data-it="Champagne iconico, complesso e raffinato con note di frutta matura e spezie."
-                            data-en="Iconic champagne, complex and refined with notes of ripe fruit and spices."
-                            data-es="Champagne icónico, complejo y refinado con notas de fruta madura y especias."
-                            data-fr="Champagne iconique, complexe et raffiné aux notes de fruits mûrs et d'épices."
-                            data-de="Ikonischer Champagner, komplex und raffiniert mit Noten von reifen Früchten und Gewürzen."
-                            data-ru="Знаковое шампанское, сложное и утонченное с нотами спелых фруктов и специй.">Champagne iconico, complesso e raffinato con note di frutta matura e spezie.</p>
-                    </div>
-                </div>
-
-                <div class="wine-item">
-                    <div class="wine-info">
-                        <h3 class="item-name translatable" data-it="'Bollinger' La Grande Année"
-                            data-en="'Bollinger' La Grande Année" data-es="'Bollinger' La Grande Année"
-                            data-fr="'Bollinger' La Grande Année" data-de="'Bollinger' La Grande Année"
-                            data-ru="'Bollinger' La Grande Année">"Bollinger" La Grande Année</h3>
-                        <p class="item-name-italian">"Bollinger" La Grande Année</p>
-                    </div>
-                    <span class="wine-price-glass">-</span>
-                    <span class="wine-price-bottle">260€</span>
-
-                    <div class="wine-description">
-                        <p class="item-description translatable"
-                            data-it="Cuvée prestigiosa millesimata, elegante e di grande finezza."
-                            data-en="Prestigious vintage cuvée, elegant and of great finesse."
-                            data-es="Cuvée vintage prestigiosa, elegante y de gran finura."
-                            data-fr="Cuvée millésimée prestigieuse, élégante et d'une grande finesse."
-                            data-de="Prestigeträchtige Jahrgangscuvée, elegant und von großer Finesse."
-                            data-ru="Престижное винтажное кюве, элегантное и тонкое.">Cuvée prestigiosa millesimata, elegante e di grande finezza.</p>
-                    </div>
-                </div>
-
-                <div class="wine-item no-border">
-                    <div class="wine-info">
-                        <h3 class="item-name translatable" data-it="'Dom Pérignon' Vintage 2013"
-                            data-en="'Dom Pérignon' Vintage 2013" data-es="'Dom Pérignon' Vintage 2013"
-                            data-fr="'Dom Pérignon' Vintage 2013" data-de="'Dom Pérignon' Vintage 2013"
-                            data-ru="'Dom Pérignon' Vintage 2013">"Dom Pérignon" Vintage 2013</h3>
-                        <p class="item-name-italian">"Dom Pérignon" Vintage 2013</p>
-                    </div>
-                    <span class="wine-price-glass">-</span>
-                    <span class="wine-price-bottle">380€</span>
-
-                    <div class="wine-description">
-                        <p class="item-description translatable"
-                            data-it="Champagne leggendario, sublime espressione di eleganza e complessità."
-                            data-en="Legendary champagne, sublime expression of elegance and complexity."
-                            data-es="Champagne legendario, expresión sublime de elegancia y complejidad."
-                            data-fr="Champagne légendaire, expression sublime d'élégance et de complexité."
-                            data-de="Legendärer Champagner, erhabener Ausdruck von Eleganz und Komplexität."
-                            data-ru="Легендарное шампанское, возвышенное выражение элегантности и сложности.">Champagne leggendario, sublime espressione di eleganza e complessità.</p>
+                            data-it="Elegante e complesso, con note di lievito, mela cotogna e agrumi canditi."
+                            data-en="Elegant and complex, with notes of yeast, quince, and candied citrus."
+                            data-es="Elegante y complejo, con notas de levadura, membrillo y cítricos confitados."
+                            data-fr="Élégant et complexe, avec des notes de levure, de coing et d'agrumes confits."
+                            data-de="Elegant und komplex, mit Noten von Hefe, Quitte und kandierten Zitrusfrüchten."
+                            data-ru="Элегантное и сложное, с нотами дрожжей, айвы и цукатов.">Elegante e
+                            complesso, con
+                            note
+                            di lievito, mela cotogna e agrumi canditi.</p>
                     </div>
                 </div>
             </div>
@@ -1543,35 +1473,7 @@
                 </div><span class="item-price">7€</span>
             </div>
 
-            <div class="menu-item">
-                <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Toast" data-en="Toast" data-es="Tostada"
-                        data-fr="Toast" data-de="Toast" data-ru="Тост">
-                        Toast</h3>
-                    <p class="item-description translatable" data-it="Con prosciutto e formaggio."
-                        data-en="With ham and cheese."
-                        data-es="Con jamón y queso."
-                        data-fr="Avec jambon et fromage."
-                        data-de="Mit Schinken und Käse."
-                        data-ru="С ветчиной и сыром.">Con prosciutto e formaggio.</p>
-                </div><span class="item-price">5€</span>
-            </div>
-
-            <div class="menu-item">
-                <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Focaccia" data-en="Focaccia" data-es="Focaccia"
-                        data-fr="Focaccia" data-de="Focaccia" data-ru="Фокачча">
-                        Focaccia</h3>
-                    <p class="item-description translatable" data-it="Chiedere al personale per i gusti disponibili."
-                        data-en="Ask staff for available flavors."
-                        data-es="Pregunte al personal por los sabores disponibles."
-                        data-fr="Demandez au personnel les saveurs disponibles."
-                        data-de="Fragen Sie das Personal nach verfügbaren Geschmacksrichtungen."
-                        data-ru="Уточняйте у персонала доступные вкусы.">Chiedere al personale per i gusti disponibili.</p>
-                </div><span class="item-price">5€</span>
-            </div>
-
-            <div class="menu-item">
+            <div class="menu-item no-border">
                 <div class="item-details">
                     <h3 class="item-name translatable" data-it="Pizzetta" data-en="Small Pizza" data-es="Pizzeta"
                         data-fr="Petite Pizza" data-de="Kleine Pizza" data-ru="Пиццетта">
@@ -1586,46 +1488,6 @@
                         per
                         un assaggio veloce.</p>
                 </div><span class="item-price">3.50€</span>
-            </div>
-
-            <div class="menu-item">
-                <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Edamame"
-                        data-en="Edamame" data-es="Edamame"
-                        data-fr="Edamame" data-de="Edamame"
-                        data-ru="Эдамаме">
-                        Edamame</h3>
-                    <p class="item-description translatable"
-                        data-it="Fagioli di soia al vapore leggermente salati."
-                        data-en="Steamed soybeans lightly salted."
-                        data-es="Vainas de soja al vapor ligeramente saladas."
-                        data-fr="Fèves de soja vapeur légèrement salées."
-                        data-de="Gedämpfte Sojabohnen leicht gesalzen."
-                        data-ru="Соевые бобы на пару, слегка подсоленные.">Fagioli di soia al vapore leggermente salati.</p>
-                </div><span class="item-price">5€</span>
-            </div>
-
-            <div class="menu-item no-border">
-                <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Nachos (fino alle 22:00)"
-                        data-en="Nachos (until 10:00 PM)"
-                        data-es="Nachos (hasta las 22:00)"
-                        data-fr="Nachos (jusqu'à 22h00)"
-                        data-de="Nachos (bis 22:00 Uhr)"
-                        data-ru="Начос (до 22:00)">
-                        Nachos (fino alle 22:00)</h3>
-                    <p class="item-description translatable"
-                        data-it="Croccanti nachos serviti con guacamole fresco, cheddar fuso e panna acida."
-                        data-en="Crispy nachos served with fresh guacamole, melted cheddar, and sour cream."
-                        data-es="Nachos crujientes servidos con guacamole fresco, cheddar fundido y crema agria."
-                        data-fr="Nachos croustillants servis avec guacamole frais, cheddar fondu et crème aigre."
-                        data-de="Knusprige Nachos serviert mit frischem Guacamole, geschmolzenem Cheddar und Sauerrahm."
-                        data-ru="Хрустящие начос с свежим гуакамоле, расплавленным чеддером и сметаной.">Croccanti nachos serviti con guacamole fresco, cheddar fuso e panna acida.</p>
-                    <div class="allergen-container">
-                        <span class="allergen-badge" title="Contiene lattosio">Lattosio</span>
-                        <span class="allergen-badge" title="Contiene glutine">Glutine</span>
-                    </div>
-                </div><span class="item-price">6€</span>
             </div>
         </section>
 
@@ -1642,7 +1504,6 @@
                     data-es="Nuestros Platos" data-fr="Nos Plats" data-de="Unsere Gerichte" data-ru="Наши блюда">I
                     Nostri
                     Piatti</h2>
-                <div class="nav-arrow-container nav-next">&#10095;</div>
             </div>
 
             <p class="description-text translatable" data-it="Chiedere al personale per gli allergeni."
@@ -1668,12 +1529,6 @@
                         data-ru="С домашней джардиньерой и горчицей.">Con giardiniera della
                         casa e
                         mostarda.</p>
-                    <div class="allergen-container">
-                        <span class="allergen-badge" title="Contiene lattosio">Lattosio</span>
-                        <span class="allergen-badge" title="Contiene glutine">Glutine</span>
-                        <span class="allergen-badge" title="Contiene senape">Senape</span>
-                        <span class="allergen-badge" title="Contiene sedano">Sedano</span>
-                    </div>
                 </div><span class="item-price">25€</span>
             </div>
 
@@ -1708,22 +1563,27 @@
 
             <div class="menu-item">
                 <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Battuta di Manzo alla Francese"
-                        data-en="French-style Beef Tartare" data-es="Tártaro de ternera a la francesa"
-                        data-fr="Tartare de bœuf à la française" data-de="Französisches Rindertatar"
-                        data-ru="Французский тартар из говядины">
-                        Battuta di Manzo alla Francese
-                    </h3>
 
-                    <p class="item-description translatable"
-                        data-it="Tagliata al coltello, con senape, scalogno, capperi e tuorlo d'uovo. Con tartufo nero (+5€)."
-                        data-en="Hand-chopped with mustard, shallot, capers and egg yolk. With black truffle (+5€)."
-                        data-es="Cortada a cuchillo con mostaza, chalota, alcaparras y yema de huevo. Con trufa negra (+5€)."
-                        data-fr="Coupée au couteau avec moutarde, échalote, câpres et jaune d'œuf. Avec truffe noire (+5€)."
-                        data-de="Von Hand geschnitten mit Senf, Schalotten, Kapern und Eigelb. Mit schwarzem Trüffel (+5€)."
-                        data-ru="Рубленая вручную с горчицей, шалотом, каперсами и яичным желтком. С чёрным трюфелем (+5€).">
-                        Tagliata al coltello, con senape, scalogno, capperi e tuorlo d'uovo. Con tartufo nero (+5€).
-                    </p>
+                    <div class="item-details">
+                        <h3 class="item-name translatable" data-it="Battuta di Manzo alla Francese"
+                            data-en="French-style Beef Tartare" data-es="Tártaro de ternera a la francesa"
+                            data-fr="Tartare de bœuf à la française" data-de="Französisches Rindertatar"
+                            data-ru="Французский тартар из говядины">
+                            Battuta di Manzo alla Francese
+                        </h3>
+
+                        <p class="item-description translatable"
+                            data-it="Tagliata al coltello, con senape, scalogno, capperi e tuorlo d'uovo. Con tartufo nero (+5€)."
+                            data-en="Hand-chopped with mustard, shallot, capers and egg yolk. With black truffle (+5€)."
+                            data-es="Cortada a cuchillo con mostaza, chalota, alcaparras y yema de huevo. Con trufa negra (+5€)."
+                            data-fr="Coupée au couteau avec moutarde, échalote, câpres et jaune d'œuf. Avec truffe noire (+5€)."
+                            data-de="Von Hand geschnitten mit Senf, Schalotten, Kapern und Eigelb. Mit schwarzem Trüffel (+5€)."
+                            data-ru="Рубленая вручную с горчицей, шалотом, каперсами и яичным желтком. С чёрным трюфелем (+5€).">
+                            Tagliata al coltello, con senape, scalogno, capperi e tuorlo d'uovo. Con tartufo nero (+5€).
+                        </p>
+                    </div>
+
+
                 </div><span class="item-price">15€</span>
             </div>
 
@@ -2154,7 +2014,7 @@
                 </div><span class="item-price">6€</span>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item no-border">
                 <div class="item-details">
                     <h3 class="item-name translatable" data-it="Sbrisolona e Grappa" data-en="Sbrisolona and Grappa"
                         data-es="Sbrisolona y Grappa" data-fr="Sbrisolona et Grappa" data-de="Sbrisolona und Grappa"
@@ -2174,25 +2034,6 @@
                         veneta.
                     </p>
                 </div><span class="item-price">7€</span>
-            </div>
-
-            <div class="menu-item no-border">
-                <div class="item-details">
-                    <h3 class="item-name translatable" data-it="Banana Bread" data-en="Banana Bread"
-                        data-es="Banana Bread" data-fr="Banana Bread" data-de="Banana Bread"
-                        data-ru="Банановый хлеб">
-                        Banana Bread
-                    </h3>
-                    <p class="item-description translatable"
-                        data-it="Soffice dolce alla banana, perfetto per una pausa golosa."
-                        data-en="Soft banana cake, perfect for a sweet break."
-                        data-es="Suave pastel de plátano, perfecto para un descanso dulce."
-                        data-fr="Gâteau moelleux à la banane, parfait pour une pause gourmande."
-                        data-de="Weicher Bananenkuchen, perfekt für eine süße Pause."
-                        data-ru="Мягкий банановый пирог, идеально подходит для сладкого перерыва.">
-                        Soffice dolce alla banana, perfetto per una pausa golosa.
-                    </p>
-                </div><span class="item-price">5€</span>
             </div>
 
 

@@ -117,6 +117,7 @@ const allergeniPiatti = {
   "Toast": ["Glutine", "Lattosio"],
   "Focaccia": ["Glutine", "Lattosio"],
   "Pizzetta": ["Glutine", "Lattosio"],
+  "Edamame": ["Soia"],
   "Nachos (fino alle 22:00)": ["Glutine", "Lattosio"],
   
   // Colazioni
@@ -151,7 +152,8 @@ const allergeniPiatti = {
   "Tiramisù della Casa": ["Glutine", "Uova", "Lattosio"],
   "Panna Cotta": ["Lattosio"],
   "Crema Catalana": ["Uova", "Lattosio"],
-  "Sbrisolona e Grappa": ["Glutine", "Frutta a guscio"]
+  "Sbrisolona e Grappa": ["Glutine", "Frutta a guscio"],
+  "Banana Bread": ["Glutine", "Uova", "Lattosio"]
 };
 
 // Funzione per ottenere la lingua corrente

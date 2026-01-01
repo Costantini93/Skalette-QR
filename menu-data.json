@@ -1,0 +1,38 @@
+﻿{
+  "password": "skalette2024",
+  "sections": [
+    {
+      "id": "colazioni",
+      "name": {
+        "it": "Caffetteria",
+        "en": "Coffee Shop",
+        "es": "Cafetería",
+        "fr": "Caféterie",
+        "de": "Kaffee",
+        "ru": "Кофе и напитки"
+      },
+      "items": [
+        {
+          "name": {
+            "it": "Espresso",
+            "en": "Espresso",
+            "es": "Espresso",
+            "fr": "Espresso",
+            "de": "Espresso",
+            "ru": "Эспрессо"
+          },
+          "description": {
+            "it": "L'autentico caffè italiano",
+            "en": "The authentic Italian coffee",
+            "es": "El auténtico café italiano",
+            "fr": "Le véritable café italien",
+            "de": "Der authentische italienische Kaffee",
+            "ru": "Настоящий итальянский кофе"
+          },
+          "price": "2€",
+          "noBorder": false
+        }
+      ]
+    }
+  ]
+}
