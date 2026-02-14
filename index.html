@@ -17,6 +17,11 @@
 </head>
 
 <body>
+    <!-- Overlay Menu San Valentino -->
+    <div id="valentines-overlay" class="valentines-overlay">
+        <button id="close-valentines" class="close-valentines-btn" aria-label="Chiudi">&times;</button>
+        <img src="menu-san-valentino.jpg" alt="Menu San Valentino" class="valentines-image">
+    </div>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -84,6 +89,11 @@
 
             <!-- Main Navigation -->
             <nav id="main-buttons-grid">
+                <button class="menu-button valentines-special translatable" data-target="san-valentino" 
+                    data-it="❤️ San Valentino ❤️" data-en="❤️ Valentine's Day ❤️"
+                    data-es="❤️ San Valentín ❤️" data-fr="❤️ Saint-Valentin ❤️" 
+                    data-de="❤️ Valentinstag ❤️" data-ru="❤️ День святого Валентина ❤️">❤️ San Valentino ❤️</button>
+
                 <button class="menu-button translatable" data-target="colazioni" data-it="Colazione" data-en="Breakfast"
                     data-es="Desayuno" data-fr="Petit-déjeuner" data-de="Frühstück" data-ru="Завтрак">Colazione</button>
 
@@ -144,6 +154,37 @@
 
             <!-- Menu Sections -->
             <div id="menu-sections">
+                <!-- Sezione San Valentino -->
+                <section id="san-valentino" class="menu-section">
+                    <div class="menu-carousel">
+                        <section class="menu-page">
+                            <div class="category-header" data-target="san-valentino">
+                                <h2 class="category-title translatable" 
+                                    data-it="❤️ Menu San Valentino ❤️" 
+                                    data-en="❤️ Valentine's Day Menu ❤️"
+                                    data-es="❤️ Menú San Valentín ❤️" 
+                                    data-fr="❤️ Menu Saint-Valentin ❤️" 
+                                    data-de="❤️ Valentinstag Menü ❤️" 
+                                    data-ru="❤️ Меню ко Дню святого Валентина ❤️">
+                                    ❤️ Menu San Valentino ❤️
+                                </h2>
+                            </div>
+                            <div class="valentines-section-container">
+                                <img src="menu-san-valentino.jpg" alt="Menu San Valentino" class="valentines-section-image" id="valentines-section-img">
+                                <p class="valentines-click-hint translatable"
+                                    data-it="Clicca sull'immagine per ingrandire"
+                                    data-en="Click the image to enlarge"
+                                    data-es="Haz clic en la imagen para ampliar"
+                                    data-fr="Cliquez sur l'image pour agrandir"
+                                    data-de="Klicken Sie auf das Bild zum Vergrößern"
+                                    data-ru="Нажмите на изображение, чтобы увеличить">
+                                    Clicca sull'immagine per ingrandire
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+
                 <section id="colazioni" class="menu-section">
 
                     <div class="menu-carousel">

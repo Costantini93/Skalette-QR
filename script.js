@@ -31,6 +31,38 @@ let startTime = Date.now();
 
 document.addEventListener('DOMContentLoaded', () => {
   // ========================================================== 
+  // OVERLAY MENU SAN VALENTINO
+  // ========================================================== 
+  const valentinesOverlay = document.getElementById('valentines-overlay');
+  const closeValentinesBtn = document.getElementById('close-valentines');
+  const valentinesSectionImg = document.getElementById('valentines-section-img');
+
+  // Chiudi l'overlay quando si clicca sulla X
+  if (closeValentinesBtn) {
+    closeValentinesBtn.onclick = function() {
+      valentinesOverlay.classList.add('hidden');
+    };
+  }
+
+  // Chiudi l'overlay quando si clicca fuori dall'immagine
+  if (valentinesOverlay) {
+    valentinesOverlay.onclick = function(event) {
+      if (event.target === valentinesOverlay) {
+        valentinesOverlay.classList.add('hidden');
+      }
+    };
+  }
+
+  // Apri l'overlay quando si clicca sull'immagine nella sezione
+  if (valentinesSectionImg) {
+    valentinesSectionImg.onclick = function() {
+      if (valentinesOverlay) {
+        valentinesOverlay.classList.remove('hidden');
+      }
+    };
+  }
+
+  // ========================================================== 
   // MODAL MENU DI CAPODANNO
   // ========================================================== 
   const capodannoModal = document.getElementById('capodanno-modal');
