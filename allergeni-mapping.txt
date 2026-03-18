@@ -31,6 +31,8 @@ CUCINA & DOLCI (cucina-dolci):
 - Club Sandwich: Glutine, Uova, Lattosio
 - Avocado Toast: Glutine, Lattosio, Uova
 - Veggie Burger: Glutine, Lattosio
+- Bao (2pz): Glutine, Uova, Sesamo
+- Vitello Tonnato: Pesce, Uova
 
 DESSERT:
 - Tiramisù: Glutine, Uova, Lattosio
