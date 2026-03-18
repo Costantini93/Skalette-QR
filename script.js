@@ -583,5 +583,138 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   core.init();
+
+  // ========================================================== 
+  // ALLERGEN FILTER FUNCTIONALITY
+  // ========================================================== 
+  const allergenFilter = {
+    modal: document.getElementById('allergen-modal'),
+    filterBtn: document.getElementById('allergen-filter-btn'),
+    closeBtn: document.querySelector('.allergen-modal-close'),
+    applyBtn: document.getElementById('allergen-apply-btn'),
+    resetBtn: document.getElementById('allergen-reset-btn'),
+    checkboxes: document.querySelectorAll('.allergen-checkbox'),
+    
+    // Load saved filters from localStorage
+    loadSavedFilters: () => {
+      const saved = localStorage.getItem('allergenFilters');
+      if (saved) {
+        const filters = JSON.parse(saved);
+        allergenFilter.checkboxes.forEach(cb => {
+          cb.checked = filters.includes(cb.value);
+        });
+        if (filters.length > 0) {
+          allergenFilter.applyFilters();
+        }
+      }
+    },
+    
+    // Save filters to localStorage
+    saveFilters: () => {
+      const selected = Array.from(allergenFilter.checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+      localStorage.setItem('allergenFilters', JSON.stringify(selected));
+    },
+    
+    // Apply filters to hide menu items
+    applyFilters: () => {
+      const selectedAllergens = Array.from(allergenFilter.checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value.toLowerCase());
+      
+      // Get all menu items
+      const menuItems = document.querySelectorAll('.menu-item');
+      let hiddenCount = 0;
+      
+      menuItems.forEach(item => {
+        const allergenBadges = item.querySelectorAll('.allergen-badge');
+        let shouldHide = false;
+        
+        allergenBadges.forEach(badge => {
+          const allergenText = badge.textContent.toLowerCase();
+          if (selectedAllergens.some(a => allergenText.includes(a))) {
+            shouldHide = true;
+          }
+        });
+        
+        if (shouldHide) {
+          item.classList.add('allergen-hidden');
+          hiddenCount++;
+        } else {
+          item.classList.remove('allergen-hidden');
+          // Add highlight animation when filter is applied
+          if (selectedAllergens.length > 0) {
+            item.classList.add('allergen-highlight');
+            setTimeout(() => item.classList.remove('allergen-highlight'), 500);
+          }
+        }
+      });
+      
+      // Update filter button state
+      if (selectedAllergens.length > 0) {
+        allergenFilter.filterBtn.classList.add('filter-active');
+        allergenFilter.filterBtn.setAttribute('data-count', hiddenCount);
+      } else {
+        allergenFilter.filterBtn.classList.remove('filter-active');
+      }
+      
+      allergenFilter.saveFilters();
+      allergenFilter.closeModal();
+    },
+    
+    // Reset all filters
+    resetFilters: () => {
+      allergenFilter.checkboxes.forEach(cb => cb.checked = false);
+      document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('allergen-hidden');
+      });
+      allergenFilter.filterBtn.classList.remove('filter-active');
+      localStorage.removeItem('allergenFilters');
+      allergenFilter.closeModal();
+    },
+    
+    // Open modal
+    openModal: () => {
+      allergenFilter.modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    },
+    
+    // Close modal
+    closeModal: () => {
+      allergenFilter.modal.style.display = 'none';
+      document.body.style.overflow = '';
+    },
+    
+    // Initialize event listeners
+    init: () => {
+      if (!allergenFilter.modal || !allergenFilter.filterBtn) return;
+      
+      allergenFilter.filterBtn.addEventListener('click', allergenFilter.openModal);
+      allergenFilter.closeBtn.addEventListener('click', allergenFilter.closeModal);
+      allergenFilter.applyBtn.addEventListener('click', allergenFilter.applyFilters);
+      allergenFilter.resetBtn.addEventListener('click', allergenFilter.resetFilters);
+      
+      // Close modal when clicking outside
+      allergenFilter.modal.addEventListener('click', (e) => {
+        if (e.target === allergenFilter.modal) {
+          allergenFilter.closeModal();
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && allergenFilter.modal.style.display === 'block') {
+          allergenFilter.closeModal();
+        }
+      });
+      
+      // Load saved filters on page load
+      allergenFilter.loadSavedFilters();
+    }
+  };
+  
+  // Initialize allergen filter
+  allergenFilter.init();
 });
 

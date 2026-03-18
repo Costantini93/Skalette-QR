@@ -11,7 +11,7 @@ GASTRONOMIA (snacks):
 CUCINA & DOLCI (cucina-dolci):
 - Tagliere di Salumi e Formaggi: Lattosio, Glutine, Senape, Sedano (già fatto)
 - Pata Negra de Bellota: Glutine
-- Vellutata di Verdure: Lattosio, Sedano, Crostacei (gamberi opzionale)
+- Vellutata di Verdure: Glutine, Lattosio, Sedano, Crostacei (gamberi opzionale)
 - Battuta di Manzo alla Francese: Uova, Senape
 - Insalata Mista di Pollo: Lattosio, Uova (salsa yogurt)
 - Acciuga del Cantabrico: Pesce, Glutine, Lattosio

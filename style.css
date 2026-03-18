@@ -1025,3 +1025,351 @@ footer {
         font-size: 22px !important;
     }
 }
+
+/* ========================================================== */
+/* ALLERGEN FILTER MODAL */
+/* ========================================================== */
+
+#allergen-filter-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: var(--z-dropdown);
+}
+
+#allergen-filter-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.85em;
+    background: rgba(180, 50, 50, 0.4);
+    color: #fff;
+    border: 2px solid #e74c3c;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#allergen-filter-btn:hover {
+    background: rgba(180, 50, 50, 0.5);
+}
+
+#allergen-filter-btn.filter-active {
+    background: rgba(180, 50, 50, 0.6);
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+    animation: pulseFilter 2s infinite;
+}
+
+@keyframes pulseFilter {
+    0%, 100% { box-shadow: 0 0 10px rgba(231, 76, 60, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.7); }
+}
+
+.allergen-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.allergen-modal-content {
+    background: linear-gradient(135deg, rgba(30, 50, 80, 0.95), rgba(20, 35, 60, 0.98));
+    margin: 10% auto;
+    padding: 30px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+    animation: slideInModal 0.4s ease;
+}
+
+@keyframes slideInModal {
+    from { 
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.allergen-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.allergen-modal-close:hover {
+    color: var(--primary-gold);
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.allergen-modal-title {
+    color: var(--primary-gold);
+    font-family: 'Cinzel', serif;
+    font-size: 1.4em;
+    text-align: center;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.allergen-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.allergen-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 0.95em;
+    cursor: pointer;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.allergen-checkbox-label:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.allergen-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-gold);
+    cursor: pointer;
+}
+
+.allergen-checkbox:checked + span,
+.allergen-checkbox-label:has(.allergen-checkbox:checked) {
+    color: var(--primary-gold);
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--primary-gold);
+}
+
+.allergen-modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.allergen-btn {
+    padding: 12px 25px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 2px solid var(--primary-gold);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    background: var(--primary-gold);
+    color: #1a1a2e;
+}
+
+.allergen-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.allergen-btn-secondary {
+    background: transparent;
+    color: #fff;
+}
+
+.allergen-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.allergen-modal-note {
+    text-align: center;
+    font-size: 0.8em;
+    color: #aaa;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Hidden menu item (filtered) */
+.menu-item.allergen-hidden {
+    display: none !important;
+}
+
+/* Active filter indicator on items */
+.menu-item.allergen-highlight {
+    animation: highlightItem 0.5s ease;
+}
+
+@keyframes highlightItem {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(212, 175, 55, 0.1); }
+}
+
+/* ========================================================== */
+/* IMPROVED ANIMATIONS */
+/* ========================================================== */
+
+/* Staggered menu items animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-section .menu-item {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.menu-section .menu-item:nth-child(1) { animation-delay: 0.05s; }
+.menu-section .menu-item:nth-child(2) { animation-delay: 0.1s; }
+.menu-section .menu-item:nth-child(3) { animation-delay: 0.15s; }
+.menu-section .menu-item:nth-child(4) { animation-delay: 0.2s; }
+.menu-section .menu-item:nth-child(5) { animation-delay: 0.25s; }
+.menu-section .menu-item:nth-child(6) { animation-delay: 0.3s; }
+.menu-section .menu-item:nth-child(7) { animation-delay: 0.35s; }
+.menu-section .menu-item:nth-child(8) { animation-delay: 0.4s; }
+.menu-section .menu-item:nth-child(9) { animation-delay: 0.45s; }
+.menu-section .menu-item:nth-child(10) { animation-delay: 0.5s; }
+.menu-section .menu-item:nth-child(n+11) { animation-delay: 0.55s; }
+
+/* Smoother category title animation */
+.category-title {
+    animation: glowTitle 0.8s ease forwards;
+}
+
+@keyframes glowTitle {
+    0% {
+        opacity: 0;
+        text-shadow: 0 0 0 rgba(212, 175, 55, 0);
+        transform: scale(0.95);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        transform: scale(1);
+    }
+}
+
+/* Hover effect for menu items */
+.menu-item {
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    background: rgba(212, 175, 55, 0.05);
+    transform: translateX(5px);
+    border-radius: 8px;
+}
+
+/* Price hover effect */
+.item-price {
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover .item-price {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* Button ripple effect */
+.menu-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.menu-button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Smooth scroll indicator */
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* Responsive adjustments for allergen modal */
+@media (max-width: 480px) {
+    .allergen-modal-content {
+        margin: 5% auto;
+        padding: 20px 15px;
+        max-height: 85vh;
+    }
+    
+    .allergen-checkboxes {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .allergen-checkbox-label {
+        padding: 12px 15px;
+    }
+    
+    .allergen-modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .allergen-btn {
+        width: 100%;
+    }
+}

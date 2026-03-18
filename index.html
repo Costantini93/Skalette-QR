@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
     <!-- Include il CSS per lo stile del menu -->
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=10">
 
 </head>
 
@@ -139,7 +139,107 @@
                         </span>
                     </a>
                 </div>
+
             </nav>
+
+            <!-- Allergen Filter Button (Fixed Position) -->
+            <div id="allergen-filter-container">
+                <button id="allergen-filter-btn" class="translatable" 
+                    data-it="🚫 Allergeni" 
+                    data-en="🚫 Allergens" 
+                    data-es="🚫 Alérgenos" 
+                    data-fr="🚫 Allergènes" 
+                    data-de="🚫 Allergene" 
+                    data-ru="🚫 Аллергены">
+                    🚫 Allergeni
+                </button>
+            </div>
+
+            <!-- Allergen Filter Modal -->
+            <div id="allergen-modal" class="allergen-modal">
+                <div class="allergen-modal-content">
+                    <span class="allergen-modal-close">&times;</span>
+                    <h2 class="allergen-modal-title translatable" 
+                        data-it="Nascondi piatti con:" 
+                        data-en="Hide dishes with:" 
+                        data-es="Ocultar platos con:" 
+                        data-fr="Masquer les plats avec:" 
+                        data-de="Gerichte ausblenden mit:" 
+                        data-ru="Скрыть блюда с:">
+                        Nascondi piatti con:
+                    </h2>
+                    <div class="allergen-checkboxes">
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Glutine" class="allergen-checkbox"> Glutine
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Lattosio" class="allergen-checkbox"> Lattosio
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Uova" class="allergen-checkbox"> Uova
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Pesce" class="allergen-checkbox"> Pesce
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Crostacei" class="allergen-checkbox"> Crostacei
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Molluschi" class="allergen-checkbox"> Molluschi
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Arachidi" class="allergen-checkbox"> Arachidi
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Frutta a guscio" class="allergen-checkbox"> Frutta a guscio
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Soia" class="allergen-checkbox"> Soia
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Sesamo" class="allergen-checkbox"> Sesamo
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Senape" class="allergen-checkbox"> Senape
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Sedano" class="allergen-checkbox"> Sedano
+                        </label>
+                        <label class="allergen-checkbox-label">
+                            <input type="checkbox" value="Solfiti" class="allergen-checkbox"> Solfiti
+                        </label>
+                    </div>
+                    <div class="allergen-modal-buttons">
+                        <button id="allergen-apply-btn" class="allergen-btn translatable"
+                            data-it="Applica Filtro"
+                            data-en="Apply Filter"
+                            data-es="Aplicar Filtro"
+                            data-fr="Appliquer le Filtre"
+                            data-de="Filter Anwenden"
+                            data-ru="Применить фильтр">
+                            Applica Filtro
+                        </button>
+                        <button id="allergen-reset-btn" class="allergen-btn allergen-btn-secondary translatable"
+                            data-it="Rimuovi Filtri"
+                            data-en="Clear Filters"
+                            data-es="Borrar Filtros"
+                            data-fr="Effacer les Filtres"
+                            data-de="Filter Löschen"
+                            data-ru="Сбросить фильтры">
+                            Rimuovi Filtri
+                        </button>
+                    </div>
+                    <p class="allergen-modal-note translatable"
+                        data-it="I piatti contenenti gli allergeni selezionati verranno nascosti."
+                        data-en="Dishes containing selected allergens will be hidden."
+                        data-es="Los platos que contengan los alérgenos seleccionados quedarán ocultos."
+                        data-fr="Les plats contenant les allergènes sélectionnés seront masqués."
+                        data-de="Gerichte mit den ausgewählten Allergenen werden ausgeblendet."
+                        data-ru="Блюда с выбранными аллергенами будут скрыты.">
+                        I piatti contenenti gli allergeni selezionati verranno nascosti.
+                    </p>
+                </div>
+            </div>
 
             <!-- Menu Sections -->
             <div id="menu-sections">
@@ -1676,6 +1776,11 @@
                         data-fr="Avec croûtons et pecorino. Avec bacon croustillant (+3€) ou crevettes (+3€)."
                         data-de="Mit Croutons und Pecorino. Mit knusprigem Speck (+3€) oder Garnelen (+3€)."
                         data-ru="С сухариками и пекорино. С хрустящим беконом (+3€) или креветками (+3€).">Con crostini e pecorino. Con bacon croccante (+3€) o gamberi (+3€).</p>
+                    <div class="allergen-container">
+                        <span class="allergen-badge" title="Contiene glutine">Glutine</span>
+                        <span class="allergen-badge" title="Contiene lattosio">Lattosio</span>
+                        <span class="allergen-badge" title="Contiene sedano">Sedano</span>
+                    </div>
                 </div><span class="item-price">12€</span>
             </div>
 
