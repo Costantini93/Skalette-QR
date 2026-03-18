@@ -589,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================== 
   const allergenFilter = {
     modal: document.getElementById('allergen-modal'),
-    filterBtn: document.getElementById('allergen-filter-btn'),
+    filterBtns: document.querySelectorAll('.allergen-filter-btn-inline'),
     closeBtn: document.querySelector('.allergen-modal-close'),
     applyBtn: document.getElementById('allergen-apply-btn'),
     resetBtn: document.getElementById('allergen-reset-btn'),
@@ -654,10 +654,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Update filter button state
       if (selectedAllergens.length > 0) {
-        allergenFilter.filterBtn.classList.add('filter-active');
-        allergenFilter.filterBtn.setAttribute('data-count', hiddenCount);
+        allergenFilter.filterBtns.forEach(btn => {
+          btn.classList.add('filter-active');
+          btn.setAttribute('data-count', hiddenCount);
+        });
       } else {
-        allergenFilter.filterBtn.classList.remove('filter-active');
+        allergenFilter.filterBtns.forEach(btn => {
+          btn.classList.remove('filter-active');
+        });
       }
       
       allergenFilter.saveFilters();
@@ -670,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('allergen-hidden');
       });
-      allergenFilter.filterBtn.classList.remove('filter-active');
+      allergenFilter.filterBtns.forEach(btn => btn.classList.remove('filter-active'));
       localStorage.removeItem('allergenFilters');
       allergenFilter.closeModal();
     },
@@ -689,9 +693,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize event listeners
     init: () => {
-      if (!allergenFilter.modal || !allergenFilter.filterBtn) return;
+      if (!allergenFilter.modal || allergenFilter.filterBtns.length === 0) return;
       
-      allergenFilter.filterBtn.addEventListener('click', allergenFilter.openModal);
+      allergenFilter.filterBtns.forEach(btn => {
+        btn.addEventListener('click', allergenFilter.openModal);
+      });
       allergenFilter.closeBtn.addEventListener('click', allergenFilter.closeModal);
       allergenFilter.applyBtn.addEventListener('click', allergenFilter.applyFilters);
       allergenFilter.resetBtn.addEventListener('click', allergenFilter.resetFilters);
