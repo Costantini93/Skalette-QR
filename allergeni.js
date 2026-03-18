@@ -127,7 +127,7 @@ const allergeniPiatti = {
   
   // Cucina & Dolci
   "Pata Negra de Bellota 100%": ["Glutine"],
-  "Vellutata di Verdure": ["Lattosio", "Sedano", "Crostacei"],
+  "Vellutata di Verdure": ["Glutine", "Lattosio", "Sedano", "Crostacei"],
   "Battuta di Manzo alla Francese": ["Uova", "Senape"],
   "Insalata Mista di Pollo": ["Lattosio"],
   "Acciuga del Cantabrico": ["Pesce", "Glutine", "Lattosio"],
@@ -147,6 +147,8 @@ const allergeniPiatti = {
   "Club Sandwich": ["Glutine", "Uova", "Lattosio"],
   "Avocado Toast": ["Glutine", "Lattosio", "Uova", "Frutta a guscio"],
   "Veggie Burger": ["Glutine", "Lattosio"],
+  "Bao (2pz)": ["Glutine", "Uova", "Sesamo"],
+  "Vitello Tonnato": ["Pesce", "Uova"],
   
   // Dessert
   "Tiramisù della Casa": ["Glutine", "Uova", "Lattosio"],
