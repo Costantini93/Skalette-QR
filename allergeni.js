@@ -201,6 +201,7 @@ function aggiungiAllergeni(lingua) {
       allergeni.forEach(allergene => {
         const badge = document.createElement('span');
         badge.className = 'allergen-badge';
+        badge.setAttribute('data-allergen', allergene); // Nome italiano originale per il filtro
         const allergenoTradotto = traduciAllergene(allergene, lingua);
         badge.title = `${lingua === 'it' ? 'Contiene' : lingua === 'en' ? 'Contains' : lingua === 'es' ? 'Contiene' : lingua === 'fr' ? 'Contient' : lingua === 'de' ? 'Enthält' : 'Содержит'} ${allergenoTradotto.toLowerCase()}`;
         badge.textContent = allergenoTradotto;

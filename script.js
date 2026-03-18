@@ -632,8 +632,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let shouldHide = false;
         
         allergenBadges.forEach(badge => {
-          const allergenText = badge.textContent.toLowerCase();
-          if (selectedAllergens.some(a => allergenText.includes(a))) {
+          // Usa data-allergen (nome italiano) se presente, altrimenti il testo
+          const allergenName = (badge.getAttribute('data-allergen') || badge.textContent).toLowerCase();
+          if (selectedAllergens.some(a => allergenName.includes(a))) {
             shouldHide = true;
           }
         });
