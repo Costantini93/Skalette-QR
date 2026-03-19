@@ -588,12 +588,44 @@ document.addEventListener('DOMContentLoaded', () => {
   // ALLERGEN FILTER FUNCTIONALITY
   // ========================================================== 
   const allergenFilter = {
-    modal: document.getElementById('allergen-modal'),
-    filterBtns: document.querySelectorAll('.allergen-filter-btn-inline'),
-    closeBtn: document.querySelector('.allergen-modal-close'),
-    applyBtn: document.getElementById('allergen-apply-btn'),
-    resetBtn: document.getElementById('allergen-reset-btn'),
-    checkboxes: document.querySelectorAll('.allergen-checkbox'),
+    dropdownBtns: document.querySelectorAll('.allergen-dropdown-btn'),
+    dropdownMenus: document.querySelectorAll('.allergen-dropdown-menu'),
+    checkboxes: document.querySelectorAll('.allergen-check'),
+    resetBtns: document.querySelectorAll('.allergen-dropdown-reset'),
+    
+    // Toggle dropdown open/close
+    toggleDropdown: (btn) => {
+      const menu = btn.nextElementSibling;
+      const isOpen = menu.classList.contains('open');
+      
+      // Close all dropdowns first
+      allergenFilter.closeAllDropdowns();
+      
+      if (!isOpen) {
+        menu.classList.add('open');
+        btn.classList.add('active');
+      }
+    },
+    
+    // Close all dropdowns
+    closeAllDropdowns: () => {
+      allergenFilter.dropdownMenus.forEach(menu => menu.classList.remove('open'));
+      allergenFilter.dropdownBtns.forEach(btn => btn.classList.remove('active'));
+    },
+    
+    // Sync checkboxes across both dropdowns
+    syncCheckboxes: (changedCheckbox) => {
+      const value = changedCheckbox.value;
+      const checked = changedCheckbox.checked;
+      
+      allergenFilter.checkboxes.forEach(cb => {
+        if (cb.value === value) {
+          cb.checked = checked;
+        }
+      });
+      
+      allergenFilter.applyFilters();
+    },
     
     // Load saved filters from localStorage
     loadSavedFilters: () => {
@@ -611,17 +643,23 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Save filters to localStorage
     saveFilters: () => {
-      const selected = Array.from(allergenFilter.checkboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
+      const selected = [];
+      allergenFilter.checkboxes.forEach(cb => {
+        if (cb.checked && !selected.includes(cb.value)) {
+          selected.push(cb.value);
+        }
+      });
       localStorage.setItem('allergenFilters', JSON.stringify(selected));
     },
     
     // Apply filters to hide menu items
     applyFilters: () => {
-      const selectedAllergens = Array.from(allergenFilter.checkboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value.toLowerCase());
+      const selectedAllergens = [];
+      allergenFilter.checkboxes.forEach(cb => {
+        if (cb.checked && !selectedAllergens.includes(cb.value.toLowerCase())) {
+          selectedAllergens.push(cb.value.toLowerCase());
+        }
+      });
       
       // Get all menu items
       const menuItems = document.querySelectorAll('.menu-item');
@@ -632,7 +670,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let shouldHide = false;
         
         allergenBadges.forEach(badge => {
-          // Usa data-allergen (nome italiano) se presente, altrimenti il testo
           const allergenName = (badge.getAttribute('data-allergen') || badge.textContent).toLowerCase();
           if (selectedAllergens.some(a => allergenName.includes(a))) {
             shouldHide = true;
@@ -644,28 +681,21 @@ document.addEventListener('DOMContentLoaded', () => {
           hiddenCount++;
         } else {
           item.classList.remove('allergen-hidden');
-          // Add highlight animation when filter is applied
-          if (selectedAllergens.length > 0) {
-            item.classList.add('allergen-highlight');
-            setTimeout(() => item.classList.remove('allergen-highlight'), 500);
-          }
         }
       });
       
       // Update filter button state
       if (selectedAllergens.length > 0) {
-        allergenFilter.filterBtns.forEach(btn => {
+        allergenFilter.dropdownBtns.forEach(btn => {
           btn.classList.add('filter-active');
-          btn.setAttribute('data-count', hiddenCount);
         });
       } else {
-        allergenFilter.filterBtns.forEach(btn => {
+        allergenFilter.dropdownBtns.forEach(btn => {
           btn.classList.remove('filter-active');
         });
       }
       
       allergenFilter.saveFilters();
-      allergenFilter.closeModal();
     },
     
     // Reset all filters
@@ -674,45 +704,53 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('allergen-hidden');
       });
-      allergenFilter.filterBtns.forEach(btn => btn.classList.remove('filter-active'));
+      allergenFilter.dropdownBtns.forEach(btn => btn.classList.remove('filter-active'));
       localStorage.removeItem('allergenFilters');
-      allergenFilter.closeModal();
-    },
-    
-    // Open modal
-    openModal: () => {
-      allergenFilter.modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    },
-    
-    // Close modal
-    closeModal: () => {
-      allergenFilter.modal.style.display = 'none';
-      document.body.style.overflow = '';
     },
     
     // Initialize event listeners
     init: () => {
-      if (!allergenFilter.modal || allergenFilter.filterBtns.length === 0) return;
+      if (allergenFilter.dropdownBtns.length === 0) return;
       
-      allergenFilter.filterBtns.forEach(btn => {
-        btn.addEventListener('click', allergenFilter.openModal);
-      });
-      allergenFilter.closeBtn.addEventListener('click', allergenFilter.closeModal);
-      allergenFilter.applyBtn.addEventListener('click', allergenFilter.applyFilters);
-      allergenFilter.resetBtn.addEventListener('click', allergenFilter.resetFilters);
-      
-      // Close modal when clicking outside
-      allergenFilter.modal.addEventListener('click', (e) => {
-        if (e.target === allergenFilter.modal) {
-          allergenFilter.closeModal();
-        }
+      // Toggle dropdown on button click
+      allergenFilter.dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          allergenFilter.toggleDropdown(btn);
+        });
       });
       
-      // Close modal with Escape key
+      // Handle checkbox changes
+      allergenFilter.checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+          allergenFilter.syncCheckboxes(cb);
+        });
+      });
+      
+      // Handle reset buttons
+      allergenFilter.resetBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          allergenFilter.resetFilters();
+        });
+      });
+      
+      // Prevent dropdown from closing when clicking inside
+      allergenFilter.dropdownMenus.forEach(menu => {
+        menu.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        allergenFilter.closeAllDropdowns();
+      });
+      
+      // Close dropdown with Escape key
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && allergenFilter.modal.style.display === 'block') {
-          allergenFilter.closeModal();
+        if (e.key === 'Escape') {
+          allergenFilter.closeAllDropdowns();
         }
       });
       
