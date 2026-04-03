@@ -149,11 +149,12 @@ const allergeniPiatti = {
   "Veggie Burger": ["Glutine", "Lattosio"],
   "Bao (2pz)": ["Glutine", "Uova", "Sesamo"],
   "Vitello Tonnato": ["Pesce", "Uova"],
+  "Carne Salà con Misticanza, Porcini, Monte Veronese e Pomodorini": ["Lattosio"],
   
   // Dessert
   "Tiramisù della Casa": ["Glutine", "Uova", "Lattosio"],
   "Panna Cotta": ["Lattosio"],
-  "Crema Catalana": ["Uova", "Lattosio"],
+  "Sformatino al Cioccolato con Gelato alla Stracciatella": ["Uova", "Lattosio"],
   "Sbrisolona e Grappa": ["Glutine", "Frutta a guscio"],
   "Banana Bread": ["Glutine", "Uova", "Lattosio"]
 };
