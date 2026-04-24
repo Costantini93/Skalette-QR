@@ -763,3 +763,27 @@ document.addEventListener('DOMContentLoaded', () => {
   allergenFilter.init();
 });
 
+/* ========================================================== */
+/* SCROLL REVEAL — fade-in soft sui piatti del menu           */
+/* ========================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  if (!('IntersectionObserver' in window)) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const items = document.querySelectorAll('.menu-item');
+  items.forEach(item => item.classList.add('reveal'));
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  items.forEach(item => observer.observe(item));
+});
+

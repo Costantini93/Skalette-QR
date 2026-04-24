@@ -2,27 +2,65 @@
 <html lang="it">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Menu digitale di Skalette Bistrò: caffetteria, colazioni, pranzi, cene e drink. Disponibile in italiano, inglese, spagnolo, francese, tedesco e russo, con indicazioni sugli allergeni.">
+    <meta name="robots" content="index,follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Skalette Bistrò – Menu">
+    <meta property="og:description" content="Esplora il menu di Skalette Bistrò in 6 lingue, con indicazioni sugli allergeni.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="ru_RU">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Skalette Bistrò – Menu">
+    <meta name="twitter:description" content="Esplora il menu di Skalette Bistrò in 6 lingue, con indicazioni sugli allergeni.">
+    <meta name="twitter:image" content="logo.png">
+
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-it="Skalette Bistrò - Menu" data-en="Skalette Bistro - Menu">Skalette Bistrò - Menu</title>
-    <!-- Carica i font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+    <!-- Preconnect ai font per ridurre il tempo di caricamento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&display=swap"
         rel="stylesheet">
-    <!-- Include il CSS per lo stile del menu -->
-    <link rel="stylesheet" href="style.css?v=12">
 
+    <link rel="stylesheet" href="style.css?v=14">
+
+    <title data-it="Skalette Bistrò - Menu" data-en="Skalette Bistro - Menu">Skalette Bistrò - Menu</title>
+
+    <!-- Schema.org: Restaurant -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Skalette Bistrò",
+        "image": "logo.png",
+        "servesCuisine": ["Italian", "International"],
+        "hasMenu": {
+            "@type": "Menu",
+            "name": "Menu Skalette Bistrò"
+        }
+    }
+    </script>
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <a class="skip-link" href="#main-content-wrapper">Vai al contenuto</a>
 
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="allergeni.js"></script>
-    <script src="script.js"></script>
+    <!-- Script: defer per non bloccare il rendering. L'ordine viene comunque preservato. -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="allergeni.js"></script>
+    <script defer src="script.js"></script>
 
     <div id="main-content-wrapper">
         <!-- Header -->
@@ -52,13 +90,13 @@
             <!-- Language Selector -->
             <div id="language-dropdown">
                 <div class="dropdown-inner">
-                    <button id="current-lang-btn" aria-expanded="false" data-lang="">
-                        <span class="arrow">^</span>
+                    <button id="current-lang-btn" aria-expanded="false" aria-haspopup="listbox" aria-label="Seleziona lingua / Select language" data-lang="">
+                        <span class="arrow" aria-hidden="true">^</span>
                     </button>
 
 
 
-                    <div id="lang-options">
+                    <div id="lang-options" role="listbox" aria-label="Lingue disponibili">
                         <button class="lang-btn" data-lang="it">
                             <img src="flags/it.png" alt="Bandiera Italiana" class="flag-icon"> IT
                         </button>
@@ -2458,83 +2496,6 @@
 
 
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const supportedLangs = ['it', 'en', 'es', 'fr', 'de', 'ru'];
-            const fallbackLang = 'it';
-
-            // 🔁 Determina la lingua iniziale
-            const savedLang = localStorage.getItem("preferredLang");
-            let browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
-            if (!supportedLangs.includes(browserLang)) browserLang = fallbackLang;
-
-            const initialLang = savedLang && supportedLangs.includes(savedLang) ? savedLang : browserLang;
-            let activeLang = initialLang;
-
-            const currentLangBtn = document.getElementById("current-lang-btn");
-            const langOptions = document.getElementById("lang-options");
-            const langButtons = document.querySelectorAll(".lang-btn");
-
-            if (!currentLangBtn || !langOptions) return;
-
-            // 🔁 INIZIALIZZAZIONE E REGISTRAZIONE EVENTI (Blocco finale robusto)
-
-            try {
-                // 1. Applica la lingua al contenuto della pagina
-                applyLanguage(activeLang);
-
-                // 2. Aggiorna e pulisci il pulsante lingua. 
-                updateCurrentFlag(activeLang);
-
-                // 3. Assicura che il menu sia chiuso all'avvio
-                closeDropdown();
-
-            } catch (e) {
-                // Se c'è un errore fatale nel DOM (es. pulizia imperfetta), lo cattura e lo ignora, 
-                // permettendo la registrazione dei listener.
-                console.error("Errore fatale in fase di inizializzazione del DOM (Menu Lingua bloccato, ma i listener verranno registrati:", e);
-            }
-
-
-            // 🔁 Toggle menu (DEVE essere fuori dal try/catch per assicurare la registrazione)
-            currentLangBtn.addEventListener('click', () => {
-                const isExpanded = currentLangBtn.getAttribute('aria-expanded') === 'true';
-                isExpanded ? closeDropdown() : openDropdown();
-            });
-
-            // 🔁 Cambio lingua (DEVE essere fuori dal try/catch per assicurare la registrazione)
-            langButtons.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const selectedLang = btn.dataset.lang;
-                    if (selectedLang !== activeLang) {
-                        localStorage.setItem("preferredLang", selectedLang);
-                        applyLanguage(selectedLang);
-                        updateCurrentFlag(selectedLang);
-                    }
-                    closeDropdown();
-                });
-            });
-        });
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 

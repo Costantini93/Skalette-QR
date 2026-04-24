@@ -1473,3 +1473,238 @@ footer {
         width: 100%;
     }
 }
+
+/* ========================================================== */
+/* MIGLIORIE A11Y E MOBILE (aggiunte)                          */
+/* ========================================================== */
+
+/* Skip-link nascosto fino al focus, per utenti tastiera/screen reader */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 100000;
+}
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.6rem 1rem;
+    background: var(--primary-gold);
+    color: #000;
+    font-weight: 700;
+    border-radius: 6px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Focus visibile su tutti gli elementi interattivi (oltre il default browser) */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+    outline: 2px solid var(--primary-gold);
+    outline-offset: 2px;
+}
+
+/* Rispetto safe-area iOS (notch / home indicator) per il dropdown lingua fisso */
+#language-dropdown {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
+}
+
+/* Su schermi molto piccoli, aumentiamo il touch target del bottone lingua */
+@media (max-width: 480px) {
+    #current-lang-btn {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+    #lang-options .lang-btn {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+}
+
+/* Riduce le animazioni per chi ha "prefers-reduced-motion" attivo */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ========================================================== */
+/* DESIGN UPGRADE v14 — tipografia, leader dots, drop-cap,    */
+/* separatori decorativi, micro-animazioni                     */
+/* ========================================================== */
+
+/* --- Tipografia rinnovata (override mirato) --- */
+.item-name {
+    font-family: 'Playfair Display', 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 1.18em;
+    letter-spacing: 0.2px;
+    color: #fff;
+}
+
+.item-description {
+    font-family: 'Inter', 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.92em;
+    line-height: 1.45;
+    color: #d8d8d8;
+}
+
+.item-price {
+    font-family: 'Cormorant Garamond', 'Cinzel', serif;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.25em;
+    letter-spacing: 0.5px;
+}
+
+.category-title {
+    font-family: 'Playfair Display', 'Cinzel', serif;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+/* --- Drop-cap sui titoli categoria --- */
+.category-title::first-letter {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 1.4em;
+    color: var(--primary-gold);
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    padding-right: 2px;
+}
+
+/* --- Separatore decorativo dopo ogni titolo categoria --- */
+.category-title + *::before,
+.category-title::after {
+    /* fallback se non si può aggiungere markup */
+}
+
+.category-title {
+    position: relative;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    box-shadow: none; /* rimuove la box-shadow dorata che sembrava un bug visivo */
+}
+
+.category-title::after {
+    content: "";
+    display: block;
+    margin: 14px auto 0;
+    width: 120px;
+    height: 14px;
+    background-image:
+        linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.7) 50%, transparent 100%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 1px;
+    position: relative;
+}
+
+/* glifo centrale (rombo dorato) sopra la linea */
+.category-title::before {
+    content: "◆";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-gold);
+    font-size: 0.55em;
+    background: transparent;
+    padding: 0 8px;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    z-index: 1;
+}
+
+/* --- Leader dots tra titolo piatto e prezzo --- */
+.menu-item {
+    align-items: baseline;
+    gap: 0;
+}
+
+.item-details {
+    position: relative;
+}
+
+/* riga puntinata che riempie lo spazio tra il titolo e il prezzo */
+.item-details::after {
+    content: "";
+    flex: 1 1 auto;
+    border-bottom: 1px dotted rgba(212, 175, 55, 0.35);
+    margin: 0 10px;
+    transform: translateY(-4px);
+}
+
+/* abilitiamo il leader dot solo sulla riga del titolo: ristrutturiamo via flex */
+.menu-item {
+    flex-wrap: wrap;
+}
+.menu-item .item-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+.menu-item .item-details > .item-name {
+    flex: 0 1 auto;
+    max-width: 80%;
+}
+.menu-item .item-details > .item-description,
+.menu-item .item-details > .allergen-container {
+    flex-basis: 100%;
+}
+/* il prezzo resta a destra grazie al flex parent .menu-item */
+
+/* su schermi molto piccoli i leader dots possono affollare: li rendiamo più tenui */
+@media (max-width: 480px) {
+    .item-details::after {
+        border-bottom-color: rgba(212, 175, 55, 0.22);
+        margin: 0 6px;
+    }
+}
+
+/* --- Hover/focus card piatto (desktop) --- */
+@media (hover: hover) {
+    .menu-item {
+        transition: background-color 0.25s ease, transform 0.25s ease;
+        border-radius: 6px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .menu-item:hover {
+        background: rgba(212, 175, 55, 0.05);
+        transform: translateX(2px);
+    }
+}
+
+/* --- Scroll reveal soft per i piatti --- */
+.menu-item.reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.menu-item.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* sospendiamo il reveal se l'utente preferisce meno motion */
+@media (prefers-reduced-motion: reduce) {
+    .menu-item.reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
