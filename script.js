@@ -305,13 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (section !== targetSection) {
           section.classList.add('hidden');
           setTimeout(() => {
+            // Race-condition guard: se nel frattempo l'utente ha navigato e questa
+            // sezione è diventata quella attiva, NON la nascondiamo più
+            // (altrimenti la pagina appare "vuota").
+            if (section.style.display === 'block') return;
             section.style.display = 'none';
             section.classList.remove('hidden');
           }, 800);
         }
       });
-      
+
       targetSection.style.display = 'block';
+      // Rimuoviamo subito eventuale classe 'hidden' rimasta da una navigazione precedente
+      targetSection.classList.remove('hidden');
       
       if (elements.mainButtonsGrid) elements.mainButtonsGrid.style.display = 'none';
       if (elements.secondaryNav) elements.secondaryNav.style.display = 'block';
