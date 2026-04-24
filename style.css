@@ -1359,8 +1359,11 @@ footer {
 }
 
 .menu-section .menu-item {
-    animation: fadeInUp 0.5s ease forwards;
-    opacity: 0;
+    /* `backwards` applica lo stato iniziale (opacity 0) durante il delay,
+       ma se l'animazione viene saltata da iOS Safari (display none→block rapido)
+       gli item restano comunque visibili (opacity 1 di default).
+       Niente più "pagine vuote" su navigazione veloce. */
+    animation: fadeInUp 0.5s ease backwards;
 }
 
 .menu-section .menu-item:nth-child(1) { animation-delay: 0.05s; }
