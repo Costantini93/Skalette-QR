@@ -328,14 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
     init: () => {
       core.translatePage(activeLang.current);
       updateCapodannoImage(activeLang.current); // Carica l'immagine giusta all'avvio
-      core.initBackground();
-      core.animateBackground();
+      // Sfondo ora gestito interamente da CSS (no Three.js): performance + estetica bistrò.
+      // core.initBackground(); core.animateBackground();
       core.setupEventListeners();
       core.showHome();
     },
 
     setupEventListeners: () => {
-      window.addEventListener('resize', core.resizeBackground);
+      // Resize legato al vecchio sfondo Three.js: disattivato.
+      // window.addEventListener('resize', core.resizeBackground);
 
       // Bottoni categorie
       elements.mainButtonsGrid.querySelectorAll('.menu-button').forEach(button => {
