@@ -281,44 +281,54 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     animateMenuTransition: (current, target, direction) => {
-      if (current) {
+      // Annulla eventuale transizione in corso (swipe/click rapido)
+      if (core._transitionTimer) {
+        clearTimeout(core._transitionTimer);
+        core._transitionTimer = null;
+        // Reset stato di tutte le sezioni che potrebbero essere a metà animazione
+        elements.sections.forEach(s => {
+          s.classList.remove('turn-out-forward', 'turn-out-backward', 'hidden');
+          s.style.transform = '';
+          s.style.opacity = '';
+        });
+      }
+
+      if (current && current !== target) {
         const outClass = direction === 'forward' ? 'turn-out-forward' : 'turn-out-backward';
         const originOut = direction === 'forward' ? 'left center' : 'right center';
         current.style.transformOrigin = originOut;
         current.classList.add(outClass);
 
         // Attendi che l'animazione termini (500ms da CSS @keyframes)
-        setTimeout(() => {
+        core._transitionTimer = setTimeout(() => {
+          core._transitionTimer = null;
           current.classList.remove(outClass);
           current.style.display = 'none';
-          current.style.transform = 'rotateY(0deg)';
-          current.style.opacity = '1';
+          current.style.transform = '';
+          current.style.opacity = '';
           core.showNewSection(target);
-        }, 500); 
+        }, 500);
       } else {
         core.showNewSection(target);
       }
     },
 
     showNewSection: (targetSection) => {
+      // Nascondi IMMEDIATAMENTE tutte le altre sezioni: niente setTimeout =
+      // niente race condition con swipe/click rapidi.
       elements.sections.forEach(section => {
         if (section !== targetSection) {
-          section.classList.add('hidden');
-          setTimeout(() => {
-            // Race-condition guard: se nel frattempo l'utente è tornato su questa
-            // sezione, la classe 'hidden' è stata rimossa → NON la nascondiamo.
-            // (Altrimenti restavano due sezioni display:block sovrapposte e
-            // l'utente vedeva una pagina apparentemente "vuota".)
-            if (!section.classList.contains('hidden')) return;
-            section.style.display = 'none';
-            section.classList.remove('hidden');
-          }, 800);
+          section.classList.remove('hidden', 'turn-out-forward', 'turn-out-backward');
+          section.style.display = 'none';
+          section.style.transform = '';
+          section.style.opacity = '';
         }
       });
 
       targetSection.style.display = 'block';
-      // Rimuoviamo subito eventuale classe 'hidden' rimasta da una navigazione precedente
-      targetSection.classList.remove('hidden');
+      targetSection.classList.remove('hidden', 'turn-out-forward', 'turn-out-backward');
+      targetSection.style.transform = '';
+      targetSection.style.opacity = '';
       
       if (elements.mainButtonsGrid) elements.mainButtonsGrid.style.display = 'none';
       if (elements.secondaryNav) elements.secondaryNav.style.display = 'block';
