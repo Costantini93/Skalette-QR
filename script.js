@@ -305,10 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (section !== targetSection) {
           section.classList.add('hidden');
           setTimeout(() => {
-            // Race-condition guard: se nel frattempo l'utente ha navigato e questa
-            // sezione è diventata quella attiva, NON la nascondiamo più
-            // (altrimenti la pagina appare "vuota").
-            if (section.style.display === 'block') return;
+            // Race-condition guard: se nel frattempo l'utente è tornato su questa
+            // sezione, la classe 'hidden' è stata rimossa → NON la nascondiamo.
+            // (Altrimenti restavano due sezioni display:block sovrapposte e
+            // l'utente vedeva una pagina apparentemente "vuota".)
+            if (!section.classList.contains('hidden')) return;
             section.style.display = 'none';
             section.classList.remove('hidden');
           }, 800);
