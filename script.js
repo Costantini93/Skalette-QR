@@ -76,7 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Funzione per aggiornare l'immagine in base alla lingua
   function updateCapodannoImage(lang) {
-    // Per italiano usa l'immagine di default, per le altre lingue usa il formato con spazio + codice lingua maiuscolo
+    // Se gli elementi non esistono nell'HTML, non fare nulla
+    if (!capodannoModalImg && !capodannoSectionImg) return;
+
     let imagePath;
     if (lang === 'it') {
       imagePath = 'CENA DI CAPODANNO.png';
@@ -601,6 +603,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   core.init();
+
+  // ==========================================================
+  // POLISH UI: scroll progress, fade-in immagini, haptic feedback
+  // ==========================================================
+  // Barra di progresso scroll
+  const scrollProgress = document.getElementById('scroll-progress');
+  if (scrollProgress) {
+    const updateProgress = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (scrolled / max) * 100 : 0;
+      scrollProgress.style.width = pct + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  // Fade-in graduale delle immagini quando completano il caricamento
+  document.querySelectorAll('img').forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('img-loaded');
+    } else {
+      img.classList.add('img-loading');
+      img.addEventListener('load', () => {
+        img.classList.remove('img-loading');
+        img.classList.add('img-loaded');
+      }, { once: true });
+      img.addEventListener('error', () => {
+        img.classList.remove('img-loading');
+      }, { once: true });
+    }
+  });
+
+  // Haptic feedback su tap dei bottoni principali (solo mobile/dispositivi compatibili)
+  const canVibrate = 'vibrate' in navigator;
+  if (canVibrate) {
+    const hapticSelectors = '.menu-button, .whatsapp-button, .review-button, .instagram-button, #lang-options .lang-btn';
+    document.addEventListener('pointerdown', (e) => {
+      const t = e.target.closest(hapticSelectors);
+      if (t) navigator.vibrate(8);
+    }, { passive: true });
+  }
 
   // ========================================================== 
   // ALLERGEN FILTER FUNCTIONALITY

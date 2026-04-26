@@ -251,13 +251,14 @@ header {
     font-size: 1.1em;
     letter-spacing: 1px;
     
-    color: var(--primary-gold);
-    background-color: var(--button-bg-light);
+    color: #ffffff;
+    background-color: rgba(28, 44, 74, 0.88);
     border: 2px solid var(--primary-gold);
     border-radius: 15px; 
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px var(--primary-gold);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
     margin: 0 auto;
 }
 
@@ -383,10 +384,11 @@ header {
   z-index: var(--z-content);
   box-sizing: border-box;
 
-  /* 🎨 GLASSMORPHISM EFFECT - Sfondo blu navy con blur */
-  background: rgba(30, 50, 80, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Stile coerente con homepage */
+  background: rgba(28, 44, 74, 0.88);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 2px solid var(--primary-gold);
   
   color: #ffffff;
   border-radius: 10px;
@@ -395,7 +397,7 @@ header {
   transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transition: opacity 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   
   /* 🌟 PULSE/GLOW ANIMATION */
   animation: pulseGlowIn 0.8s ease-out;
@@ -477,11 +479,11 @@ header {
 .category-title {
   font-family: 'Cinzel', serif;
   font-size: 2em;
-  color: #ffffff;
+  color: var(--primary-gold);
   margin: 0;
   text-align: center;
   text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 12px rgba(212,175,55,0.4);
   box-shadow: 0 4px 10px var(--primary-gold);
 }
 
@@ -668,11 +670,11 @@ header {
     padding: 20px;
     text-align: center;
     
-    background-color: var(--button-bg-light);
+    background-color: rgba(28, 44, 74, 0.88);
     border: 2px solid var(--primary-gold);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); 
     border-radius: 12px;
-    color: var(--primary-gold);
+    color: #ffffff;
 }
 
 
@@ -684,7 +686,7 @@ header {
 #opening-hours h3, 
 .day-range, 
 .time-range {
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9); 
 }
 
 /* ========================================================== */
@@ -709,15 +711,16 @@ header {
     width: 70%; 
     max-width: 350px; 
     font-family: 'Cinzel', serif; 
-    background-color: var(--button-bg-light);
+    background-color: rgba(28, 44, 74, 0.88);
     border: 2px solid var(--primary-gold);
-    color: var(--primary-gold);
+    color: #ffffff;
     border-radius: 50px;
     font-weight: bold;
     letter-spacing: 0.5px;
     transition: background-color 0.3s, transform 0.2s;
     margin: 0 auto;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
 }
 
 .whatsapp-button:hover,
@@ -1386,15 +1389,15 @@ footer {
 @keyframes glowTitle {
     0% {
         opacity: 0;
-        text-shadow: 0 0 0 rgba(212, 175, 55, 0);
+        text-shadow: 0 1px 4px rgba(0,0,0,0);
         transform: scale(0.95);
     }
     50% {
-        text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 24px rgba(212,175,55,0.8);
     }
     100% {
         opacity: 1;
-        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 12px rgba(212,175,55,0.4);
         transform: scale(1);
     }
 }
@@ -1718,9 +1721,12 @@ a:focus-visible,
 /* Barra lingua: sempre visibile, in basso al centro, pill scura con bandiere */
 #language-dropdown {
     bottom: max(16px, env(safe-area-inset-bottom));
-    right: 50%;
-    transform: translateX(50%);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
     pointer-events: auto;
+    width: max-content;
+    max-width: calc(100vw - 24px);
 }
 
 /* nascondi il toggle "current-lang-btn" e la freccia: ora le bandiere sono tutte visibili */
@@ -1737,10 +1743,10 @@ a:focus-visible,
     right: auto !important;
     gap: 4px;
     padding: 6px 8px;
-    background: rgba(20, 20, 20, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: rgba(28, 44, 74, 0.88);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 2px solid var(--primary-gold);
     border-radius: 999px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
@@ -1748,11 +1754,11 @@ a:focus-visible,
 #lang-options .lang-btn {
     background: transparent;
     color: #f5f5f5;
-    padding: 6px 10px;
+    padding: 6px 8px;
     border-radius: 999px;
     transition: background 0.2s ease, transform 0.2s ease;
     font-weight: 600;
-    font-size: 0.85em;
+    font-size: 0; /* nasconde IT/EN/... — solo bandiere */
     letter-spacing: 0.3px;
 }
 
@@ -1806,13 +1812,20 @@ a:focus-visible,
 /* Nascondiamo eventuale canvas residuo creato in precedenza da Three.js */
 canvas { display: none !important; }
 
-/* Sfondo principale: dark warm gradient + texture noise + vignette */
+/* Sfondo fisso universale: corretto su tutti i browser incluso iOS Safari */
+#bg-fixed {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('muro.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -10;
+}
+
+/* Sfondo principale: immagine muro */
 html, body {
-    background:
-        radial-gradient(ellipse 80% 60% at 50% 0%,  rgba(212, 175, 55, 0.22) 0%, transparent 70%),
-        radial-gradient(ellipse 90% 50% at 50% 100%, rgba(180, 120, 40, 0.16) 0%, transparent 70%),
-        linear-gradient(180deg, #1a1510 0%, #0f0b07 55%, #060403 100%);
-    background-attachment: fixed;
+    background: none;
     background-color: #0f0b07;
     min-height: 100%;
 }
@@ -1836,7 +1849,7 @@ body::before {
     background-size: 240px 240px;
 }
 
-/* Vignettatura per dare profondità e concentrare lo sguardo al centro */
+/* Vignettatura più morbida e drammatica negli angoli */
 body::after {
     content: "";
     position: fixed;
@@ -1845,8 +1858,9 @@ body::after {
     pointer-events: none;
     background: radial-gradient(
         ellipse at center,
-        transparent 45%,
-        rgba(0, 0, 0, 0.45) 100%
+        transparent 30%,
+        rgba(0, 0, 0, 0.25) 65%,
+        rgba(0, 0, 0, 0.6) 100%
     );
 }
 
@@ -1854,22 +1868,163 @@ body::after {
    Su schermi piccoli spostiamo lo sfondo come "scroll" e potenziamo il bagliore
    dorato così non sembra tutto nero. */
 @media (max-width: 768px) {
+    /* #bg-fixed gestisce già lo sfondo su mobile: nessuna regola aggiuntiva */
     html, body {
-        background:
-            radial-gradient(ellipse 130% 50% at 50% 0%,  rgba(212, 175, 55, 0.30) 0%, transparent 65%),
-            radial-gradient(ellipse 130% 40% at 50% 100%, rgba(180, 120, 40, 0.20) 0%, transparent 65%),
-            linear-gradient(180deg, #1d1812 0%, #110d09 55%, #080605 100%);
-        background-attachment: scroll;
+        background: none;
+        background-color: transparent;
     }
     body::after {
         background: radial-gradient(
             ellipse at center,
-            transparent 55%,
-            rgba(0, 0, 0, 0.30) 100%
+            transparent 35%,
+            rgba(0, 0, 0, 0.20) 70%,
+            rgba(0, 0, 0, 0.45) 100%
         );
     }
     body::before {
-        opacity: 0.28;
+        opacity: 0.15;
+    }
+}
+
+/* ========================================================== */
+/* DESIGN UPGRADE v17 — polish finale                          */
+/* ========================================================== */
+
+/* --- 1. Doppio bordo elegante su pannelli e bottoni --- */
+.menu-section,
+.menu-button,
+#opening-hours,
+.whatsapp-button,
+.review-button,
+.instagram-button,
+#lang-options {
+    box-shadow:
+        0 2px 5px var(--primary-gold),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.menu-section {
+    border-width: 1.5px;
+}
+
+/* --- 2. Tipografia: prezzi più grandi e tabulari, descrizioni in italic --- */
+.item-price {
+    font-family: 'Cormorant Garamond', 'Cinzel', serif;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+    font-size: 1.3em;
+    letter-spacing: 0.5px;
+    color: var(--primary-gold);
+}
+.item-name {
+    letter-spacing: 0.3px;
+}
+.item-description {
+    font-family: 'Cormorant Garamond', 'Inter', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+/* --- 4. Hover/tap più ricchi sui bottoni principali --- */
+.menu-button {
+    will-change: transform, box-shadow;
+}
+.menu-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+        0 6px 20px rgba(212, 175, 55, 0.45),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+.menu-button:active {
+    transform: translateY(0) scale(0.98);
+    transition: transform 0.08s ease;
+}
+.whatsapp-button:hover,
+.review-button:hover,
+.instagram-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 24px rgba(212, 175, 55, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* --- 5. Titolo categoria sticky in cima al pannello --- */
+.category-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 14px 0 10px;
+    margin: -20px -20px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: linear-gradient(180deg,
+        rgba(28, 44, 74, 0.96) 0%,
+        rgba(28, 44, 74, 0.92) 80%,
+        rgba(28, 44, 74, 0) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 10px 10px 0 0;
+}
+
+/* --- 6. Barra di progresso scroll in cima alla pagina --- */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg,
+        rgba(212, 175, 55, 0) 0%,
+        var(--primary-gold) 50%,
+        rgba(212, 175, 55, 0) 100%);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
+    z-index: 9998;
+    pointer-events: none;
+    transition: width 0.1s linear;
+}
+
+/* --- 7. Fade-in per immagini --- */
+img {
+    transition: opacity 0.5s ease;
+}
+img.img-loading {
+    opacity: 0;
+}
+img.img-loaded {
+    opacity: 1;
+    animation: imgFadeIn 0.6s ease;
+}
+@keyframes imgFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- 9. Animazione "draw" del divider sotto i titoli --- */
+.category-title::after {
+    animation: drawLine 1s ease-out 0.3s both;
+    transform-origin: center;
+}
+@keyframes drawLine {
+    0% { width: 0; opacity: 0; }
+    100% { width: 120px; opacity: 1; }
+}
+.category-title::before {
+    animation: rotateGem 1.2s ease-out 0.3s both;
+}
+@keyframes rotateGem {
+    0% { opacity: 0; transform: translateX(-50%) rotate(-180deg) scale(0); }
+    100% { opacity: 1; transform: translateX(-50%) rotate(0) scale(1); }
+}
+
+/* Riduzione animazioni se l'utente preferisce */
+@media (prefers-reduced-motion: reduce) {
+    .category-title::after,
+    .category-title::before,
+    img.img-loaded {
+        animation: none;
     }
 }
 
