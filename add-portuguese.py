@@ -248,6 +248,87 @@ TR = {
     "Maccheroncini Pomodoro": "Maccheroncini ao Tomate",
     "Burrata e basilico.": "Burrata e manjericão.",
     "Gnocchi Pesto": "Gnocchi ao Pesto",
+
+    # --- Birre nomi ---
+    "Birra Pils 'Maes' 0,25L": "Cerveja Pils 'Maes' 0,25L",
+    "Birra Pils 'Maes' 0,5L": "Cerveja Pils 'Maes' 0,5L",
+
+    # --- Signatures (nomi) ---
+    "Clearence Sale": "Clearence Sale",
+    "Jammy Tramp": "Jammy Tramp",
+    "Midnight Negroni": "Midnight Negroni",
+    "Solero": "Solero",
+
+    # --- Vini (nomi) ---
+    "Lugana 'Tenuta Roveglia'": "Lugana 'Tenuta Roveglia'",
+    "Soave 'Coffele'": "Soave 'Coffele'",
+    "Chardonnay 'Dolfo'": "Chardonnay 'Dolfo'",
+    "Ribolla Gialla 'Dolfo'": "Ribolla Gialla 'Dolfo'",
+    "Rosé 'San Salvatore Vetere'": "Rosé 'San Salvatore Vetere'",
+    "Falanghina 'San Salvatore'": "Falanghina 'San Salvatore'",
+    "Valpolicella Classico 'Speri'": "Valpolicella Classico 'Speri'",
+    "Valpolicella Superiore 'Speri'": "Valpolicella Superiore 'Speri'",
+    "Pinot Nero 'Ploner'": "Pinot Noir 'Ploner'",
+    "Cabernet Sauvignon 'Dolfo'": "Cabernet Sauvignon 'Dolfo'",
+    "Jungano 'San Salvatore'": "Jungano 'San Salvatore'",
+    "Prosecco 'Follador'": "Prosecco 'Follador'",
+    "Franciacorta Satèn 'Berlucchi'": "Franciacorta Satèn 'Berlucchi'",
+    "Trento DOC 'Altemasi'": "Trento DOC 'Altemasi'",
+    "Rosé 'Terra dei Re'": "Rosé 'Terra dei Re'",
+    "Champagne 'Diebolt Vallois' Blanc de Blancs": "Champagne 'Diebolt Vallois' Blanc de Blancs",
+    "Champagne 'Drappier' Brut Nature": "Champagne 'Drappier' Brut Nature",
+    "'Bollinger' Special Cuvée": "'Bollinger' Special Cuvée",
+    "'Bollinger' La Grande Année": "'Bollinger' La Grande Année",
+    "'Dom Pérignon' Vintage 2013": "'Dom Pérignon' Vintage 2013",
+
+    # --- Piatti ---
+    "Fettuccine Salmone": "Fettuccine de Salmão",
+    "Panna acida, vodka e scorza di lime.": "Natas azedas, vodka e raspas de lima.",
+    "Ravioli Artigianali alla Gricia": "Ravioli Artesanais à Gricia",
+    "Ravioli ripieni di cacio e pepe, serviti con guanciale croccante.":
+        "Ravioli recheados de cacio e pepe, servidos com guanciale estaladiço.",
+    "Tagliata di Manzo": "Tagliata de Vaca",
+    "Controfiletto di manzo scottato, con porcini e scaglie di Monte Veronese stagionato. Con tartufo nero (+5€).":
+        "Lombo de vaca selado, com porcini e lascas de Monte Veronese curado. Com trufa preta (+5€).",
+    "Yakitori": "Yakitori",
+    "Spiedini di pollo glassati alla teriyaki, con riso basmati, edamame e semi di sesamo.":
+        "Espetadas de frango glaceadas com teriyaki, com arroz basmati, edamame e sementes de sésamo.",
+    "Moscardini in Umido": "Polvinhos Estufados",
+    "Con crema di polenta.": "Com creme de polenta.",
+    "Burrito": "Burrito",
+    "Burrito farcito con manzo e maiale, fagioli neri, formaggio Monterrey Jack, guacamole, panna acida, insalata e riso basmati. Servito con nachos croccanti.":
+        "Burrito recheado com vaca e porco, feijão preto, queijo Monterrey Jack, guacamole, natas azedas, alface e arroz basmati. Servido com nachos estaladiços.",
+    "Bacon Cheeseburger": "Bacon Cheeseburger",
+    "Hamburger di manzo, formaggio cheddar, pomodoro, insalata, bacon croccante, e salsa BBQ. Servito con patate spadellate.":
+        "Hambúrguer de vaca, queijo cheddar, tomate, alface, bacon estaladiço e molho BBQ. Servido com batatas salteadas.",
+    "Veggie Burger": "Veggie Burger",
+    "Pane bun nero, burger vegetale, maionese al tartufo, formaggio brie, spinacino fresco, cipolla caramellata e patate spadellate.":
+        "Pão bun preto, hambúrguer vegetal, maionese de trufa, queijo brie, espinafres frescos, cebola caramelizada e batatas salteadas.",
+    "Bao (2pz)": "Bao (2 un.)",
+    "Con pulled pork, coleslaw di cappuccio viola e pickles.":
+        "Com pulled pork, coleslaw de couve roxa e pickles.",
+    "Vitello Tonnato": "Vitela Tonnato",
+    "Carne Salà": "Carne Salà",
+    "Con misticanza, porcini, Monte Veronese e pomodorini.":
+        "Com mesclun, porcini, Monte Veronese e tomate cereja.",
+
+    # --- Dessert ---
+    "Tiramisù della Casa": "Tiramisù da Casa",
+    "Panna Cotta": "Panna Cotta",
+    "Gusto a scelta: cioccolato o caramello.": "Sabor à escolha: chocolate ou caramelo.",
+    "Sformatino al Cioccolato": "Bolinho de Chocolate",
+    "Con gelato alla stracciatella.": "Com gelado de stracciatella.",
+    "Sbrisolona e Grappa": "Sbrisolona e Grappa",
+    "Torta secca mantovana con farina di mais e mandorle, servita con un bicchierino di grappa veneta.":
+        "Bolo seco de Mântua com farinha de milho e amêndoa, servido com um copinho de grappa do Vêneto.",
+    "Banana Bread": "Banana Bread",
+    "Soffice dolce alla banana, perfetto per una pausa golosa.":
+        "Bolo macio de banana, perfeito para uma pausa gulosa.",
+
+    # --- Altre UI ---
+    "Scopri gli altri menù": "Descubra os outros menus",
+    "Home Page": "Página Inicial",
+    "E tartare di gambero.": "E tártaro de camarão.",
 }
 
 
