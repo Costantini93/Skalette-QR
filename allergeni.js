@@ -6,7 +6,8 @@ const traduzioniAllergeni = {
     es: "Gluten",
     fr: "Gluten",
     de: "Gluten",
-    ru: "Глютен"
+    ru: "Глютен",
+    pt: "Glúten"
   },
   "Lattosio": {
     it: "Lattosio",
@@ -14,7 +15,8 @@ const traduzioniAllergeni = {
     es: "Lactosa",
     fr: "Lactose",
     de: "Laktose",
-    ru: "Лактоза"
+    ru: "Лактоза",
+    pt: "Lactose"
   },
   "Uova": {
     it: "Uova",
@@ -22,7 +24,8 @@ const traduzioniAllergeni = {
     es: "Huevos",
     fr: "Œufs",
     de: "Eier",
-    ru: "Яйца"
+    ru: "Яйца",
+    pt: "Ovos"
   },
   "Pesce": {
     it: "Pesce",
@@ -30,7 +33,8 @@ const traduzioniAllergeni = {
     es: "Pescado",
     fr: "Poisson",
     de: "Fisch",
-    ru: "Рыба"
+    ru: "Рыба",
+    pt: "Peixe"
   },
   "Crostacei": {
     it: "Crostacei",
@@ -38,7 +42,8 @@ const traduzioniAllergeni = {
     es: "Crustáceos",
     fr: "Crustacés",
     de: "Krebstiere",
-    ru: "Ракообразные"
+    ru: "Ракообразные",
+    pt: "Crustáceos"
   },
   "Molluschi": {
     it: "Molluschi",
@@ -46,7 +51,8 @@ const traduzioniAllergeni = {
     es: "Moluscos",
     fr: "Mollusques",
     de: "Weichtiere",
-    ru: "Моллюски"
+    ru: "Моллюски",
+    pt: "Moluscos"
   },
   "Arachidi": {
     it: "Arachidi",
@@ -54,7 +60,8 @@ const traduzioniAllergeni = {
     es: "Cacahuetes",
     fr: "Arachides",
     de: "Erdnüsse",
-    ru: "Арахис"
+    ru: "Арахис",
+    pt: "Amendoins"
   },
   "Frutta a guscio": {
     it: "Frutta a guscio",
@@ -62,7 +69,8 @@ const traduzioniAllergeni = {
     es: "Frutos de cáscara",
     fr: "Fruits à coque",
     de: "Schalenfrüchte",
-    ru: "Орехи"
+    ru: "Орехи",
+    pt: "Frutos secos"
   },
   "Soia": {
     it: "Soia",
@@ -70,7 +78,8 @@ const traduzioniAllergeni = {
     es: "Soja",
     fr: "Soja",
     de: "Soja",
-    ru: "Соя"
+    ru: "Соя",
+    pt: "Soja"
   },
   "Sedano": {
     it: "Sedano",
@@ -78,7 +87,8 @@ const traduzioniAllergeni = {
     es: "Apio",
     fr: "Céleri",
     de: "Sellerie",
-    ru: "Сельдерей"
+    ru: "Сельдерей",
+    pt: "Aipo"
   },
   "Senape": {
     it: "Senape",
@@ -86,7 +96,8 @@ const traduzioniAllergeni = {
     es: "Mostaza",
     fr: "Moutarde",
     de: "Senf",
-    ru: "Горчица"
+    ru: "Горчица",
+    pt: "Mostarda"
   },
   "Sesamo": {
     it: "Sesamo",
@@ -94,7 +105,8 @@ const traduzioniAllergeni = {
     es: "Sésamo",
     fr: "Sésame",
     de: "Sesam",
-    ru: "Кунжут"
+    ru: "Кунжут",
+    pt: "Sésamo"
   },
   "Solfiti": {
     it: "Solfiti",
@@ -102,7 +114,8 @@ const traduzioniAllergeni = {
     es: "Sulfitos",
     fr: "Sulfites",
     de: "Sulfite",
-    ru: "Сульфиты"
+    ru: "Сульфиты",
+    pt: "Sulfitos"
   }
 };
 
@@ -160,11 +173,11 @@ const allergeniPiatti = {
 // Funzione per ottenere la lingua corrente
 function getLinguaCorrente() {
   const savedLang = localStorage.getItem("preferredLang");
-  if (savedLang && ['it', 'en', 'es', 'fr', 'de', 'ru'].includes(savedLang)) {
+  if (savedLang && ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'].includes(savedLang)) {
     return savedLang;
   }
   const browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
-  return ['it', 'en', 'es', 'fr', 'de', 'ru'].includes(browserLang) ? browserLang : 'it';
+  return ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'].includes(browserLang) ? browserLang : 'it';
 }
 
 // Funzione per tradurre un allergene
@@ -202,7 +215,7 @@ function aggiungiAllergeni(lingua) {
         badge.className = 'allergen-badge';
         badge.setAttribute('data-allergen', allergene); // Nome italiano originale per il filtro
         const allergenoTradotto = traduciAllergene(allergene, lingua);
-        badge.title = `${lingua === 'it' ? 'Contiene' : lingua === 'en' ? 'Contains' : lingua === 'es' ? 'Contiene' : lingua === 'fr' ? 'Contient' : lingua === 'de' ? 'Enthält' : 'Содержит'} ${allergenoTradotto.toLowerCase()}`;
+        badge.title = `${lingua === 'it' ? 'Contiene' : lingua === 'en' ? 'Contains' : lingua === 'es' ? 'Contiene' : lingua === 'fr' ? 'Contient' : lingua === 'de' ? 'Enthält' : lingua === 'pt' ? 'Contém' : 'Содержит'} ${allergenoTradotto.toLowerCase()}`;
         badge.textContent = allergenoTradotto;
         container.appendChild(badge);
       });
