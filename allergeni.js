@@ -172,12 +172,19 @@ const allergeniPiatti = {
 
 // Funzione per ottenere la lingua corrente
 function getLinguaCorrente() {
+  const supported = ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'];
   const savedLang = localStorage.getItem("preferredLang");
-  if (savedLang && ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'].includes(savedLang)) {
+  if (savedLang && supported.includes(savedLang)) {
     return savedLang;
   }
-  const browserLang = (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase();
-  return ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'].includes(browserLang) ? browserLang : 'it';
+  const list = (navigator.languages && navigator.languages.length)
+    ? navigator.languages
+    : [navigator.language || ''];
+  for (const raw of list) {
+    const code = (raw || '').slice(0, 2).toLowerCase();
+    if (supported.includes(code)) return code;
+  }
+  return 'it';
 }
 
 // Funzione per tradurre un allergene

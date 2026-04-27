@@ -120,17 +120,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const langConfig = {
     supported: ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'],
     fallback: 'it',
-    saved: localStorage.getItem("preferredLang"),
-    browser: (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase()
+    saved: localStorage.getItem("preferredLang")
   };
+
+  // Rileva la prima lingua del browser/sistema che supportiamo.
+  // navigator.languages restituisce es. ['pt-BR', 'pt', 'en-US'] su un telefono brasiliano.
+  function detectBrowserLang() {
+    const list = (navigator.languages && navigator.languages.length)
+      ? navigator.languages
+      : [navigator.language || ''];
+    for (const raw of list) {
+      const code = (raw || '').slice(0, 2).toLowerCase();
+      if (langConfig.supported.includes(code)) return code;
+    }
+    return null;
+  }
 
   // Initialize language
   const activeLang = {
-    current: langConfig.saved && langConfig.supported.includes(langConfig.saved) 
-      ? langConfig.saved 
-      : langConfig.supported.includes(langConfig.browser) 
-        ? langConfig.browser 
-        : langConfig.fallback
+    current: (langConfig.saved && langConfig.supported.includes(langConfig.saved))
+      ? langConfig.saved
+      : (detectBrowserLang() || langConfig.fallback)
   };
 
   // Animation helpers
