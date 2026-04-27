@@ -493,7 +493,7 @@ header {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .nav-arrow-container {
@@ -1601,17 +1601,17 @@ a:focus-visible,
 
 .category-title {
     position: relative;
-    padding-bottom: 18px;
-    margin-bottom: 24px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
     box-shadow: none; /* rimuove la box-shadow dorata che sembrava un bug visivo */
 }
 
 .category-title::after {
     content: "";
     display: block;
-    margin: 14px auto 0;
+    margin: 8px auto 0;
     width: 120px;
-    height: 14px;
+    height: 1px;
     background-image:
         linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.7) 50%, transparent 100%);
     background-repeat: no-repeat;
@@ -1620,65 +1620,46 @@ a:focus-visible,
     position: relative;
 }
 
-/* glifo centrale (rombo dorato) sopra la linea */
+/* glifo centrale rimosso: lasciamo solo la linea divisoria */
 .category-title::before {
-    content: "◆";
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--primary-gold);
-    font-size: 0.55em;
-    background: transparent;
-    padding: 0 8px;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
-    z-index: 1;
+    content: none !important;
+    display: none !important;
+    animation: none !important;
 }
 
-/* --- Leader dots tra titolo piatto e prezzo --- */
+/* Riduce lo spazio tra header categoria e primo piatto */
+.category-header {
+    margin-bottom: 10px !important;
+}
+
+/* --- Allineamento prezzo a destra (override layout v17) --- */
 .menu-item {
+    flex-wrap: nowrap;
     align-items: baseline;
-    gap: 0;
-}
-
-.item-details {
-    position: relative;
-}
-
-/* riga puntinata che riempie lo spazio tra il titolo e il prezzo */
-.item-details::after {
-    content: "";
-    flex: 1 1 auto;
-    border-bottom: 1px dotted rgba(212, 175, 55, 0.35);
-    margin: 0 10px;
-    transform: translateY(-4px);
-}
-
-/* abilitiamo il leader dot solo sulla riga del titolo: ristrutturiamo via flex */
-.menu-item {
-    flex-wrap: wrap;
+    gap: 12px;
 }
 .menu-item .item-details {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-right: 0;
+    display: block; /* annulla il flex interno introdotto dai leader dots */
 }
-.menu-item .item-details > .item-name {
-    flex: 0 1 auto;
-    max-width: 80%;
-}
+.menu-item .item-details > .item-name,
 .menu-item .item-details > .item-description,
 .menu-item .item-details > .allergen-container {
-    flex-basis: 100%;
+    max-width: 100%;
+    flex-basis: auto;
 }
-/* il prezzo resta a destra grazie al flex parent .menu-item */
+.menu-item .item-price {
+    flex: 0 0 auto;
+    margin-left: auto;
+    text-align: right;
+    align-self: baseline;
+}
 
-/* su schermi molto piccoli i leader dots possono affollare: li rendiamo più tenui */
-@media (max-width: 480px) {
-    .item-details::after {
-        border-bottom-color: rgba(212, 175, 55, 0.22);
-        margin: 0 6px;
-    }
+/* disattiva i leader dots che sballavano il layout flex */
+.item-details::after {
+    content: none;
 }
 
 /* --- Hover/focus card piatto (desktop) --- */
@@ -1970,10 +1951,8 @@ body::after {
     position: sticky;
     top: 0;
     z-index: 5;
-    padding: 14px 0 10px;
-    margin: -20px -20px 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 8px 20px 4px;
+    margin: -20px -20px 4px;
     background: linear-gradient(180deg,
         rgba(28, 44, 74, 0.96) 0%,
         rgba(28, 44, 74, 0.92) 80%,
