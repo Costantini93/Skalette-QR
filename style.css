@@ -1749,6 +1749,19 @@ a:focus-visible,
     border: 2px solid var(--primary-gold);
     border-radius: 999px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    /* Scrollabile orizzontalmente quando le bandiere superano la larghezza */
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+#lang-options::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+#lang-options .lang-btn {
+    flex: 0 0 auto; /* impedisce shrink: ogni bandiera mantiene la sua larghezza */
 }
 
 #lang-options .lang-btn {

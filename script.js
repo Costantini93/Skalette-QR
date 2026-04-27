@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Language configuration
   const langConfig = {
-    supported: ['it', 'en', 'es', 'fr', 'de', 'ru'],
+    supported: ['it', 'en', 'es', 'fr', 'de', 'ru', 'pt'],
     fallback: 'it',
     saved: localStorage.getItem("preferredLang"),
     browser: (navigator.language || navigator.languages?.[0] || '').slice(0, 2).toLowerCase()
@@ -155,7 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const core = {
     translatePage: (lang) => {
       elements.translatableElements.forEach(element => {
-        const translation = element.getAttribute(`data-${lang}`);
+        // Fallback: se la traduzione richiesta manca, prova in inglese, poi italiano
+        const translation = element.getAttribute(`data-${lang}`)
+          || element.getAttribute('data-en')
+          || element.getAttribute('data-it');
         if (!translation) return;
 
         const isMenuItem = element.classList.contains('item-name');
