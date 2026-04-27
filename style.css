@@ -1601,15 +1601,15 @@ a:focus-visible,
 
 .category-title {
     position: relative;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
     box-shadow: none; /* rimuove la box-shadow dorata che sembrava un bug visivo */
 }
 
 .category-title::after {
     content: "";
     display: block;
-    margin: 8px auto 0;
+    margin: 4px auto 0;
     width: 120px;
     height: 1px;
     background-image:
@@ -1629,7 +1629,7 @@ a:focus-visible,
 
 /* Riduce lo spazio tra header categoria e primo piatto */
 .category-header {
-    margin-bottom: 10px !important;
+    margin-bottom: 4px !important;
 }
 
 /* --- Allineamento prezzo a destra (override layout v17) --- */
@@ -1951,8 +1951,8 @@ body::after {
     position: sticky;
     top: 0;
     z-index: 5;
-    padding: 8px 20px 4px;
-    margin: -20px -20px 4px;
+    padding: 4px 20px 2px;
+    margin: -20px -20px 2px;
     background: linear-gradient(180deg,
         rgba(28, 44, 74, 0.96) 0%,
         rgba(28, 44, 74, 0.92) 80%,
