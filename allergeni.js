@@ -141,11 +141,11 @@ const allergeniPiatti = {
   // Cucina & Dolci
   "Pata Negra de Bellota 100%": ["Glutine"],
   "Panzanella Caprese": ["Glutine", "Lattosio", "Pesce"],
-  "Battuta di Manzo alla Francese": ["Uova", "Senape"],
+  "Insalata Mista di Gamberi": ["Crostacei"],
   "Insalata Mista di Pollo": ["Lattosio"],
+  "Battuta di Manzo alla Francese": ["Uova", "Senape"],
   "Acciuga del Cantabrico": ["Pesce", "Glutine", "Lattosio"],
   "Crudo e Melone": [],
-  "Insalata Mista": ["Crostacei"],
   "Pad Thai": ["Arachidi", "Crostacei", "Soia", "Sesamo"],
   "Gyoza (6pz)": ["Glutine", "Soia", "Sesamo"],
   "Maccheroncini Pomodoro": ["Glutine", "Lattosio"],
