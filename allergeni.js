@@ -140,10 +140,12 @@ const allergeniPiatti = {
   
   // Cucina & Dolci
   "Pata Negra de Bellota 100%": ["Glutine"],
-  "Vellutata di Verdure": ["Glutine", "Lattosio", "Sedano", "Crostacei"],
+  "Panzanella Caprese": ["Glutine", "Lattosio", "Pesce"],
   "Battuta di Manzo alla Francese": ["Uova", "Senape"],
   "Insalata Mista di Pollo": ["Lattosio"],
   "Acciuga del Cantabrico": ["Pesce", "Glutine", "Lattosio"],
+  "Crudo e Melone": [],
+  "Insalata Mista": ["Crostacei"],
   "Pad Thai": ["Arachidi", "Crostacei", "Soia", "Sesamo"],
   "Gyoza (6pz)": ["Glutine", "Soia", "Sesamo"],
   "Maccheroncini Pomodoro": ["Glutine", "Lattosio"],
@@ -164,8 +166,9 @@ const allergeniPiatti = {
   
   // Dessert
   "Tiramisù della Casa": ["Glutine", "Uova", "Lattosio"],
-  "Panna Cotta": ["Lattosio"],
+  "Panna Cotta": ["Lattosio", "Glutine", "Frutta a guscio"],
   "Sformatino al Cioccolato": ["Uova", "Lattosio"],
+  "Macedonia di Frutta Fresca": [],
   "Sbrisolona e Grappa": ["Glutine", "Frutta a guscio"],
   "Banana Bread": ["Glutine", "Uova", "Lattosio"]
 };
