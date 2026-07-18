@@ -129,6 +129,7 @@ const allergeniPiatti = {
   "Pizza Farcita": ["Glutine", "Lattosio"],
   "Toast": ["Glutine", "Lattosio"],
   "Focaccia": ["Glutine", "Lattosio"],
+  "Tramezzino": ["Glutine", "Uova", "Lattosio"],
   "Pizzetta": ["Glutine", "Lattosio"],
   "Edamame": ["Soia"],
   "Nachos (fino alle 22:00)": ["Glutine", "Lattosio"],
