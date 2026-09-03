@@ -174,7 +174,7 @@ const allergeniPiatti = {
   "Sformatino al Cioccolato": ["Uova", "Lattosio"],
   "Macedonia di Frutta Fresca": [],
   "Sbrisolona e Grappa": ["Glutine", "Frutta a guscio"],
-  "Banana Bread": ["Glutine", "Uova", "Lattosio"]
+  "Torta": ["Glutine", "Uova", "Lattosio"]
 };
 
 // Funzione per ottenere la lingua corrente
