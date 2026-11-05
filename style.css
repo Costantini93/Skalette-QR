@@ -417,11 +417,12 @@ header {
   content: "";
   position: absolute;
   z-index: -1;
-  top: 10px;
-  right: -40px;
-  width: 320px;
-  height: 320px;
-  max-width: 55%;
+  top: 340px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  max-width: 80%;
   background-image: url('aperol-badge.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -432,10 +433,8 @@ header {
 
 @media (min-width: 768px) {
   #aperitivi::before {
-    width: 420px;
-    height: 420px;
-    top: 20px;
-    right: -20px;
+    width: 440px;
+    height: 440px;
   }
 }
 
