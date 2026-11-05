@@ -408,6 +408,36 @@ header {
   animation: pulseGlowOut 0.8s ease-in;
 }
 
+/* Filigrana Aperol discreta dietro gli Spritz, nella sezione Aperitivi */
+#aperitivi {
+  overflow: hidden;
+}
+
+#aperitivi::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 340px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  max-width: 80%;
+  background-image: url('aperol-badge.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  #aperitivi::before {
+    width: 440px;
+    height: 440px;
+  }
+}
+
 /* RESPONSIVE: Su desktop allarga il menu */
 @media (min-width: 768px) {
   .menu-section {
